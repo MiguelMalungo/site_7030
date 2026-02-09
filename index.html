@@ -1145,6 +1145,16 @@
       overflow: hidden;
     }
 
+    .council-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('assets/images/app-mockup.png') no-repeat center/cover;
+      opacity: 0.15;
+      pointer-events: none;
+      z-index: 1;
+    }
+
     .council-layout {
       display: grid;
       grid-template-columns: 1.1fr 1fr;
