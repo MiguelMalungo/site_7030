@@ -1,0 +1,2767 @@
+<!DOCTYPE html>
+<html lang="pt" data-lang="pt">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>70.30 — Plataforma de Solidariedade Intergeracional</title>
+  <meta name="description"
+    content="Plataforma digital que conecta gerações, combate o isolamento e cria oportunidades de trabalho na sua comunidade.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Outfit:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <style>
+    :root {
+      --green-50: #f0f9f0;
+      --green-100: #d8f0d8;
+      --green-200: #aedcae;
+      --green-300: #7cc67c;
+      --green-400: #52b152;
+      --green-500: #3a9a3a;
+      --green-600: #2e7d2e;
+      --green-700: #235f23;
+      --green-800: #1a471a;
+      --green-900: #0d280d;
+
+      --sand-50: #fdfbf7;
+      --sand-100: #f5efe3;
+      --sand-200: #e8dcc5;
+
+      --slate-50: #f8f9fb;
+      --slate-100: #edf0f4;
+      --slate-200: #dce2e9;
+      --slate-300: #b8c4d0;
+      --slate-400: #8a9bb0;
+      --slate-500: #5e7188;
+      --slate-600: #455568;
+      --slate-700: #334155;
+      --slate-800: #1e293b;
+      --slate-900: #0f172a;
+
+      --white: #ffffff;
+      --gold: #c9a24d;
+
+      --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+      --font-body: 'Outfit', system-ui, sans-serif;
+
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--slate-800);
+      background: var(--white);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      background: none;
+      font-family: inherit;
+    }
+
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    .section-pad {
+      padding: 120px 0;
+    }
+
+    /* ===== LANG TOGGLE ===== */
+    [data-lang="pt"] [data-en] {
+      display: none !important;
+    }
+
+    [data-lang="en"] [data-pt] {
+      display: none !important;
+    }
+
+    /* ===== NAV ===== */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 0 32px;
+      transition: all 0.5s var(--ease-out-expo);
+    }
+
+    .nav::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      /* border-bottom removed */
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      -webkit-mask-image: linear-gradient(to bottom, black 10%, transparent 100%);
+      mask-image: linear-gradient(to bottom, black 10%, transparent 100%);
+    }
+
+    .nav.scrolled::before {
+      opacity: 1;
+    }
+
+    .nav-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      width: auto;
+      height: auto;
+    }
+
+    .nav-logo img {
+      height: 48px;
+      width: auto;
+      display: block;
+      filter: brightness(0) invert(1);
+      transition: filter 0.3s;
+    }
+
+    .nav.scrolled .nav-logo img {
+      filter: none;
+    }
+
+    .app-video-container {
+      width: 100%;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 40px 80px rgba(0, 0, 0, 0.2), 0 12px 24px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+
+    .app-video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .nav-logo .dot {
+      color: var(--green-500);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: white;
+      transition: color 0.3s;
+      letter-spacing: 0.01em;
+      position: relative;
+    }
+
+    .nav.scrolled .nav-links a {
+      color: #306430;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--green-100);
+      transition: width 0.3s var(--ease-out-expo);
+    }
+
+    .nav.scrolled .nav-links a::after {
+      background: var(--green-500);
+    }
+
+    .nav-links a:hover {
+      color: var(--green-100);
+    }
+
+    .nav.scrolled .nav-links a:hover {
+      color: var(--green-600);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-lang {
+      display: flex;
+      gap: 2px;
+      background: var(--slate-50);
+      border-radius: 100px;
+      padding: 3px;
+      border: 1px solid var(--slate-100);
+    }
+
+    .nav-lang button {
+      padding: 5px 14px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      border-radius: 100px;
+      transition: all 0.3s;
+      color: var(--slate-400);
+      letter-spacing: 0.04em;
+    }
+
+    .nav-lang button.active {
+      background: black;
+      color: white;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav-cta-btn {
+      background: black;
+      color: white !important;
+      padding: 10px 28px;
+      border-radius: 100px;
+      font-weight: 600;
+      font-size: 0.88rem;
+      transition: all 0.3s var(--ease-out-expo);
+      letter-spacing: 0.01em;
+    }
+
+    .nav-cta-btn:hover {
+      background: var(--green-600);
+      color: white !important;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(58, 154, 58, 0.25);
+    }
+
+    .nav-mobile-toggle {
+      display: none;
+      padding: 8px;
+      color: var(--slate-700);
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background: url("assets/images/hero-mentorship.png") no-repeat center center/cover;
+      padding-top: 80px;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.44);
+      z-index: 1;
+    }
+
+    .hero-grain {
+      position: absolute;
+      inset: 0;
+      opacity: 0.3;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    }
+
+    .hero-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      text-align: left;
+      position: relative;
+      z-index: 2;
+      padding: 60px 0;
+      width: 100%;
+    }
+
+    .hero-overline {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #D3EED3;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .hero-overline::before {
+      content: '';
+      width: 32px;
+      height: 2px;
+      background: #D3EED3;
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      line-height: 1.08;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 28px;
+      letter-spacing: -0.025em;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: #D3EED3;
+      position: relative;
+    }
+
+    .hero h1 em::after {
+      display: none;
+    }
+
+    .hero-sub {
+      font-size: 1.15rem;
+      line-height: 1.75;
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 600px;
+      margin-bottom: 44px;
+      font-weight: 400;
+      opacity: 0;
+      transform: translateY(30px);
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      justify-content: flex-start;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #D3EED3;
+      color: var(--green-900);
+      padding: 16px 36px;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: all 0.4s var(--ease-out-expo);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+      letter-spacing: 0.01em;
+    }
+
+    .btn-primary:hover {
+      background: white;
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 8px 32px rgba(211, 238, 211, 0.3);
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: white;
+      padding: 16px 28px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s;
+      border-radius: 100px;
+    }
+
+    .btn-ghost:hover {
+      color: var(--green-300);
+      gap: 14px;
+    }
+
+    .hero-visual {
+      position: relative;
+      opacity: 0;
+      transform: scale(0.92);
+    }
+
+    .hero-img-main {
+      width: 100%;
+      border-radius: 24px;
+      box-shadow: 0 32px 80px rgba(0, 0, 0, 0.12), 0 8px 24px rgba(0, 0, 0, 0.06);
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-img-accent {
+      position: absolute;
+      z-index: 0;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      background: var(--green-100);
+      top: -40px;
+      right: -40px;
+      opacity: 0.5;
+    }
+
+    .hero-float {
+      position: absolute;
+      z-index: 3;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 0 1px 4px rgba(0, 0, 0, 0.04);
+      padding: 16px 22px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .hero-float.f1 {
+      bottom: -24px;
+      left: -20px;
+    }
+
+    .hero-float.f2 {
+      top: 24px;
+      right: -16px;
+    }
+
+    .hero-float-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .hero-float-icon.green {
+      background: var(--green-100);
+      color: var(--green-600);
+    }
+
+    .hero-float-icon.gold {
+      background: var(--sand-100);
+      color: var(--gold);
+    }
+
+    .hero-float-label {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--slate-800);
+    }
+
+    .hero-float-sub {
+      font-size: 0.78rem;
+      color: var(--slate-400);
+      font-weight: 400;
+    }
+
+    /* ===== STATS MARQUEE ===== */
+    .stats-strip {
+      background: #112E11;
+      color: white;
+      padding: 32px 0;
+      overflow: hidden;
+    }
+
+    .stats-track {
+      display: flex;
+      gap: 80px;
+      align-items: center;
+      animation: marquee 30s linear infinite;
+    }
+
+    @keyframes marquee {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    .stats-track:hover {
+      animation-play-state: paused;
+    }
+
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 700;
+      color: #D3EED3;
+    }
+
+    .stat-label {
+      font-size: 0.88rem;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 400;
+    }
+
+    .stat-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: rgba(211, 238, 211, 0.3);
+      flex-shrink: 0;
+    }
+
+    /* ===== SECTION HEADERS ===== */
+    .section-header {
+      max-width: 640px;
+      margin-bottom: 72px;
+    }
+
+    .section-header.centered {
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .section-overline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--green-600);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .section-overline::before {
+      content: '';
+      width: 24px;
+      height: 2px;
+      background: var(--green-400);
+    }
+
+    .section-header h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      line-height: 1.15;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .section-header p {
+      font-size: 1.1rem;
+      color: var(--slate-500);
+      line-height: 1.75;
+      font-weight: 400;
+    }
+
+    /* ===== HOW IT WORKS ===== */
+    .how-section {
+      background: var(--white);
+    }
+
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      counter-reset: step;
+    }
+
+    .how-card {
+      padding: 44px 36px;
+      border-radius: 20px;
+      background: var(--slate-50);
+      border: 1px solid var(--slate-100);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.5s var(--ease-out-expo);
+      counter-increment: step;
+    }
+
+    .how-card::before {
+      content: '0' counter(step);
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      font-family: var(--font-display);
+      font-size: 4rem;
+      font-weight: 800;
+      color: var(--green-50);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      transition: color 0.5s;
+    }
+
+    .how-card:hover {
+      background: var(--white);
+      border-color: var(--green-200);
+      box-shadow: 0 16px 48px rgba(58, 154, 58, 0.08), 0 4px 12px rgba(0, 0, 0, 0.03);
+      transform: translateY(-6px);
+    }
+
+    .how-card:hover::before {
+      color: var(--green-100);
+    }
+
+    .how-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      background: var(--green-100);
+      color: var(--green-600);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      transition: all 0.5s var(--ease-out-expo);
+    }
+
+    .how-card:hover .how-icon {
+      background: var(--green-500);
+      color: white;
+      transform: scale(1.05);
+      box-shadow: 0 4px 16px rgba(58, 154, 58, 0.3);
+    }
+
+    .how-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--slate-800);
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+
+    .how-card p {
+      font-size: 0.95rem;
+      color: var(--slate-500);
+      line-height: 1.75;
+    }
+
+    /* ===== PROGRAMS ===== */
+    .programs-section {
+      background: var(--sand-50);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .programs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 36px;
+    }
+
+    .program-card {
+      border-radius: 24px;
+      overflow: hidden;
+      background: var(--white);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      transition: all 0.5s var(--ease-out-expo);
+    }
+
+    .program-card:hover {
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.03);
+      transform: translateY(-6px);
+    }
+
+    .program-img {
+      width: 100%;
+      aspect-ratio: 16/10;
+      object-fit: cover;
+      transition: transform 0.7s var(--ease-out-expo);
+    }
+
+    .program-card:hover .program-img {
+      transform: scale(1.04);
+    }
+
+    .program-img-wrap {
+      overflow: hidden;
+    }
+
+    .program-body {
+      padding: 36px 40px 44px;
+    }
+
+    .program-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 14px;
+    }
+
+    .program-tag.trades {
+      color: var(--green-600);
+    }
+
+    .program-tag.care {
+      color: var(--gold);
+    }
+
+    .program-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-bottom: 14px;
+      letter-spacing: -0.01em;
+    }
+
+    .program-card>.program-body>p {
+      font-size: 0.95rem;
+      color: var(--slate-500);
+      line-height: 1.75;
+      margin-bottom: 28px;
+    }
+
+    .program-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .program-list li {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      font-size: 0.92rem;
+      color: var(--slate-600);
+    }
+
+    .program-list li i {
+      color: var(--green-500);
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+
+    /* ===== VALUE MODEL ===== */
+    .value-section {
+      background: var(--white);
+    }
+
+    .value-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .value-visual {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 420px;
+    }
+
+    .value-ring {
+      width: 320px;
+      height: 320px;
+      border: 3px solid var(--green-200);
+      border-radius: 50%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .value-ring::before {
+      content: '';
+      position: absolute;
+      inset: -20px;
+      border: 1px dashed var(--green-100);
+      border-radius: 50%;
+    }
+
+    .value-ring-center {
+      text-align: center;
+    }
+
+    .value-ring-center .big {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: var(--green-600);
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    .value-ring-center .sub {
+      font-size: 0.88rem;
+      color: var(--slate-400);
+      font-weight: 500;
+      margin-top: 4px;
+    }
+
+    .value-node {
+      position: absolute;
+      background: white;
+      border-radius: 14px;
+      padding: 14px 22px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.03);
+      text-align: center;
+      z-index: 2;
+    }
+
+    .value-node.n-top {
+      top: -36px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .value-node.n-left {
+      left: -70px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .value-node.n-right {
+      right: -70px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .value-node .n-num {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--green-600);
+    }
+
+    .value-node .n-label {
+      font-size: 0.75rem;
+      color: var(--slate-400);
+      font-weight: 500;
+    }
+
+    .value-content h2 {
+      font-family: var(--font-display);
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-bottom: 18px;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+    }
+
+    .value-content>p {
+      font-size: 1.05rem;
+      color: var(--slate-500);
+      line-height: 1.75;
+      margin-bottom: 36px;
+    }
+
+    .value-points {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .vp-item {
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+    }
+
+    .vp-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .vp-icon.g {
+      background: var(--green-100);
+      color: var(--green-600);
+    }
+
+    .vp-icon.s {
+      background: var(--sand-100);
+      color: var(--gold);
+    }
+
+    .vp-icon.d {
+      background: var(--slate-100);
+      color: var(--slate-600);
+    }
+
+    .vp-item h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--slate-800);
+      margin-bottom: 2px;
+    }
+
+    .vp-item p {
+      font-size: 0.9rem;
+      color: var(--slate-500);
+      line-height: 1.6;
+    }
+
+    /* ===== FEATURES GRID ===== */
+    .features-section {
+      background: var(--slate-50);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .feat-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 36px 32px;
+      border: 1px solid var(--slate-100);
+      transition: all 0.5s var(--ease-out-expo);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feat-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--green-400), var(--green-200));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.5s var(--ease-out-expo);
+    }
+
+    .feat-card:hover {
+      border-color: var(--green-200);
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.06);
+      transform: translateY(-4px);
+    }
+
+    .feat-card:hover::after {
+      transform: scaleX(1);
+    }
+
+    .feat-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .feat-icon.g {
+      background: var(--green-100);
+      color: var(--green-600);
+    }
+
+    .feat-icon.s {
+      background: var(--sand-100);
+      color: var(--gold);
+    }
+
+    .feat-icon.d {
+      background: var(--slate-100);
+      color: var(--slate-600);
+    }
+
+    .feat-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--slate-800);
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+
+    .feat-card p {
+      font-size: 0.9rem;
+      color: var(--slate-500);
+      line-height: 1.7;
+    }
+
+    /* ===== APP PREVIEW ===== */
+    .app-section {
+      background: var(--white);
+      overflow: hidden;
+    }
+
+    .app-layout {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .app-phone {
+      width: 280px;
+      margin: 0 auto;
+      background: var(--slate-900);
+      border-radius: 44px;
+      padding: 14px;
+      position: relative;
+      box-shadow: 0 40px 80px rgba(0, 0, 0, 0.2), 0 12px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    .app-phone-notch {
+      width: 100px;
+      height: 24px;
+      background: var(--slate-900);
+      border-radius: 0 0 14px 14px;
+      position: absolute;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+    }
+
+    .app-phone-screen {
+      width: 100%;
+      border-radius: 32px;
+      aspect-ratio: 9/16;
+      object-fit: cover;
+    }
+
+    .app-text h2 {
+      font-family: var(--font-display);
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-bottom: 18px;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+    }
+
+    .app-text>p {
+      font-size: 1.05rem;
+      color: var(--slate-500);
+      line-height: 1.75;
+      margin-bottom: 36px;
+    }
+
+    .app-feats {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      margin-bottom: 40px;
+    }
+
+    .app-feat {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .app-feat-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: var(--green-100);
+      color: var(--green-600);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .app-feat h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--slate-700);
+      margin-bottom: 2px;
+    }
+
+    .app-feat p {
+      font-size: 0.88rem;
+      color: var(--slate-500);
+    }
+
+    /* ===== FOR COUNCILS (dark section) ===== */
+    .council-section {
+      background: var(--green-800);
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .council-layout {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 72px;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .council-text .section-overline {
+      color: var(--green-300);
+    }
+
+    .council-text .section-overline::before {
+      background: var(--green-400);
+    }
+
+    .council-text h2 {
+      color: white;
+    }
+
+    .council-text>p {
+      color: rgba(255, 255, 255, 0.65);
+      margin-bottom: 48px;
+    }
+
+    .council-benefits {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .cb-item {
+      display: flex;
+      gap: 14px;
+    }
+
+    .cb-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--green-300);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .cb-item h4 {
+      font-size: 0.92rem;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .cb-item p {
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .btn-white {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: white;
+      color: var(--green-800);
+      padding: 16px 36px;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: all 0.4s var(--ease-out-expo);
+    }
+
+    .btn-white:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+    }
+
+    .council-img {
+      border-radius: 24px;
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    /* ===== TESTIMONIALS ===== */
+    .testimonials-section {
+      background: url("assets/images/elder.png") no-repeat center center/cover;
+      position: relative;
+    }
+
+    .testimonials-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.85);
+      z-index: 0;
+    }
+
+    .testimonials-section .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .test-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .test-card {
+      border-radius: 20px;
+      padding: 40px 36px;
+      background: var(--slate-50);
+      border: 1px solid var(--slate-100);
+      transition: all 0.4s var(--ease-out-expo);
+      position: relative;
+    }
+
+    .test-card::before {
+      content: '\201C';
+      position: absolute;
+      top: 20px;
+      right: 28px;
+      font-family: var(--font-display);
+      font-size: 5rem;
+      color: var(--green-100);
+      line-height: 1;
+    }
+
+    .test-card:hover {
+      border-color: var(--green-200);
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.05);
+      transform: translateY(-4px);
+    }
+
+    .test-stars {
+      display: flex;
+      gap: 2px;
+      margin-bottom: 20px;
+      color: var(--gold);
+    }
+
+    .test-text {
+      font-size: 0.95rem;
+      color: var(--slate-600);
+      line-height: 1.8;
+      margin-bottom: 28px;
+      font-style: italic;
+    }
+
+    .test-author {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .test-avatar {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: var(--green-100);
+      color: var(--green-700);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.82rem;
+    }
+
+    .test-name {
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: var(--slate-800);
+    }
+
+    .test-role {
+      font-size: 0.8rem;
+      color: var(--slate-400);
+    }
+
+    /* ===== FAQ ===== */
+    .faq-section {
+      background: var(--slate-50);
+    }
+
+    .faq-list {
+      max-width: 760px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .faq-item {
+      background: var(--white);
+      border-radius: 16px;
+      border: 1px solid var(--slate-100);
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .faq-item.open {
+      border-color: var(--green-200);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    }
+
+    .faq-q {
+      width: 100%;
+      padding: 22px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--slate-700);
+      text-align: left;
+      transition: color 0.3s;
+    }
+
+    .faq-q:hover {
+      color: var(--green-600);
+    }
+
+    .faq-q i {
+      transition: transform 0.4s var(--ease-out-expo);
+      color: var(--slate-400);
+      flex-shrink: 0;
+    }
+
+    .faq-item.open .faq-q i {
+      transform: rotate(180deg);
+      color: var(--green-500);
+    }
+
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s var(--ease-out-expo);
+    }
+
+    .faq-a-inner {
+      padding: 0 28px 24px;
+      font-size: 0.92rem;
+      color: var(--slate-500);
+      line-height: 1.75;
+    }
+
+    /* ===== CTA SECTION WITH FLOATING BLOBS ===== */
+    .cta-section {
+      position: relative;
+      overflow: hidden;
+      padding: 140px 0;
+      text-align: center;
+      background: #306430;
+    }
+
+    .cta-section::before {
+      display: none;
+    }
+
+    .cta-parallax-bg {
+      position: absolute;
+      top: -20%;
+      left: 0;
+      width: 100%;
+      height: 140%;
+      background: url("assets/images/community.png") no-repeat center center/cover;
+      opacity: 0.15;
+      pointer-events: none;
+      z-index: 0;
+      will-change: transform;
+    }
+
+    .cta-blobs {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .cta-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.6;
+      will-change: transform;
+    }
+
+    .cta-blob.b1 {
+      width: 500px;
+      height: 500px;
+      background: #193E19;
+      top: -100px;
+      left: -100px;
+    }
+
+    .cta-blob.b2 {
+      width: 400px;
+      height: 400px;
+      background: #193E19;
+      bottom: -150px;
+      right: -50px;
+    }
+
+    .cta-blob.b3 {
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 70%);
+      top: 15%;
+      left: 50%;
+      margin-left: -150px;
+      margin-top: 0;
+      opacity: 0.8;
+    }
+
+    .cta-blob.b4 {
+      width: 250px;
+      height: 250px;
+      background: #193E19;
+      top: -50px;
+      right: 20%;
+      opacity: 0.6;
+    }
+
+    .cta-blob.b6 {
+      width: 350px;
+      height: 350px;
+      background: #193E19;
+      top: -80px;
+      right: -80px;
+      opacity: 0.7;
+    }
+
+    .cta-blob.b5 {
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 70%);
+      bottom: 20%;
+      left: 15%;
+      opacity: 0.8;
+    }
+
+    .cta-grain {
+      position: absolute;
+      inset: 0;
+      opacity: 0.15;
+      pointer-events: none;
+      z-index: 1;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.06'/%3E%3C/svg%3E");
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .cta-section h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      font-weight: 700;
+      color: white;
+      margin-bottom: 18px;
+      letter-spacing: -0.02em;
+    }
+
+    .cta-section p {
+      font-size: 1.15rem;
+      color: rgba(255, 255, 255, 0.75);
+      max-width: 520px;
+      margin: 0 auto 44px;
+      line-height: 1.75;
+    }
+
+    .cta-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+    }
+
+    .btn-cta-white {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: white;
+      color: var(--green-700);
+      padding: 18px 40px;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      transition: all 0.4s var(--ease-out-expo);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-cta-white:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 8px 36px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-cta-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: white;
+      padding: 18px 36px;
+      border-radius: 100px;
+      font-weight: 600;
+      font-size: 1.05rem;
+      border: 2px solid rgba(255, 255, 255, 0.25);
+      transition: all 0.3s;
+    }
+
+    .btn-cta-ghost:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.5);
+      transform: translateY(-2px);
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: #112E11;
+      color: #D3EED3;
+      padding: 80px 0 36px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 56px;
+    }
+
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .footer-brand .nav-logo {
+      align-self: flex-start;
+      color: white;
+      margin-bottom: 24px;
+    }
+
+    .footer-brand .nav-logo img {
+      filter: brightness(0) invert(1);
+      height: 52px;
+    }
+
+    .footer-brand p {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      max-width: 300px;
+    }
+
+    .footer h4 {
+      color: white;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .footer-links a {
+      font-size: 0.9rem;
+      color: #D3EED3;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--green-300);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.82rem;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 10px;
+    }
+
+    .footer-social a {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #D3EED3;
+      transition: all 0.3s;
+    }
+
+    .footer-social a:hover {
+      background: var(--green-500);
+      color: white;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 48px;
+        text-align: center;
+      }
+
+      .hero-sub {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-actions {
+        justify-content: center;
+      }
+
+      .hero-visual {
+        max-width: 560px;
+        margin: 0 auto;
+      }
+
+      .programs-grid {
+        grid-template-columns: 1fr;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .value-layout {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .value-visual {
+        margin-bottom: 40px;
+      }
+
+      .app-layout {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .app-video-container {
+        order: -1;
+      }
+
+      .app-feats {
+        align-items: center;
+      }
+
+      .council-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .council-img {
+        max-width: 560px;
+        margin: 0 auto;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      html {
+        font-size: 15px;
+      }
+
+      .container {
+        padding: 0 20px;
+      }
+
+      .section-pad {
+        padding: 80px 0;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .nav-mobile-toggle {
+        display: block;
+      }
+
+      .nav-links.mobile-open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 80px;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 24px 32px;
+        gap: 16px;
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1);
+        border-top: 1px solid var(--slate-100);
+      }
+
+      .hero h1 {
+        font-size: 2.4rem;
+      }
+
+      .hero-float {
+        display: none;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .how-grid {
+        grid-template-columns: 1fr;
+        max-width: 480px;
+        margin: 0 auto;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+        max-width: 480px;
+        margin: 0 auto;
+      }
+
+      .test-grid {
+        grid-template-columns: 1fr;
+        max-width: 480px;
+        margin: 0 auto;
+      }
+
+      .council-benefits {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-actions {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+      }
+
+      .value-ring {
+        width: 260px;
+        height: 260px;
+      }
+
+      .value-ring-center .big {
+        font-size: 2.6rem;
+      }
+
+      .value-node.n-left {
+        left: -30px;
+      }
+
+      .value-node.n-right {
+        right: -30px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo"><img src="assets/images/logo7030.png" alt="70.30"></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#how" data-pt>Como funciona</a><a href="#how" data-en>How it works</a></li>
+        <li><a href="#programs" data-pt>Programas</a><a href="#programs" data-en>Programs</a></li>
+        <li><a href="#features" data-pt>Funcionalidades</a><a href="#features" data-en>Features</a></li>
+        <li><a href="#councils" data-pt>Autarquias</a><a href="#councils" data-en>Councils</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li>
+          <div class="nav-lang">
+            <button onclick="setLang('pt')" id="langPt" class="active">PT</button>
+            <button onclick="setLang('en')" id="langEn">EN</button>
+          </div>
+        </li>
+        <li>
+          <a href="#cta" class="nav-cta-btn" data-pt>Agendar Demo</a>
+          <a href="#cta" class="nav-cta-btn" data-en>Book Demo</a>
+        </li>
+      </ul>
+      <button class="nav-mobile-toggle" id="mobileToggle" aria-label="Menu">
+        <i data-lucide="menu" width="24" height="24"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-grain"></div>
+    <div class="container hero-inner">
+      <div class="hero-content">
+        <div class="hero-overline" data-pt>Solidariedade Intergeracional</div>
+        <div class="hero-overline" data-en>Intergenerational Solidarity</div>
+
+        <h1 data-pt>Conectamos <em>gerações</em>,<br>construímos comunidade</h1>
+        <h1 data-en>Connecting <em>generations</em>,<br>building community</h1>
+
+        <p class="hero-sub" data-pt>A plataforma digital que une a experiência dos séniores com a energia dos jovens,
+          criando oportunidades de trabalho e combatendo o isolamento na sua comunidade.</p>
+        <p class="hero-sub" data-en>The digital platform that unites the experience of seniors with the energy of young
+          people, creating work opportunities and combating isolation in your community.</p>
+
+        <div class="hero-actions">
+          <a href="#cta" class="btn-primary">
+            <i data-lucide="calendar" width="18" height="18"></i>
+            <span data-pt>Agendar Demonstração</span>
+            <span data-en>Book a Demo</span>
+          </a>
+          <a href="#how" class="btn-ghost">
+            <span data-pt>Ver como funciona</span>
+            <span data-en>See how it works</span>
+            <i data-lucide="arrow-right" width="18" height="18"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-visual" style="display:none;"></div>
+    </div>
+  </section>
+
+  <!-- STATS MARQUEE -->
+  <section class="stats-strip">
+    <div class="stats-track" id="statsTrack">
+      <div class="stat-item"><span class="stat-num">70%</span><span class="stat-label" data-pt>Mentor
+          Experiente</span><span class="stat-label" data-en>Experienced Mentor</span></div>
+      <div class="stat-dot"></div>
+      <div class="stat-item"><span class="stat-num">30%</span><span class="stat-label" data-pt>Jovem
+          Aprendiz</span><span class="stat-label" data-en>Young Apprentice</span></div>
+      <div class="stat-dot"></div>
+      <div class="stat-item"><span class="stat-num">100%</span><span class="stat-label" data-pt>Impacto
+          Comunitário</span><span class="stat-label" data-en>Community Impact</span></div>
+      <div class="stat-dot"></div>
+      <div class="stat-item"><span class="stat-num">0</span><span class="stat-label" data-pt>Barreiras
+          Geracionais</span><span class="stat-label" data-en>Generational Barriers</span></div>
+      <div class="stat-dot"></div>
+      <div class="stat-item"><span class="stat-num">PWA</span><span class="stat-label" data-pt>Sem Download</span><span
+          class="stat-label" data-en>No Download</span></div>
+      <div class="stat-dot"></div>
+      <div class="stat-item"><span class="stat-num">RGPD</span><span class="stat-label" data-pt>Totalmente
+          Conforme</span><span class="stat-label" data-en>Fully Compliant</span></div>
+      <div class="stat-dot"></div>
+      <!-- Duplicate for seamless loop -->
+      <div class="stat-item"><span class="stat-num">70%</span><span class="stat-label" data-pt>Mentor
+          Experiente</span><span class="stat-label" data-en>Experienced Mentor</span></div>
+      <div class="stat-dot"></div>
+      <div class="stat-item"><span class="stat-num">30%</span><span class="stat-label" data-pt>Jovem
+          Aprendiz</span><span class="stat-label" data-en>Young Apprentice</span></div>
+      <div class="stat-dot"></div>
+      <div class="stat-item"><span class="stat-num">100%</span><span class="stat-label" data-pt>Impacto
+          Comunitário</span><span class="stat-label" data-en>Community Impact</span></div>
+      <div class="stat-dot"></div>
+      <div class="stat-item"><span class="stat-num">0</span><span class="stat-label" data-pt>Barreiras
+          Geracionais</span><span class="stat-label" data-en>Generational Barriers</span></div>
+      <div class="stat-dot"></div>
+      <div class="stat-item"><span class="stat-num">PWA</span><span class="stat-label" data-pt>Sem Download</span><span
+          class="stat-label" data-en>No Download</span></div>
+      <div class="stat-dot"></div>
+      <div class="stat-item"><span class="stat-num">RGPD</span><span class="stat-label" data-pt>Totalmente
+          Conforme</span><span class="stat-label" data-en>Fully Compliant</span></div>
+      <div class="stat-dot"></div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-section section-pad" id="how">
+    <div class="container">
+      <div class="section-header centered">
+        <div class="section-overline" data-pt>O Conceito</div>
+        <div class="section-overline" data-en>The Concept</div>
+        <h2 data-pt>Como funciona a plataforma</h2>
+        <h2 data-en>How the platform works</h2>
+        <p data-pt>Um modelo simples e eficaz que cria valor para toda a comunidade.</p>
+        <p data-en>A simple and effective model that creates value for the entire community.</p>
+      </div>
+      <div class="how-grid">
+        <div class="how-card gs-reveal">
+          <div class="how-icon"><i data-lucide="user-plus" width="24" height="24"></i></div>
+          <h3 data-pt>Registe-se</h3>
+          <h3 data-en>Sign Up</h3>
+          <p data-pt>Moradores pedem serviços, séniores e jovens inscrevem-se como profissionais. A autarquia gere tudo
+            pela plataforma.</p>
+          <p data-en>Residents request services, seniors and youth register as professionals. The council manages
+            everything through the platform.</p>
+        </div>
+        <div class="how-card gs-reveal">
+          <div class="how-icon"><i data-lucide="handshake" width="24" height="24"></i></div>
+          <h3 data-pt>Conecte-se</h3>
+          <h3 data-en>Connect</h3>
+          <p data-pt>Mentores experientes são emparelhados com jovens aprendizes. Assistentes são ligados a idosos que
+            precisam de companhia.</p>
+          <p data-en>Experienced mentors are paired with young apprentices. Assistants are matched with elderly who need
+            companionship.</p>
+        </div>
+        <div class="how-card gs-reveal">
+          <div class="how-icon"><i data-lucide="rocket" width="24" height="24"></i></div>
+          <h3 data-pt>Transforme</h3>
+          <h3 data-en>Transform</h3>
+          <p data-pt>Serviços prestados, competências transmitidas, isolamento combatido. Pagamentos, avaliações e
+            relatórios automatizados.</p>
+          <p data-en>Services delivered, skills transferred, isolation tackled. Payments, reviews and reports fully
+            automated.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAMS -->
+  <section class="programs-section section-pad" id="programs">
+    <div class="container">
+      <div class="section-header centered">
+        <div class="section-overline" data-pt>Dois Programas</div>
+        <div class="section-overline" data-en>Two Programs</div>
+        <h2 data-pt>Duas formas de criar impacto</h2>
+        <h2 data-en>Two ways to create impact</h2>
+        <p data-pt>Programas complementares que respondem às necessidades reais da comunidade.</p>
+        <p data-en>Complementary programs addressing real community needs.</p>
+      </div>
+      <div class="programs-grid">
+        <div class="program-card gs-reveal">
+          <div class="program-img-wrap"><img src="assets/images/aprentice.png" class="program-img"
+              alt="Trades mentorship"></div>
+          <div class="program-body">
+            <div class="program-tag trades"><i data-lucide="hammer" width="14" height="14"></i> <span data-pt>Ofícios &
+                Formação</span><span data-en>Trades & Training</span></div>
+            <h3 data-pt>Duplas Mentor + Aprendiz</h3>
+            <h3 data-en>Mentor + Apprentice Pairs</h3>
+            <p data-pt>Séniores reformados com décadas de experiência formam duplas com jovens desempregados. Juntos,
+              prestam serviços técnicos enquanto transmitem conhecimento.</p>
+            <p data-en>Retired seniors with decades of experience form pairs with unemployed youth. Together, they
+              deliver technical services while transferring knowledge.</p>
+            <ul class="program-list">
+              <li><i data-lucide="check" width="16" height="16"></i><span data-pt>Canalização, eletricidade,
+                  carpintaria, pintura</span><span data-en>Plumbing, electrical, carpentry, painting</span></li>
+              <li><i data-lucide="check" width="16" height="16"></i><span data-pt>Formação prática no
+                  terreno</span><span data-en>Hands-on field training</span></li>
+              <li><i data-lucide="check" width="16" height="16"></i><span data-pt>Rendimento para ambos os
+                  participantes</span><span data-en>Income for both participants</span></li>
+              <li><i data-lucide="check" width="16" height="16"></i><span data-pt>Portfólio digital de
+                  trabalhos</span><span data-en>Digital work portfolio</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="program-card gs-reveal">
+          <div class="program-img-wrap"><img src="assets/images/elderly-care.png" class="program-img"
+              alt="Elderly care"></div>
+          <div class="program-body">
+            <div class="program-tag care"><i data-lucide="heart-handshake" width="14" height="14"></i> <span
+                data-pt>Assistência & Companhia</span><span data-en>Assistance & Companionship</span></div>
+            <h3 data-pt>Assistentes para Idosos</h3>
+            <h3 data-en>Elderly Assistants</h3>
+            <p data-pt>Jovens prestam companhia e apoio a idosos da comunidade. Preparação de refeições, acompanhamento
+              a consultas, combate ao isolamento social.</p>
+            <p data-en>Young people provide companionship and support to elderly community members. Meal preparation,
+              medical accompaniment, combating social isolation.</p>
+            <ul class="program-list">
+              <li><i data-lucide="check" width="16" height="16"></i><span data-pt>Companhia, conversação e
+                  lazer</span><span data-en>Companionship, conversation and leisure</span></li>
+              <li><i data-lucide="check" width="16" height="16"></i><span data-pt>Apoio com tarefas e
+                  compras</span><span data-en>Help with tasks and shopping</span></li>
+              <li><i data-lucide="check" width="16" height="16"></i><span data-pt>Diário de cuidados para a
+                  família</span><span data-en>Care diary for family members</span></li>
+              <li><i data-lucide="check" width="16" height="16"></i><span data-pt>Botão SOS e alertas de
+                  emergência</span><span data-en>SOS button and emergency alerts</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUE MODEL -->
+  <section class="value-section section-pad" id="value">
+    <div class="container">
+      <div class="value-layout">
+        <div class="value-visual gs-reveal">
+          <div class="value-ring">
+            <div class="value-ring-center">
+              <div class="big">70.30</div>
+              <div class="sub" data-pt>Modelo de Valor</div>
+              <div class="sub" data-en>Value Model</div>
+            </div>
+            <div class="value-node n-top">
+              <div class="n-num">70%</div>
+              <div class="n-label">Mentor</div>
+            </div>
+            <div class="value-node n-left">
+              <div class="n-num">30%</div>
+              <div class="n-label" data-pt>Aprendiz</div>
+              <div class="n-label" data-en>Apprentice</div>
+            </div>
+            <div class="value-node n-right">
+              <div class="n-num" style="font-size:1rem;" data-pt>Autarquia</div>
+              <div class="n-num" style="font-size:1rem;" data-en>Council</div>
+              <div class="n-label" data-pt>Subsídio formativo</div>
+              <div class="n-label" data-en>Training subsidy</div>
+            </div>
+          </div>
+        </div>
+        <div class="value-content gs-reveal">
+          <div class="section-overline" data-pt>O Modelo</div>
+          <div class="section-overline" data-en>The Model</div>
+          <h2 data-pt>Um modelo transparente<br>e justo para todos</h2>
+          <h2 data-en>A transparent and<br>fair model for all</h2>
+          <p data-pt>O morador paga um serviço a preço competitivo. O valor é repartido para remunerar o mentor e
+            financiar a formação do jovem aprendiz.</p>
+          <p data-en>The resident pays a competitive service price. The value is split to compensate the mentor and fund
+            the young apprentice's training.</p>
+          <div class="value-points">
+            <div class="vp-item">
+              <div class="vp-icon g"><i data-lucide="wallet" width="20" height="20"></i></div>
+              <div>
+                <h4 data-pt>Preços reduzidos para moradores</h4>
+                <h4 data-en>Reduced prices for residents</h4>
+                <p data-pt>Moradores beneficiam de preços competitivos, subsidiados pela autarquia local.</p>
+                <p data-en>Residents benefit from competitive rates, subsidized by the local council.</p>
+              </div>
+            </div>
+            <div class="vp-item">
+              <div class="vp-icon s"><i data-lucide="graduation-cap" width="20" height="20"></i></div>
+              <div>
+                <h4 data-pt>Formação remunerada</h4>
+                <h4 data-en>Paid training</h4>
+                <p data-pt>Jovens aprendizes são remunerados enquanto aprendem no terreno.</p>
+                <p data-en>Young apprentices earn while learning in the field.</p>
+              </div>
+            </div>
+            <div class="vp-item">
+              <div class="vp-icon d"><i data-lucide="bar-chart-3" width="20" height="20"></i></div>
+              <div>
+                <h4 data-pt>Total transparência</h4>
+                <h4 data-en>Full transparency</h4>
+                <p data-pt>Valores, pagamentos e relatórios acessíveis em tempo real.</p>
+                <p data-en>Values, payments and reports accessible in real-time.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features-section section-pad" id="features">
+    <div class="container">
+      <div class="section-header centered">
+        <div class="section-overline" data-pt>Funcionalidades</div>
+        <div class="section-overline" data-en>Features</div>
+        <h2 data-pt>Tudo o que precisa,<br>numa só plataforma</h2>
+        <h2 data-en>Everything you need,<br>in one platform</h2>
+        <p data-pt>Funcionalidades desenhadas para simplificar a gestão e maximizar o impacto.</p>
+        <p data-en>Features designed to simplify management and maximize impact.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feat-card gs-reveal"
+          style="background: url('assets/images/accessible_app.png') no-repeat center center/cover; position: relative; overflow: hidden;">
+          <div
+            style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9) 20%, rgba(0,0,0,0.5) 60%, transparent 100%); z-index: 1;">
+          </div>
+          <div
+            style="position: relative; z-index: 2; display: flex; flex-direction: column; height: 100%; justify-content: flex-end; color: white;">
+            <div class="feat-icon g"
+              style="background: rgba(255,255,255,0.2); color: white; backdrop-filter: blur(4px);"><i
+                data-lucide="smartphone" width="22" height="22"></i></div>
+            <h3 data-pt style="color: white;">App Acessível (PWA)</h3>
+            <h3 data-en style="color: white;">Accessible App (PWA)</h3>
+            <p data-pt style="color: rgba(255,255,255,0.9);">Funciona em qualquer dispositivo sem download. Interface
+              pensada para séniores.</p>
+            <p data-en style="color: rgba(255,255,255,0.9);">Works on any device without download. Interface designed
+              for seniors.</p>
+          </div>
+        </div>
+        <div class="feat-card gs-reveal"
+          style="background: url('assets/images/smart_scheduling.png') no-repeat center center/cover; position: relative; overflow: hidden;">
+          <div
+            style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9) 20%, rgba(0,0,0,0.5) 60%, transparent 100%); z-index: 1;">
+          </div>
+          <div
+            style="position: relative; z-index: 2; display: flex; flex-direction: column; height: 100%; justify-content: flex-end; color: white;">
+            <div class="feat-icon s"
+              style="background: rgba(255,255,255,0.2); color: white; backdrop-filter: blur(4px);"><i
+                data-lucide="calendar-check" width="22" height="22"></i></div>
+            <h3 data-pt style="color: white;">Agendamento Inteligente</h3>
+            <h3 data-en style="color: white;">Smart Scheduling</h3>
+            <p data-pt style="color: rgba(255,255,255,0.9);">Agenda integrada com notificações SMS, push e email.
+              Lembretes automáticos.</p>
+            <p data-en style="color: rgba(255,255,255,0.9);">Integrated calendar with SMS, push and email notifications.
+              Automatic reminders.</p>
+          </div>
+        </div>
+        <div class="feat-card gs-reveal"
+          style="background: url('assets/images/shake.png') no-repeat center center/cover; position: relative; overflow: hidden;">
+          <div
+            style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9) 20%, rgba(0,0,0,0.5) 60%, transparent 100%); z-index: 1;">
+          </div>
+          <div
+            style="position: relative; z-index: 2; display: flex; flex-direction: column; height: 100%; justify-content: flex-end; color: white;">
+            <div class="feat-icon d"
+              style="background: rgba(255,255,255,0.2); color: white; backdrop-filter: blur(4px);"><i
+                data-lucide="credit-card" width="22" height="22"></i></div>
+            <h3 data-pt style="color: white;">Pagamentos Integrados</h3>
+            <h3 data-en style="color: white;">Integrated Payments</h3>
+            <p data-pt style="color: rgba(255,255,255,0.9);">Múltiplos métodos de pagamento. Divisão automática 70/30
+              com recibos digitais.</p>
+            <p data-en style="color: rgba(255,255,255,0.9);">Multiple payment methods supported. Automatic 70/30 split
+              with digital receipts.</p>
+          </div>
+        </div>
+        <div class="feat-card gs-reveal"
+          style="background: url('assets/images/reviews_quality.png') no-repeat center center/cover; position: relative; overflow: hidden;">
+          <div
+            style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9) 20%, rgba(0,0,0,0.5) 60%, transparent 100%); z-index: 1;">
+          </div>
+          <div
+            style="position: relative; z-index: 2; display: flex; flex-direction: column; height: 100%; justify-content: flex-end; color: white;">
+            <div class="feat-icon g"
+              style="background: rgba(255,255,255,0.2); color: white; backdrop-filter: blur(4px);"><i data-lucide="star"
+                width="22" height="22"></i></div>
+            <h3 data-pt style="color: white;">Avaliações & Qualidade</h3>
+            <h3 data-en style="color: white;">Reviews & Quality</h3>
+            <p data-pt style="color: rgba(255,255,255,0.9);">Pergunta simples "Como foi a visita?" após cada serviço
+              para garantir máxima qualidade.</p>
+            <p data-en style="color: rgba(255,255,255,0.9);">Simple "How was the visit?" question after every service to
+              ensure maximum quality.</p>
+          </div>
+        </div>
+        <div class="feat-card gs-reveal"
+          style="background: url('assets/images/chat_communication.png') no-repeat center center/cover; position: relative; overflow: hidden;">
+          <div
+            style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9) 20%, rgba(0,0,0,0.5) 60%, transparent 100%); z-index: 1;">
+          </div>
+          <div
+            style="position: relative; z-index: 2; display: flex; flex-direction: column; height: 100%; justify-content: flex-end; color: white;">
+            <div class="feat-icon s"
+              style="background: rgba(255,255,255,0.2); color: white; backdrop-filter: blur(4px);"><i
+                data-lucide="message-circle" width="22" height="22"></i></div>
+            <h3 data-pt style="color: white;">Chat & Comunicação</h3>
+            <h3 data-en style="color: white;">Chat & Communication</h3>
+            <p data-pt style="color: rgba(255,255,255,0.9);">Chat direto e videochamada. Diário de cuidados partilhado
+              com a família.</p>
+            <p data-en style="color: rgba(255,255,255,0.9);">Direct chat and video calls. Shared care diary with family.
+            </p>
+          </div>
+        </div>
+        <div class="feat-card gs-reveal"
+          style="background: url('assets/images/security_gdpr.png') no-repeat center center/cover; position: relative; overflow: hidden;">
+          <div
+            style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9) 20%, rgba(0,0,0,0.5) 60%, transparent 100%); z-index: 1;">
+          </div>
+          <div
+            style="position: relative; z-index: 2; display: flex; flex-direction: column; height: 100%; justify-content: flex-end; color: white;">
+            <div class="feat-icon d"
+              style="background: rgba(255,255,255,0.2); color: white; backdrop-filter: blur(4px);"><i
+                data-lucide="shield-check" width="22" height="22"></i></div>
+            <h3 data-pt style="color: white;">Segurança & RGPD</h3>
+            <h3 data-en style="color: white;">Security & GDPR</h3>
+            <p data-pt style="color: rgba(255,255,255,0.9);">Encriptação, backups automáticos e total conformidade com
+              proteção de dados.</p>
+            <p data-en style="color: rgba(255,255,255,0.9);">Encryption, automatic backups and full data protection
+              compliance.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- APP PREVIEW -->
+  <section class="app-section section-pad" id="app">
+    <div class="container app-layout">
+      <div class="app-video-container gs-reveal">
+        <video src="assets/images/video.mp4" class="app-video" autoplay muted loop playsinline></video>
+      </div>
+      <div class="app-text gs-reveal">
+        <div class="section-overline" data-pt>A Aplicação</div>
+        <div class="section-overline" data-en>The App</div>
+        <h2 data-pt>Intuitiva para<br>todas as idades</h2>
+        <h2 data-en>Intuitive for<br>all ages</h2>
+        <p data-pt>Progressive Web App desenhada com princípios de acessibilidade para que qualquer pessoa, dos 18 aos
+          90 anos, consiga usar sem dificuldade.</p>
+        <p data-en>Progressive Web App designed with accessibility principles so anyone, from 18 to 90 years old, can
+          use it effortlessly.</p>
+        <div class="app-feats">
+          <div class="app-feat">
+            <div class="app-feat-icon"><i data-lucide="monitor" width="18" height="18"></i></div>
+            <div>
+              <h4 data-pt>Qualquer dispositivo</h4>
+              <h4 data-en>Any device</h4>
+              <p data-pt>Android, iOS, computador. Sem loja de apps.</p>
+              <p data-en>Android, iOS, desktop. No app store needed.</p>
+            </div>
+          </div>
+          <div class="app-feat">
+            <div class="app-feat-icon"><i data-lucide="eye" width="18" height="18"></i></div>
+            <div>
+              <h4 data-pt>Acessibilidade WCAG 2.1</h4>
+              <h4 data-en>WCAG 2.1 Accessible</h4>
+              <p data-pt>Alto contraste, textos ajustáveis, navegação por teclado.</p>
+              <p data-en>High contrast, adjustable text, keyboard navigation.</p>
+            </div>
+          </div>
+          <div class="app-feat">
+            <div class="app-feat-icon"><i data-lucide="wifi-off" width="18" height="18"></i></div>
+            <div>
+              <h4 data-pt>Modo offline</h4>
+              <h4 data-en>Offline mode</h4>
+              <p data-pt>Funciona sem internet. Sincroniza ao reconectar.</p>
+              <p data-en>Works without internet. Auto-syncs when reconnected.</p>
+            </div>
+          </div>
+        </div>
+        <a href="#cta" class="btn-primary"><i data-lucide="external-link" width="18" height="18"></i><span
+            data-pt>Solicitar Acesso</span><span data-en>Request Access</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOR COUNCILS -->
+  <section class="council-section section-pad" id="councils">
+    <div class="container council-layout">
+      <div class="council-text gs-reveal">
+        <div class="section-overline" data-pt>Para Autarquias</div>
+        <div class="section-overline" data-en>For Local Councils</div>
+        <h2 data-pt>A plataforma que transforma<br>a sua comunidade</h2>
+        <h2 data-en>The platform that transforms<br>your community</h2>
+        <p data-pt>Painel de administração completo para gerir participantes, monitorizar qualidade, controlar finanças
+          e medir impacto social em tempo real.</p>
+        <p data-en>Complete admin dashboard to manage participants, monitor quality, control finances and measure social
+          impact in real time.</p>
+        <div class="council-benefits">
+          <div class="cb-item">
+            <div class="cb-icon"><i data-lucide="layout-dashboard" width="18" height="18"></i></div>
+            <div>
+              <h4 data-pt>Dashboard tempo real</h4>
+              <h4 data-en>Real-time dashboard</h4>
+              <p data-pt>Métricas, gráficos e alertas</p>
+              <p data-en>Metrics, charts and alerts</p>
+            </div>
+          </div>
+          <div class="cb-item">
+            <div class="cb-icon"><i data-lucide="users" width="18" height="18"></i></div>
+            <div>
+              <h4 data-pt>Gestão de participantes</h4>
+              <h4 data-en>Participant management</h4>
+              <p data-pt>Aprovações e emparelhamento</p>
+              <p data-en>Approvals and matching</p>
+            </div>
+          </div>
+          <div class="cb-item">
+            <div class="cb-icon"><i data-lucide="file-bar-chart" width="18" height="18"></i></div>
+            <div>
+              <h4 data-pt>Relatórios detalhados</h4>
+              <h4 data-en>Detailed reports</h4>
+              <p data-pt>Exportação Excel, PDF, CSV</p>
+              <p data-en>Export Excel, PDF, CSV</p>
+            </div>
+          </div>
+          <div class="cb-item">
+            <div class="cb-icon"><i data-lucide="globe" width="18" height="18"></i></div>
+            <div>
+              <h4 data-pt>Multi-tenant escalável</h4>
+              <h4 data-en>Scalable multi-tenant</h4>
+              <p data-pt>Expandir a outras freguesias</p>
+              <p data-en>Expand to other parishes</p>
+            </div>
+          </div>
+        </div>
+        <a href="#cta" class="btn-white"><i data-lucide="arrow-right" width="18" height="18"></i><span data-pt>Fale
+            connosco</span><span data-en>Contact us</span></a>
+      </div>
+      <div class="gs-reveal">
+        <img src="assets/images/admin-dashboard.png" class="council-img" alt="Admin dashboard">
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials-section section-pad" id="testimonials">
+    <div class="container">
+      <div class="section-header centered">
+        <div class="section-overline" data-pt>Testemunhos</div>
+        <div class="section-overline" data-en>Testimonials</div>
+        <h2 data-pt>Histórias de impacto</h2>
+        <h2 data-en>Impact stories</h2>
+      </div>
+      <div class="test-grid">
+        <div class="test-card gs-reveal">
+          <div class="test-stars"><i data-lucide="star" width="16" height="16" fill="currentColor"></i><i
+              data-lucide="star" width="16" height="16" fill="currentColor"></i><i data-lucide="star" width="16"
+              height="16" fill="currentColor"></i><i data-lucide="star" width="16" height="16"
+              fill="currentColor"></i><i data-lucide="star" width="16" height="16" fill="currentColor"></i></div>
+          <p class="test-text" data-pt>Aos 67 anos, pensei que já ninguém precisava de mim. Agora ensino o que sei ao
+            Miguel e juntos ajudamos dezenas de famílias. Sinto-me útil outra vez.</p>
+          <p class="test-text" data-en>At 67, I thought nobody needed me anymore. Now I teach what I know to Miguel and
+            together we help dozens of families. I feel useful again.</p>
+          <div class="test-author">
+            <div class="test-avatar">AM</div>
+            <div>
+              <div class="test-name">António M.</div>
+              <div class="test-role" data-pt>Mentor, Canalizador</div>
+              <div class="test-role" data-en>Mentor, Plumber</div>
+            </div>
+          </div>
+        </div>
+        <div class="test-card gs-reveal">
+          <div class="test-stars"><i data-lucide="star" width="16" height="16" fill="currentColor"></i><i
+              data-lucide="star" width="16" height="16" fill="currentColor"></i><i data-lucide="star" width="16"
+              height="16" fill="currentColor"></i><i data-lucide="star" width="16" height="16"
+              fill="currentColor"></i><i data-lucide="star" width="16" height="16" fill="currentColor"></i></div>
+          <p class="test-text" data-pt>O meu pai vive sozinho e eu em Lisboa. Agora recebo notificações de cada visita
+            da Rita. A paz de espírito que isto me dá não tem preço.</p>
+          <p class="test-text" data-en>My father lives alone and I'm in Lisbon. Now I get notifications from each visit
+            by Rita. The peace of mind this gives me is priceless.</p>
+          <div class="test-author">
+            <div class="test-avatar">SC</div>
+            <div>
+              <div class="test-name">Sofia C.</div>
+              <div class="test-role" data-pt>Familiar de Idoso</div>
+              <div class="test-role" data-en>Elderly Person's Family</div>
+            </div>
+          </div>
+        </div>
+        <div class="test-card gs-reveal">
+          <div class="test-stars"><i data-lucide="star" width="16" height="16" fill="currentColor"></i><i
+              data-lucide="star" width="16" height="16" fill="currentColor"></i><i data-lucide="star" width="16"
+              height="16" fill="currentColor"></i><i data-lucide="star" width="16" height="16"
+              fill="currentColor"></i><i data-lucide="star" width="16" height="16" fill="currentColor"></i></div>
+          <p class="test-text" data-pt>Estava desempregado há 8 meses. Com o 70.30, aprendi eletricidade com um mestre.
+            Hoje tenho rendimento, experiência e um futuro.</p>
+          <p class="test-text" data-en>I was unemployed for 8 months. With 70.30, I learned electrical work from a
+            master. Today I have income, experience and a future.</p>
+          <div class="test-author">
+            <div class="test-avatar">JP</div>
+            <div>
+              <div class="test-name">João P.</div>
+              <div class="test-role" data-pt>Aprendiz, 24 anos</div>
+              <div class="test-role" data-en>Apprentice, 24 years old</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section section-pad" id="faq">
+    <div class="container">
+      <div class="section-header centered">
+        <div class="section-overline">FAQ</div>
+        <h2 data-pt>Perguntas Frequentes</h2>
+        <h2 data-en>Frequently Asked Questions</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)"><span data-pt>A plataforma pode ser usada
+              em qualquer município?</span><span data-en>Can the platform be used in any municipality?</span><i
+              data-lucide="chevron-down" width="20" height="20"></i></button>
+          <div class="faq-a">
+            <div class="faq-a-inner"><span data-pt>Sim. A plataforma 70.30 é multi-tenant e pode ser implementada em
+                qualquer freguesia ou município. Cada autarquia tem gestão independente.</span><span data-en>Yes. The
+                70.30 platform is multi-tenant and can be implemented in any parish or municipality. Each council has
+                independent management.</span></div>
+          </div>
+        </div>
+        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)"><span data-pt>Os dados pertencem à
+              autarquia?</span><span data-en>Does the council own the data?</span><i data-lucide="chevron-down"
+              width="20" height="20"></i></button>
+          <div class="faq-a">
+            <div class="faq-a-inner"><span data-pt>100%. A autarquia é proprietária de todos os dados. Podem ser
+                exportados a qualquer momento.</span><span data-en>100%. The council owns all data. It can be exported
+                at any time.</span></div>
+          </div>
+        </div>
+        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)"><span data-pt>É necessário pessoal
+              técnico?</span><span data-en>Do we need technical staff?</span><i data-lucide="chevron-down" width="20"
+              height="20"></i></button>
+          <div class="faq-a">
+            <div class="faq-a-inner"><span data-pt>Não. A plataforma é intuitiva. Fornecemos formação completa ao
+                coordenador.</span><span data-en>No. The platform is intuitive. We provide comprehensive coordinator
+                training.</span></div>
+          </div>
+        </div>
+        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)"><span data-pt>Podem alterar
+              funcionalidades após o lançamento?</span><span data-en>Can features be changed after launch?</span><i
+              data-lucide="chevron-down" width="20" height="20"></i></button>
+          <div class="faq-a">
+            <div class="faq-a-inner"><span data-pt>Sim. Pequenos ajustes incluídos no suporte. Grandes alterações
+                orçamentadas à parte.</span><span data-en>Yes. Small adjustments included in support. Major changes
+                quoted separately.</span></div>
+          </div>
+        </div>
+        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)"><span data-pt>A plataforma cumpre o
+              RGPD?</span><span data-en>Is the platform GDPR compliant?</span><i data-lucide="chevron-down" width="20"
+              height="20"></i></button>
+          <div class="faq-a">
+            <div class="faq-a-inner"><span data-pt>Sim. Totalmente conforme incluindo consentimentos explícitos, direito
+                ao esquecimento e encriptação de dados.</span><span data-en>Yes. Fully compliant including explicit
+                consent, right to be forgotten and data encryption.</span></div>
+          </div>
+        </div>
+        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)"><span data-pt>E se quisermos expandir para
+              outras freguesias?</span><span data-en>What if we want to expand to other parishes?</span><i
+              data-lucide="chevron-down" width="20" height="20"></i></button>
+          <div class="faq-a">
+            <div class="faq-a-inner"><span data-pt>A plataforma é multi-tenant. Pode gerir várias freguesias com custo
+                mínimo de replicação.</span><span data-en>Multi-tenant platform. Manage multiple parishes with minimal
+                replication cost.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA WITH FLOATING BLOBS -->
+  <section class="cta-section" id="cta">
+    <div class="cta-parallax-bg"></div>
+    <div class="cta-blobs">
+      <div class="cta-blob b1" id="blob1"></div>
+      <div class="cta-blob b2" id="blob2"></div>
+      <div class="cta-blob b3" id="blob3"></div>
+      <div class="cta-blob b4" id="blob4"></div>
+      <div class="cta-blob b5" id="blob5"></div>
+      <div class="cta-blob b6" id="blob6"></div>
+    </div>
+    <div class="cta-grain"></div>
+    <div class="container cta-content">
+      <h2 data-pt>Pronto para transformar<br>a sua comunidade?</h2>
+      <h2 data-en>Ready to transform<br>your community?</h2>
+      <p data-pt>Agende uma demonstração gratuita e descubra como a plataforma 70.30 pode criar impacto real na sua
+        freguesia.</p>
+      <p data-en>Book a free demo and discover how the 70.30 platform can create real impact in your parish.</p>
+      <div class="cta-actions">
+        <a href="mailto:info@7030.pt" class="btn-cta-white"><i data-lucide="mail" width="18" height="18"></i><span
+            data-pt>Agendar Demonstração</span><span data-en>Book a Demo</span></a>
+        <a href="#features" class="btn-cta-ghost"><i data-lucide="file-text" width="18" height="18"></i><span
+            data-pt>Ver funcionalidades</span><span data-en>View features</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="nav-logo"><img src="assets/images/logo7030.png" alt="70.30"></div>
+          <p data-pt>Plataforma digital de solidariedade intergeracional. Conectamos gerações, criamos oportunidades e
+            construímos comunidades mais fortes.</p>
+          <p data-en>Digital platform for intergenerational solidarity. Connecting generations, creating opportunities
+            and building stronger communities.</p>
+        </div>
+        <div>
+          <h4 data-pt>Plataforma</h4>
+          <h4 data-en>Platform</h4>
+          <ul class="footer-links">
+            <li><a href="#how" data-pt>Como funciona</a><a href="#how" data-en>How it works</a></li>
+            <li><a href="#programs" data-pt>Programas</a><a href="#programs" data-en>Programs</a></li>
+            <li><a href="#features" data-pt>Funcionalidades</a><a href="#features" data-en>Features</a></li>
+            <li><a href="#councils" data-pt>Para Autarquias</a><a href="#councils" data-en>For Councils</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 data-pt>Suporte</h4>
+          <h4 data-en>Support</h4>
+          <ul class="footer-links">
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#" data-pt>Documentação</a><a href="#" data-en>Documentation</a></li>
+            <li><a href="#" data-pt>Termos de Serviço</a><a href="#" data-en>Terms of Service</a></li>
+            <li><a href="#" data-pt>Privacidade</a><a href="#" data-en>Privacy</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 data-pt>Contacto</h4>
+          <h4 data-en>Contact</h4>
+          <ul class="footer-links">
+            <li><a href="mailto:info@7030.pt">info@7030.pt</a></li>
+            <li><a href="tel:+351000000000">+351 XXX XXX XXX</a></li>
+            <li><a href="#">Portugal</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2025 70.30. <span data-pt>Todos os direitos reservados.</span><span data-en>All rights
+            reserved.</span></span>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook"><i data-lucide="facebook" width="16" height="16"></i></a>
+          <a href="#" aria-label="Instagram"><i data-lucide="instagram" width="16" height="16"></i></a>
+          <a href="#" aria-label="LinkedIn"><i data-lucide="linkedin" width="16" height="16"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Init Lucide
+    lucide.createIcons();
+
+    // Language
+    function setLang(lang) {
+      document.documentElement.setAttribute('data-lang', lang);
+      document.getElementById('langPt').classList.toggle('active', lang === 'pt');
+      document.getElementById('langEn').classList.toggle('active', lang === 'en');
+      localStorage.setItem('7030-lang', lang);
+    }
+    const saved = localStorage.getItem('7030-lang');
+    if (saved) setLang(saved);
+
+    // Nav scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
+
+    // Mobile menu
+    document.getElementById('mobileToggle').addEventListener('click', () => {
+      document.getElementById('navLinks').classList.toggle('mobile-open');
+    });
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('mobile-open'));
+    });
+
+    // FAQ
+    function toggleFaq(btn) {
+      const item = btn.parentElement;
+      const ans = item.querySelector('.faq-a');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq-a').style.maxHeight = '0';
+      });
+      if (!isOpen) { item.classList.add('open'); ans.style.maxHeight = ans.scrollHeight + 'px'; }
+    }
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        const t = document.querySelector(this.getAttribute('href'));
+        if (t) window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+      });
+    });
+
+    // ===== GSAP ANIMATIONS =====
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.ticker.lagSmoothing(0);
+
+    // Ensure animations complete even when tab is in background
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) {
+        gsap.globalTimeline.resume();
+        ScrollTrigger.refresh();
+      }
+    });
+
+    // Hero entrance
+    const heroTl = gsap.timeline({ defaults: { ease: 'expo.out', duration: 1.2 } });
+    heroTl
+      .to('.hero-overline', { opacity: 1, y: 0, duration: 0.8 }, 0.2)
+      .to('.hero h1', { opacity: 1, y: 0 }, 0.4)
+      .to('.hero-sub', { opacity: 1, y: 0 }, 0.6)
+      .to('.hero-actions', { opacity: 1, y: 0 }, 0.8);
+
+
+
+    // Scroll reveals
+    gsap.utils.toArray('.gs-reveal').forEach((el, i) => {
+      const parent = el.closest('.how-grid, .programs-grid, .features-grid, .test-grid');
+      const delay = parent ? (Array.from(parent.children).indexOf(el) * 0.12) : 0;
+
+      gsap.from(el, {
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 88%',
+          toggleActions: 'play none none none',
+        },
+        opacity: 0,
+        y: 50,
+        duration: 1,
+        delay: delay,
+        ease: 'expo.out',
+      });
+    });
+
+
+
+    // Value ring rotation
+    gsap.to('.value-ring', {
+      scrollTrigger: {
+        trigger: '.value-section',
+        start: 'top 80%',
+        end: 'bottom 20%',
+        scrub: 1,
+      },
+      rotation: 8,
+      ease: 'none',
+    });
+
+    // Value nodes pulse in
+    gsap.utils.toArray('.value-node').forEach((node, i) => {
+      gsap.from(node, {
+        scrollTrigger: { trigger: '.value-ring', start: 'top 75%' },
+        scale: 0, opacity: 0, duration: 0.8, delay: 0.3 + i * 0.15, ease: 'back.out(2)'
+      });
+    });
+
+    // App video entrance
+    gsap.from('.app-video-container', {
+      scrollTrigger: { trigger: '.app-section', start: 'top 70%' },
+      y: 80, rotation: -2, opacity: 0, duration: 1.4, ease: 'expo.out'
+    });
+
+    // Parallax background
+    gsap.to('.cta-parallax-bg', {
+      yPercent: 20,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.cta-section',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: true
+      }
+    });
+
+    // ===== CTA FLOATING BLOBS =====
+    const blobs = document.querySelectorAll('.cta-blob');
+
+    blobs.forEach((blob, i) => {
+      // 1. Initial random position
+      gsap.set(blob, {
+        x: gsap.utils.random(-50, 50),
+        y: gsap.utils.random(-50, 50)
+      });
+
+      // 2. Start wandering
+      wander(blob, i);
+      morph(blob, i);
+    });
+
+    function wander(el, i) {
+      const xRange = 40 + i * 15;
+      const yRange = 30 + i * 12;
+      const dur = 4 + i * 1.5;
+
+      gsap.to(el, {
+        x: gsap.utils.random(-xRange, xRange),
+        y: gsap.utils.random(-yRange, yRange),
+        scale: gsap.utils.random(0.85, 1.25),
+        duration: dur,
+        ease: 'sine.inOut',
+        onComplete: () => wander(el, i)
+      });
+    }
+
+    function morph(el, i) {
+      const dur = 4 + i * 1.5;
+      gsap.to(el, {
+        borderRadius: `${gsap.utils.random(30, 70)}% ${gsap.utils.random(40, 60)}% ${gsap.utils.random(30, 70)}% ${gsap.utils.random(40, 60)}%`,
+        duration: dur * 0.75,
+        ease: 'sine.inOut',
+        onComplete: () => morph(el, i)
+      });
+    }
+
+    // CTA section parallax
+    gsap.to('.cta-blobs', {
+      scrollTrigger: {
+        trigger: '.cta-section',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1,
+      },
+      y: -40,
+      ease: 'none',
+    });
+
+    // Stats marquee speed on scroll
+    ScrollTrigger.create({
+      trigger: '.stats-strip',
+      onEnter: () => document.querySelector('.stats-track').style.animationDuration = '20s',
+      onLeave: () => document.querySelector('.stats-track').style.animationDuration = '30s',
+      onEnterBack: () => document.querySelector('.stats-track').style.animationDuration = '20s',
+      onLeaveBack: () => document.querySelector('.stats-track').style.animationDuration = '30s',
+    });
+  </script>
+
+</body>
+
+</html>
