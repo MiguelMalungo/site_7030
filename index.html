@@ -1211,6 +1211,30 @@
     .cb-item {
       display: flex;
       gap: 14px;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      padding: 16px;
+      cursor: pointer;
+      text-align: left;
+      color: white;
+      font-family: inherit;
+      transition: all 0.3s var(--ease-out-expo);
+    }
+
+    .cb-item:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .cb-item.active {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--green-300);
+    }
+
+    .cb-item.active .cb-icon {
+      background: var(--green-300);
+      color: var(--green-800);
     }
 
     .cb-icon {
@@ -1223,6 +1247,7 @@
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
+      transition: all 0.3s var(--ease-out-expo);
     }
 
     .cb-item h4 {
@@ -1260,6 +1285,11 @@
       aspect-ratio: 4/3;
       object-fit: cover;
       box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
+      transition: opacity 0.4s ease;
+    }
+
+    .council-cta-mobile {
+      display: none;
     }
 
     /* ===== TESTIMONIALS ===== */
@@ -1455,7 +1485,7 @@
       position: absolute;
       inset: 0;
       pointer-events: none;
-      z-index: 0;
+      z-index: 1;
     }
 
     .cta-blob {
@@ -1469,7 +1499,7 @@
     .cta-blob.b1 {
       width: 500px;
       height: 500px;
-      background: #193E19;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 70%);
       top: -100px;
       left: -100px;
     }
@@ -1477,7 +1507,7 @@
     .cta-blob.b2 {
       width: 400px;
       height: 400px;
-      background: #193E19;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 70%);
       bottom: -150px;
       right: -50px;
     }
@@ -1487,8 +1517,9 @@
       height: 300px;
       background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 70%);
       top: 15%;
-      left: 50%;
-      margin-left: -150px;
+      right: 5%;
+      left: auto;
+      margin-left: 0;
       margin-top: 0;
       opacity: 0.8;
     }
@@ -1496,7 +1527,7 @@
     .cta-blob.b4 {
       width: 250px;
       height: 250px;
-      background: #193E19;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 70%);
       top: -50px;
       right: 20%;
       opacity: 0.6;
@@ -1505,7 +1536,7 @@
     .cta-blob.b6 {
       width: 350px;
       height: 350px;
-      background: #193E19;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 70%);
       top: -80px;
       right: -80px;
       opacity: 0.7;
@@ -1525,13 +1556,13 @@
       inset: 0;
       opacity: 0.15;
       pointer-events: none;
-      z-index: 1;
+      z-index: 2;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.06'/%3E%3C/svg%3E");
     }
 
     .cta-content {
       position: relative;
-      z-index: 2;
+      z-index: 3;
     }
 
     .cta-section h2 {
@@ -1746,6 +1777,15 @@
       .council-img {
         max-width: 560px;
         margin: 0 auto;
+      }
+
+      .council-cta-desktop {
+        display: none;
+      }
+
+      .council-cta-mobile {
+        display: inline-flex;
+        justify-self: center;
       }
 
       .footer-grid {
@@ -2339,7 +2379,7 @@
         <p data-en>Complete admin dashboard to manage participants, monitor quality, control finances and measure social
           impact in real time.</p>
         <div class="council-benefits">
-          <div class="cb-item">
+          <button class="cb-item active" data-council-img="assets/images/admin-dashboard.png">
             <div class="cb-icon"><i data-lucide="layout-dashboard" width="18" height="18"></i></div>
             <div>
               <h4 data-pt>Dashboard tempo real</h4>
@@ -2347,8 +2387,8 @@
               <p data-pt>Métricas, gráficos e alertas</p>
               <p data-en>Metrics, charts and alerts</p>
             </div>
-          </div>
-          <div class="cb-item">
+          </button>
+          <button class="cb-item" data-council-img="assets/images/admin-dashboard.png">
             <div class="cb-icon"><i data-lucide="users" width="18" height="18"></i></div>
             <div>
               <h4 data-pt>Gestão de participantes</h4>
@@ -2356,8 +2396,8 @@
               <p data-pt>Aprovações e emparelhamento</p>
               <p data-en>Approvals and matching</p>
             </div>
-          </div>
-          <div class="cb-item">
+          </button>
+          <button class="cb-item" data-council-img="assets/images/admin-dashboard.png">
             <div class="cb-icon"><i data-lucide="file-bar-chart" width="18" height="18"></i></div>
             <div>
               <h4 data-pt>Relatórios detalhados</h4>
@@ -2365,8 +2405,8 @@
               <p data-pt>Exportação Excel, PDF, CSV</p>
               <p data-en>Export Excel, PDF, CSV</p>
             </div>
-          </div>
-          <div class="cb-item">
+          </button>
+          <button class="cb-item" data-council-img="assets/images/admin-dashboard.png">
             <div class="cb-icon"><i data-lucide="globe" width="18" height="18"></i></div>
             <div>
               <h4 data-pt>Multi-tenant escalável</h4>
@@ -2374,14 +2414,14 @@
               <p data-pt>Expandir a outras freguesias</p>
               <p data-en>Expand to other parishes</p>
             </div>
-          </div>
+          </button>
         </div>
-        <a href="#cta" class="btn-white"><i data-lucide="arrow-right" width="18" height="18"></i><span data-pt>Fale
-            connosco</span><span data-en>Contact us</span></a>
+        <a href="#cta" class="btn-white council-cta-desktop"><i data-lucide="arrow-right" width="18" height="18"></i><span data-pt>Agendar Demo</span><span data-en>Book a Demo</span></a>
       </div>
       <div class="gs-reveal">
         <img src="assets/images/admin-dashboard.png" class="council-img" alt="Admin dashboard">
       </div>
+      <a href="#cta" class="btn-white council-cta-mobile"><i data-lucide="arrow-right" width="18" height="18"></i><span data-pt>Agendar Demo</span><span data-en>Book a Demo</span></a>
     </div>
   </section>
 
@@ -2637,6 +2677,23 @@
       if (!isOpen) { item.classList.add('open'); ans.style.maxHeight = ans.scrollHeight + 'px'; }
     }
 
+    // Council feature image switching
+    const councilBtns = document.querySelectorAll('.cb-item[data-council-img]');
+    const councilImg = document.querySelector('.council-img');
+    councilBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (btn.classList.contains('active')) return;
+        councilBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        councilImg.style.opacity = '0';
+        setTimeout(() => {
+          councilImg.src = btn.dataset.councilImg;
+          councilImg.onload = () => { councilImg.style.opacity = '1'; };
+          councilImg.style.opacity = '1';
+        }, 300);
+      });
+    });
+
     // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(a => {
       a.addEventListener('click', function (e) {
@@ -2754,14 +2811,15 @@
     });
 
     function wander(el, i) {
-      const xRange = 40 + i * 15;
-      const yRange = 30 + i * 12;
-      const dur = 4 + i * 1.5;
+      const xRange = 80 + i * 25;
+      const yRange = 60 + i * 20;
+      const dur = 3 + i * 0.8;
 
       gsap.to(el, {
         x: gsap.utils.random(-xRange, xRange),
         y: gsap.utils.random(-yRange, yRange),
-        scale: gsap.utils.random(0.85, 1.25),
+        scale: gsap.utils.random(0.75, 1.35),
+        opacity: gsap.utils.random(0.3, 0.9),
         duration: dur,
         ease: 'sine.inOut',
         onComplete: () => wander(el, i)
@@ -2769,10 +2827,10 @@
     }
 
     function morph(el, i) {
-      const dur = 4 + i * 1.5;
+      const dur = 3 + i * 0.8;
       gsap.to(el, {
-        borderRadius: `${gsap.utils.random(30, 70)}% ${gsap.utils.random(40, 60)}% ${gsap.utils.random(30, 70)}% ${gsap.utils.random(40, 60)}%`,
-        duration: dur * 0.75,
+        borderRadius: `${gsap.utils.random(25, 75)}% ${gsap.utils.random(30, 70)}% ${gsap.utils.random(25, 75)}% ${gsap.utils.random(30, 70)}%`,
+        duration: dur * 0.6,
         ease: 'sine.inOut',
         onComplete: () => morph(el, i)
       });
