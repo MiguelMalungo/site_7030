@@ -107,11 +107,15 @@
     }
 
     /* ===== LANG TOGGLE ===== */
-    [data-lang="pt"] [data-en] {
+    [data-lang="pt"] [data-en], [data-lang="pt"] [data-sv] {
       display: none !important;
     }
 
-    [data-lang="en"] [data-pt] {
+    [data-lang="en"] [data-pt], [data-lang="en"] [data-sv] {
+      display: none !important;
+    }
+
+    [data-lang="sv"] [data-pt], [data-lang="sv"] [data-en] {
       display: none !important;
     }
 
@@ -1928,20 +1932,22 @@
     <div class="nav-inner">
       <a href="#" class="nav-logo"><img src="assets/images/logo7030.png" alt="70.30"></a>
       <ul class="nav-links" id="navLinks">
-        <li><a href="#how" data-pt>Como funciona</a><a href="#how" data-en>How it works</a></li>
-        <li><a href="#programs" data-pt>Programas</a><a href="#programs" data-en>Programs</a></li>
-        <li><a href="#features" data-pt>Funcionalidades</a><a href="#features" data-en>Features</a></li>
-        <li><a href="#councils" data-pt>Autarquias</a><a href="#councils" data-en>Councils</a></li>
+        <li><a href="#how" data-pt>Como funciona</a><a href="#how" data-en>How it works</a><a href="#how" data-sv>Hur det fungerar</a></li>
+        <li><a href="#programs" data-pt>Programas</a><a href="#programs" data-en>Programs</a><a href="#programs" data-sv>Program</a></li>
+        <li><a href="#features" data-pt>Funcionalidades</a><a href="#features" data-en>Features</a><a href="#features" data-sv>Funktioner</a></li>
+        <li><a href="#councils" data-pt>Autarquias</a><a href="#councils" data-en>Councils</a><a href="#councils" data-sv>Kommuner</a></li>
         <li><a href="#faq">FAQ</a></li>
         <li>
           <div class="nav-lang">
             <button onclick="setLang('pt')" id="langPt" class="active">PT</button>
             <button onclick="setLang('en')" id="langEn">EN</button>
+            <button onclick="setLang('sv')" id="langSv">SV</button>
           </div>
         </li>
         <li>
           <a href="#cta" class="nav-cta-btn" data-pt>Agendar Demo</a>
           <a href="#cta" class="nav-cta-btn" data-en>Book Demo</a>
+          <a href="#cta" class="nav-cta-btn" data-sv>Boka Demo</a>
         </li>
       </ul>
       <button class="nav-mobile-toggle" id="mobileToggle" aria-label="Menu">
@@ -1957,24 +1963,29 @@
       <div class="hero-content">
         <div class="hero-overline" data-pt>Solidariedade Intergeracional</div>
         <div class="hero-overline" data-en>Intergenerational Solidarity</div>
+        <div class="hero-overline" data-sv>Solidaritet Mellan Generationer</div>
 
         <h1 data-pt>Conectamos <em>gerações</em>,<br>construímos comunidade</h1>
         <h1 data-en>Connecting <em>generations</em>,<br>building community</h1>
+        <h1 data-sv>Vi förenar <em>generationer</em>,<br>bygger gemenskap</h1>
 
         <p class="hero-sub" data-pt>A plataforma digital que une a experiência dos séniores com a energia dos jovens,
           criando oportunidades de trabalho e combatendo o isolamento na sua comunidade.</p>
         <p class="hero-sub" data-en>The digital platform that unites the experience of seniors with the energy of young
           people, creating work opportunities and combating isolation in your community.</p>
+        <p class="hero-sub" data-sv>Den digitala plattformen som förenar seniorers erfarenhet med ungas energi, skapar arbetsmöjligheter och bekämpar isolering i ditt samhälle.</p>
 
         <div class="hero-actions">
           <a href="#cta" class="btn-primary">
             <i data-lucide="calendar" width="18" height="18"></i>
             <span data-pt>Agendar Demonstração</span>
             <span data-en>Book a Demo</span>
+            <span data-sv>Boka Demonstration</span>
           </a>
           <a href="#how" class="btn-ghost">
             <span data-pt>Ver como funciona</span>
             <span data-en>See how it works</span>
+            <span data-sv>Se hur det fungerar</span>
             <i data-lucide="arrow-right" width="18" height="18"></i>
           </a>
         </div>
@@ -1988,41 +1999,41 @@
   <section class="stats-strip">
     <div class="stats-track" id="statsTrack">
       <div class="stat-item"><span class="stat-num">70%</span><span class="stat-label" data-pt>Mentor
-          Experiente</span><span class="stat-label" data-en>Experienced Mentor</span></div>
+          Experiente</span><span class="stat-label" data-en>Experienced Mentor</span><span class="stat-label" data-sv>Senior Mentor</span></div>
       <div class="stat-dot"></div>
       <div class="stat-item"><span class="stat-num">30%</span><span class="stat-label" data-pt>Jovem
-          Aprendiz</span><span class="stat-label" data-en>Young Apprentice</span></div>
+          Aprendiz</span><span class="stat-label" data-en>Young Apprentice</span><span class="stat-label" data-sv>Ung Lärling</span></div>
       <div class="stat-dot"></div>
       <div class="stat-item"><span class="stat-num">100%</span><span class="stat-label" data-pt>Impacto
-          Comunitário</span><span class="stat-label" data-en>Community Impact</span></div>
+          Comunitário</span><span class="stat-label" data-en>Community Impact</span><span class="stat-label" data-sv>Samhällspåverkan</span></div>
       <div class="stat-dot"></div>
       <div class="stat-item"><span class="stat-num">0</span><span class="stat-label" data-pt>Barreiras
-          Geracionais</span><span class="stat-label" data-en>Generational Barriers</span></div>
+          Geracionais</span><span class="stat-label" data-en>Generational Barriers</span><span class="stat-label" data-sv>Generationsbarriärer</span></div>
       <div class="stat-dot"></div>
       <div class="stat-item"><span class="stat-num">PWA</span><span class="stat-label" data-pt>Sem Download</span><span
-          class="stat-label" data-en>No Download</span></div>
+          class="stat-label" data-en>No Download</span><span class="stat-label" data-sv>Ingen Nedladdning</span></div>
       <div class="stat-dot"></div>
       <div class="stat-item"><span class="stat-num">RGPD</span><span class="stat-label" data-pt>Totalmente
-          Conforme</span><span class="stat-label" data-en>Fully Compliant</span></div>
+          Conforme</span><span class="stat-label" data-en>Fully Compliant</span><span class="stat-label" data-sv>Helt Överensstämmande</span></div>
       <div class="stat-dot"></div>
       <!-- Duplicate for seamless loop -->
       <div class="stat-item"><span class="stat-num">70%</span><span class="stat-label" data-pt>Mentor
-          Experiente</span><span class="stat-label" data-en>Experienced Mentor</span></div>
+          Experiente</span><span class="stat-label" data-en>Experienced Mentor</span><span class="stat-label" data-sv>Senior Mentor</span></div>
       <div class="stat-dot"></div>
       <div class="stat-item"><span class="stat-num">30%</span><span class="stat-label" data-pt>Jovem
-          Aprendiz</span><span class="stat-label" data-en>Young Apprentice</span></div>
+          Aprendiz</span><span class="stat-label" data-en>Young Apprentice</span><span class="stat-label" data-sv>Ung Lärling</span></div>
       <div class="stat-dot"></div>
       <div class="stat-item"><span class="stat-num">100%</span><span class="stat-label" data-pt>Impacto
-          Comunitário</span><span class="stat-label" data-en>Community Impact</span></div>
+          Comunitário</span><span class="stat-label" data-en>Community Impact</span><span class="stat-label" data-sv>Samhällspåverkan</span></div>
       <div class="stat-dot"></div>
       <div class="stat-item"><span class="stat-num">0</span><span class="stat-label" data-pt>Barreiras
-          Geracionais</span><span class="stat-label" data-en>Generational Barriers</span></div>
+          Geracionais</span><span class="stat-label" data-en>Generational Barriers</span><span class="stat-label" data-sv>Generationsbarriärer</span></div>
       <div class="stat-dot"></div>
       <div class="stat-item"><span class="stat-num">PWA</span><span class="stat-label" data-pt>Sem Download</span><span
-          class="stat-label" data-en>No Download</span></div>
+          class="stat-label" data-en>No Download</span><span class="stat-label" data-sv>Ingen Nedladdning</span></div>
       <div class="stat-dot"></div>
       <div class="stat-item"><span class="stat-num">RGPD</span><span class="stat-label" data-pt>Totalmente
-          Conforme</span><span class="stat-label" data-en>Fully Compliant</span></div>
+          Conforme</span><span class="stat-label" data-en>Fully Compliant</span><span class="stat-label" data-sv>Helt Överensstämmande</span></div>
       <div class="stat-dot"></div>
     </div>
   </section>
@@ -2034,38 +2045,47 @@
       <div class="section-header centered">
         <div class="section-overline" data-pt>O Conceito</div>
         <div class="section-overline" data-en>The Concept</div>
+        <div class="section-overline" data-sv>Konceptet</div>
         <h2 data-pt>Como funciona a plataforma</h2>
         <h2 data-en>How the platform works</h2>
+        <h2 data-sv>Hur plattformen fungerar</h2>
         <p data-pt>Um modelo simples e eficaz que cria valor para toda a comunidade.</p>
         <p data-en>A simple and effective model that creates value for the entire community.</p>
+        <p data-sv>En enkel och effektiv modell som skapar värde för hela samhället.</p>
       </div>
       <div class="how-grid">
         <div class="how-card gs-reveal">
           <div class="how-icon"><i data-lucide="user-plus" width="24" height="24"></i></div>
           <h3 data-pt>Registe-se</h3>
           <h3 data-en>Sign Up</h3>
+          <h3 data-sv>Registrera dig</h3>
           <p data-pt>Moradores pedem serviços, séniores e jovens inscrevem-se como profissionais. A autarquia gere tudo
             pela plataforma.</p>
           <p data-en>Residents request services, seniors and youth register as professionals. The council manages
             everything through the platform.</p>
+          <p data-sv>Invånare begär tjänster, seniorer och unga registrerar sig som yrkesverksamma. Kommunen hanterar allt i en enda panel.</p>
         </div>
         <div class="how-card gs-reveal">
           <div class="how-icon"><i data-lucide="handshake" width="24" height="24"></i></div>
           <h3 data-pt>Conecte-se</h3>
           <h3 data-en>Connect</h3>
+          <h3 data-sv>Anslut dig</h3>
           <p data-pt>Mentores experientes são emparelhados com jovens aprendizes. Assistentes são ligados a idosos que
             precisam de companhia.</p>
           <p data-en>Experienced mentors are paired with young apprentices. Assistants are matched with elderly who need
             companionship.</p>
+          <p data-sv>Erfarna mentorer matchas med unga lärlingar. Assistenter kopplas till äldre som behöver sällskap och stöd.</p>
         </div>
         <div class="how-card gs-reveal">
           <div class="how-icon"><i data-lucide="rocket" width="24" height="24"></i></div>
           <h3 data-pt>Transforme</h3>
           <h3 data-en>Transform</h3>
+          <h3 data-sv>Förändra</h3>
           <p data-pt>Serviços prestados, competências transmitidas, isolamento combatido. Pagamentos, avaliações e
             relatórios automatizados.</p>
           <p data-en>Services delivered, skills transferred, isolation tackled. Payments, reviews and reports fully
             automated.</p>
+          <p data-sv>Tjänster utförda, kompetens överförd, isolering bekämpad. Betalningar, utvärderingar och rapporter — allt automatiskt.</p>
         </div>
       </div>
     </div>
@@ -2077,10 +2097,13 @@
       <div class="section-header">
         <div class="section-overline" data-pt>Dois Programas</div>
         <div class="section-overline" data-en>Two Programs</div>
+        <div class="section-overline" data-sv>Två Program</div>
         <h2 data-pt>Duas formas de criar impacto</h2>
         <h2 data-en>Two ways to create impact</h2>
+        <h2 data-sv>Två sätt att skapa påverkan</h2>
         <p data-pt>Programas complementares que respondem às necessidades reais da comunidade.</p>
         <p data-en>Complementary programs addressing real community needs.</p>
+        <p data-sv>Kompletterande program som svarar mot samhällets verkliga behov.</p>
       </div>
       <div class="programs-grid">
         <div class="program-card gs-reveal">
@@ -2088,22 +2111,24 @@
               alt="Trades mentorship"></div>
           <div class="program-body">
             <div class="program-tag trades"><i data-lucide="hammer" width="14" height="14"></i> <span data-pt>Ofícios &
-                Formação</span><span data-en>Trades & Training</span></div>
+                Formação</span><span data-en>Trades & Training</span><span data-sv>Hantverk & Utbildning</span></div>
             <h3 data-pt>Duplas Mentor + Aprendiz</h3>
             <h3 data-en>Mentor + Apprentice Pairs</h3>
+            <h3 data-sv>Mentor + Lärling Par</h3>
             <p data-pt>Séniores reformados com décadas de experiência formam duplas com jovens desempregados. Juntos,
               prestam serviços técnicos enquanto transmitem conhecimento.</p>
             <p data-en>Retired seniors with decades of experience form pairs with unemployed youth. Together, they
               deliver technical services while transferring knowledge.</p>
+            <p data-sv>Pensionerade seniorer med decenniers erfarenhet bildar par med unga arbetslösa. Tillsammans utför de tjänster i samhället medan de överför kunskap.</p>
             <ul class="program-list">
               <li><i data-lucide="check" width="16" height="16"></i><span data-pt>Canalização, eletricidade,
-                  carpintaria, pintura</span><span data-en>Plumbing, electrical, carpentry, painting</span></li>
+                  carpintaria, pintura</span><span data-en>Plumbing, electrical, carpentry, painting</span><span data-sv>VVS, el, snickeri</span></li>
               <li><i data-lucide="check" width="16" height="16"></i><span data-pt>Formação prática no
-                  terreno</span><span data-en>Hands-on field training</span></li>
+                  terreno</span><span data-en>Hands-on field training</span><span data-sv>Praktisk utbildning på plats</span></li>
               <li><i data-lucide="check" width="16" height="16"></i><span data-pt>Rendimento para ambos os
-                  participantes</span><span data-en>Income for both participants</span></li>
+                  participantes</span><span data-en>Income for both participants</span><span data-sv>Inkomst för båda parter</span></li>
               <li><i data-lucide="check" width="16" height="16"></i><span data-pt>Portfólio digital de
-                  trabalhos</span><span data-en>Digital work portfolio</span></li>
+                  trabalhos</span><span data-en>Digital work portfolio</span><span data-sv>Digitalt arbetsportfolio</span></li>
             </ul>
           </div>
         </div>
@@ -2112,22 +2137,24 @@
               alt="Elderly care"></div>
           <div class="program-body">
             <div class="program-tag care"><i data-lucide="heart-handshake" width="14" height="14"></i> <span
-                data-pt>Assistência & Companhia</span><span data-en>Assistance & Companionship</span></div>
+                data-pt>Assistência & Companhia</span><span data-en>Assistance & Companionship</span><span data-sv>Assistans & Sällskap</span></div>
             <h3 data-pt>Assistentes para Idosos</h3>
             <h3 data-en>Elderly Assistants</h3>
+            <h3 data-sv>Assistenter för Äldre</h3>
             <p data-pt>Jovens prestam companhia e apoio a idosos da comunidade. Preparação de refeições, acompanhamento
               a consultas, combate ao isolamento social.</p>
             <p data-en>Young people provide companionship and support to elderly community members. Meal preparation,
               medical accompaniment, combating social isolation.</p>
+            <p data-sv>Unga ger sällskap och stöd till äldre i samhället. Matlagning, medicinsk uppföljning, samtal och aktiv närvaro.</p>
             <ul class="program-list">
               <li><i data-lucide="check" width="16" height="16"></i><span data-pt>Companhia, conversação e
-                  lazer</span><span data-en>Companionship, conversation and leisure</span></li>
+                  lazer</span><span data-en>Companionship, conversation and leisure</span><span data-sv>Sällskap, samtal och närvaro</span></li>
               <li><i data-lucide="check" width="16" height="16"></i><span data-pt>Apoio com tarefas e
-                  compras</span><span data-en>Help with tasks and shopping</span></li>
+                  compras</span><span data-en>Help with tasks and shopping</span><span data-sv>Stöd med uppgifter och uppföljning</span></li>
               <li><i data-lucide="check" width="16" height="16"></i><span data-pt>Diário de cuidados para a
-                  família</span><span data-en>Care diary for family members</span></li>
+                  família</span><span data-en>Care diary for family members</span><span data-sv>Vårdjournal för familjen</span></li>
               <li><i data-lucide="check" width="16" height="16"></i><span data-pt>Botão SOS e alertas de
-                  emergência</span><span data-en>SOS button and emergency alerts</span></li>
+                  emergência</span><span data-en>SOS button and emergency alerts</span><span data-sv>SOS-knapp och säkerhetslarm</span></li>
             </ul>
           </div>
         </div>
@@ -2145,6 +2172,7 @@
               <div class="big">70.30</div>
               <div class="sub" data-pt>Modelo de Valor</div>
               <div class="sub" data-en>Value Model</div>
+              <div class="sub" data-sv>Värdemodell</div>
             </div>
             <div class="value-node n-top">
               <div class="n-num">70%</div>
@@ -2154,32 +2182,40 @@
               <div class="n-num">30%</div>
               <div class="n-label" data-pt>Aprendiz</div>
               <div class="n-label" data-en>Apprentice</div>
+              <div class="n-label" data-sv>Lärling</div>
             </div>
             <div class="value-node n-right">
               <div class="n-num" style="font-size:1rem;" data-pt>Autarquia</div>
               <div class="n-num" style="font-size:1rem;" data-en>Council</div>
+              <div class="n-num" style="font-size:1rem;" data-sv>Kommun</div>
               <div class="n-label" data-pt>Subsídio formativo</div>
               <div class="n-label" data-en>Training subsidy</div>
+              <div class="n-label" data-sv>Utbildningsbidrag</div>
             </div>
           </div>
         </div>
         <div class="value-content gs-reveal">
           <div class="section-overline" data-pt>O Modelo</div>
           <div class="section-overline" data-en>The Model</div>
+          <div class="section-overline" data-sv>Modellen</div>
           <h2 data-pt>Um modelo transparente<br>e justo para todos</h2>
           <h2 data-en>A transparent and<br>fair model for all</h2>
+          <h2 data-sv>En transparent och rättvis modell för alla</h2>
           <p data-pt>O morador paga um serviço a preço competitivo. O valor é repartido para remunerar o mentor e
             financiar a formação do jovem aprendiz.</p>
           <p data-en>The resident pays a competitive service price. The value is split to compensate the mentor and fund
             the young apprentice's training.</p>
+          <p data-sv>Invånaren betalar ett konkurrenskraftigt pris för tjänsten. Beloppet fördelas för att ersätta mentor och lärling, och kommunen får social påverkansdata för att fortsätta investera.</p>
           <div class="value-points">
             <div class="vp-item">
               <div class="vp-icon g"><i data-lucide="wallet" width="20" height="20"></i></div>
               <div>
                 <h4 data-pt>Preços reduzidos para moradores</h4>
                 <h4 data-en>Reduced prices for residents</h4>
+                <h4 data-sv>Reducerade priser för invånare</h4>
                 <p data-pt>Moradores beneficiam de preços competitivos, subsidiados pela autarquia local.</p>
                 <p data-en>Residents benefit from competitive rates, subsidized by the local council.</p>
+                <p data-sv>Invånare drar nytta av konkurrenskraftiga priser, subventionerade av den lokala kommunen.</p>
               </div>
             </div>
             <div class="vp-item">
@@ -2187,8 +2223,10 @@
               <div>
                 <h4 data-pt>Formação remunerada</h4>
                 <h4 data-en>Paid training</h4>
+                <h4 data-sv>Betald utbildning</h4>
                 <p data-pt>Jovens aprendizes são remunerados enquanto aprendem no terreno.</p>
                 <p data-en>Young apprentices earn while learning in the field.</p>
+                <p data-sv>Unga lärlingar får betalt medan de lär sig på plats.</p>
               </div>
             </div>
             <div class="vp-item">
@@ -2196,8 +2234,10 @@
               <div>
                 <h4 data-pt>Total transparência</h4>
                 <h4 data-en>Full transparency</h4>
+                <h4 data-sv>Total transparens</h4>
                 <p data-pt>Valores, pagamentos e relatórios acessíveis em tempo real.</p>
                 <p data-en>Values, payments and reports accessible in real-time.</p>
+                <p data-sv>Värden, betalningar och rapporter tillgängliga i realtid.</p>
               </div>
             </div>
           </div>
@@ -2212,10 +2252,13 @@
       <div class="section-header centered">
         <div class="section-overline" data-pt>Funcionalidades</div>
         <div class="section-overline" data-en>Features</div>
+        <div class="section-overline" data-sv>Funktioner</div>
         <h2 data-pt>Tudo o que precisa,<br>numa só plataforma</h2>
         <h2 data-en>Everything you need,<br>in one platform</h2>
+        <h2 data-sv>Allt du behöver, i en enda plattform</h2>
         <p data-pt>Funcionalidades desenhadas para simplificar a gestão e maximizar o impacto.</p>
         <p data-en>Features designed to simplify management and maximize impact.</p>
+        <p data-sv>Funktioner utformade för att förenkla hanteringen och maximera påverkan.</p>
       </div>
       <div class="features-grid">
         <div class="feat-card gs-reveal"
@@ -2230,10 +2273,12 @@
                 data-lucide="smartphone" width="22" height="22"></i></div>
             <h3 data-pt style="color: white;">App Acessível (PWA)</h3>
             <h3 data-en style="color: white;">Accessible App (PWA)</h3>
+            <h3 data-sv style="color: white;">Tillgänglig App (PWA)</h3>
             <p data-pt style="color: rgba(255,255,255,0.9);">Funciona em qualquer dispositivo sem download. Interface
               pensada para séniores.</p>
             <p data-en style="color: rgba(255,255,255,0.9);">Works on any device without download. Interface designed
               for seniors.</p>
+            <p data-sv style="color: rgba(255,255,255,0.9);">Fungerar på alla enheter utan nedladdning. Gränssnitt anpassat för användare i alla åldrar.</p>
           </div>
         </div>
         <div class="feat-card gs-reveal"
@@ -2248,10 +2293,12 @@
                 data-lucide="calendar-check" width="22" height="22"></i></div>
             <h3 data-pt style="color: white;">Agendamento Inteligente</h3>
             <h3 data-en style="color: white;">Smart Scheduling</h3>
+            <h3 data-sv style="color: white;">Smart Schemaläggning</h3>
             <p data-pt style="color: rgba(255,255,255,0.9);">Agenda integrada com notificações SMS, push e email.
               Lembretes automáticos.</p>
             <p data-en style="color: rgba(255,255,255,0.9);">Integrated calendar with SMS, push and email notifications.
               Automatic reminders.</p>
+            <p data-sv style="color: rgba(255,255,255,0.9);">Integrerad kalender med SMS, push- och e-postnotifieringar. Automatisk bekräftelse och påminnelser.</p>
           </div>
         </div>
         <div class="feat-card gs-reveal"
@@ -2266,10 +2313,12 @@
                 data-lucide="credit-card" width="22" height="22"></i></div>
             <h3 data-pt style="color: white;">Pagamentos Integrados</h3>
             <h3 data-en style="color: white;">Integrated Payments</h3>
+            <h3 data-sv style="color: white;">Integrerade Betalningar</h3>
             <p data-pt style="color: rgba(255,255,255,0.9);">Múltiplos métodos de pagamento. Divisão automática 70/30
               com recibos digitais.</p>
             <p data-en style="color: rgba(255,255,255,0.9);">Multiple payment methods supported. Automatic 70/30 split
               with digital receipts.</p>
+            <p data-sv style="color: rgba(255,255,255,0.9);">Flera betalningsmetoder. Automatisk 70/30-uppdelning mellan mentor och lärling.</p>
           </div>
         </div>
         <div class="feat-card gs-reveal"
@@ -2284,10 +2333,12 @@
                 width="22" height="22"></i></div>
             <h3 data-pt style="color: white;">Avaliações & Qualidade</h3>
             <h3 data-en style="color: white;">Reviews & Quality</h3>
+            <h3 data-sv style="color: white;">Utvärderingar & Kvalitet</h3>
             <p data-pt style="color: rgba(255,255,255,0.9);">Pergunta simples "Como foi a visita?" após cada serviço
               para garantir máxima qualidade.</p>
             <p data-en style="color: rgba(255,255,255,0.9);">Simple "How was the visit?" question after every service to
               ensure maximum quality.</p>
+            <p data-sv style="color: rgba(255,255,255,0.9);">Enkel fråga "Hur var besöket?" efter varje tjänst med 5-stjärnigt system och kontinuerlig övervakning.</p>
           </div>
         </div>
         <div class="feat-card gs-reveal"
@@ -2302,10 +2353,12 @@
                 data-lucide="message-circle" width="22" height="22"></i></div>
             <h3 data-pt style="color: white;">Chat & Comunicação</h3>
             <h3 data-en style="color: white;">Chat & Communication</h3>
+            <h3 data-sv style="color: white;">Chatt & Kommunikation</h3>
             <p data-pt style="color: rgba(255,255,255,0.9);">Chat direto e videochamada. Diário de cuidados partilhado
               com a família.</p>
             <p data-en style="color: rgba(255,255,255,0.9);">Direct chat and video calls. Shared care diary with family.
             </p>
+            <p data-sv style="color: rgba(255,255,255,0.9);">Direktchatt och videosamtal. Delad vårdjournal med familjemedlemmar.</p>
           </div>
         </div>
         <div class="feat-card gs-reveal"
@@ -2320,10 +2373,12 @@
                 data-lucide="shield-check" width="22" height="22"></i></div>
             <h3 data-pt style="color: white;">Segurança & RGPD</h3>
             <h3 data-en style="color: white;">Security & GDPR</h3>
+            <h3 data-sv style="color: white;">Säkerhet & GDPR</h3>
             <p data-pt style="color: rgba(255,255,255,0.9);">Encriptação, backups automáticos e total conformidade com
               proteção de dados.</p>
             <p data-en style="color: rgba(255,255,255,0.9);">Encryption, automatic backups and full data protection
               compliance.</p>
+            <p data-sv style="color: rgba(255,255,255,0.9);">Kryptering, automatiska säkerhetskopior och full överensstämmelse med den allmänna dataskyddsförordningen.</p>
           </div>
         </div>
       </div>
@@ -2343,20 +2398,25 @@
       <div class="app-text">
         <div class="section-overline" data-pt>A Aplicação</div>
         <div class="section-overline" data-en>The App</div>
+        <div class="section-overline" data-sv>Applikationen</div>
         <h2 data-pt>Intuitiva para<br>todas as idades</h2>
         <h2 data-en>Intuitive for<br>all ages</h2>
+        <h2 data-sv>Intuitiv för alla åldrar</h2>
         <p data-pt>Progressive Web App desenhada com princípios de acessibilidade para que qualquer pessoa, dos 18 aos
           90 anos, consiga usar sem dificuldade.</p>
         <p data-en>Progressive Web App designed with accessibility principles so anyone, from 18 to 90 years old, can
           use it effortlessly.</p>
+        <p data-sv>Progressiv webbapp designad med tillgänglighetsprinciper så att vem som helst, från 18 till 90 år, kan använda den utan svårighet.</p>
         <div class="app-feats">
           <div class="app-feat">
             <div class="app-feat-icon"><i data-lucide="monitor" width="20" height="20"></i></div>
             <div>
               <h4 data-pt>Qualquer dispositivo</h4>
               <h4 data-en>Any device</h4>
+              <h4 data-sv>Alla enheter</h4>
               <p data-pt>Android, iOS, computador. Sem loja de apps.</p>
               <p data-en>Android, iOS, desktop. No app store needed.</p>
+              <p data-sv>Android, iOS, dator. Ingen appbutik behövs.</p>
             </div>
           </div>
           <div class="app-feat">
@@ -2364,8 +2424,10 @@
             <div>
               <h4 data-pt>Acessibilidade WCAG 2.1</h4>
               <h4 data-en>WCAG 2.1 Accessible</h4>
+              <h4 data-sv>WCAG 2.1 Tillgänglighet</h4>
               <p data-pt>Alto contraste, textos ajustáveis, navegação por teclado.</p>
               <p data-en>High contrast, adjustable text, keyboard navigation.</p>
+              <p data-sv>Hög kontrast, justerbara texter, tangentbordsnavigering.</p>
             </div>
           </div>
           <div class="app-feat">
@@ -2373,8 +2435,10 @@
             <div>
               <h4 data-pt>Modo offline</h4>
               <h4 data-en>Offline mode</h4>
+              <h4 data-sv>Offlineläge</h4>
               <p data-pt>Funciona sem internet. Sincroniza ao reconectar.</p>
               <p data-en>Works without internet. Auto-syncs when reconnected.</p>
+              <p data-sv>Fungerar utan internet. Synkroniserar vid återanslutning.</p>
             </div>
           </div>
         </div>
@@ -2388,20 +2452,25 @@
       <div class="council-text gs-reveal">
         <div class="section-overline" data-pt>Para Autarquias</div>
         <div class="section-overline" data-en>For Local Councils</div>
+        <div class="section-overline" data-sv>För Kommuner</div>
         <h2 data-pt>A plataforma que transforma<br>a sua comunidade</h2>
         <h2 data-en>The platform that transforms<br>your community</h2>
+        <h2 data-sv>Plattformen som förändrar ditt samhälle</h2>
         <p data-pt>Painel de administração completo para gerir participantes, monitorizar qualidade, controlar finanças
           e medir impacto social em tempo real.</p>
         <p data-en>Complete admin dashboard to manage participants, monitor quality, control finances and measure social
           impact in real time.</p>
+        <p data-sv>Komplett administrationspanel för att hantera deltagare, övervaka kvalitet, kontrollera ekonomi och mäta social påverkan i realtid.</p>
         <div class="council-benefits">
           <button class="cb-item active" data-council-img="assets/images/admin-dashboard.png">
             <div class="cb-icon"><i data-lucide="layout-dashboard" width="18" height="18"></i></div>
             <div>
               <h4 data-pt>Dashboard tempo real</h4>
               <h4 data-en>Real-time dashboard</h4>
+              <h4 data-sv>Realtidspanel</h4>
               <p data-pt>Métricas, gráficos e alertas</p>
               <p data-en>Metrics, charts and alerts</p>
+              <p data-sv>Mätvärden, grafer och varningar</p>
             </div>
           </button>
           <button class="cb-item" data-council-img="assets/images/admin-dashboard.png">
@@ -2409,8 +2478,10 @@
             <div>
               <h4 data-pt>Gestão de participantes</h4>
               <h4 data-en>Participant management</h4>
+              <h4 data-sv>Deltagarhantering</h4>
               <p data-pt>Aprovações e emparelhamento</p>
               <p data-en>Approvals and matching</p>
+              <p data-sv>Godkännanden och matchning</p>
             </div>
           </button>
           <button class="cb-item" data-council-img="assets/images/admin-dashboard.png">
@@ -2418,8 +2489,10 @@
             <div>
               <h4 data-pt>Relatórios detalhados</h4>
               <h4 data-en>Detailed reports</h4>
+              <h4 data-sv>Detaljerade rapporter</h4>
               <p data-pt>Exportação Excel, PDF, CSV</p>
               <p data-en>Export Excel, PDF, CSV</p>
+              <p data-sv>Export Excel, PDF, CSV</p>
             </div>
           </button>
           <button class="cb-item" data-council-img="assets/images/admin-dashboard.png">
@@ -2427,17 +2500,19 @@
             <div>
               <h4 data-pt>Multi-tenant escalável</h4>
               <h4 data-en>Scalable multi-tenant</h4>
+              <h4 data-sv>Skalbar multi-tenant</h4>
               <p data-pt>Expandir a outras freguesias</p>
               <p data-en>Expand to other parishes</p>
+              <p data-sv>Expandera till andra kommundelar</p>
             </div>
           </button>
         </div>
-        <a href="#cta" class="btn-white council-cta-desktop"><i data-lucide="arrow-right" width="18" height="18"></i><span data-pt>Agendar Demo</span><span data-en>Book a Demo</span></a>
+        <a href="#cta" class="btn-white council-cta-desktop"><i data-lucide="arrow-right" width="18" height="18"></i><span data-pt>Agendar Demo</span><span data-en>Book a Demo</span><span data-sv>Boka Demo</span></a>
       </div>
       <div class="gs-reveal">
         <img src="assets/images/admin-dashboard.png" class="council-img" alt="Admin dashboard">
       </div>
-      <a href="#cta" class="btn-white council-cta-mobile"><i data-lucide="arrow-right" width="18" height="18"></i><span data-pt>Agendar Demo</span><span data-en>Book a Demo</span></a>
+      <a href="#cta" class="btn-white council-cta-mobile"><i data-lucide="arrow-right" width="18" height="18"></i><span data-pt>Agendar Demo</span><span data-en>Book a Demo</span><span data-sv>Boka Demo</span></a>
     </div>
   </section>
 
@@ -2447,8 +2522,10 @@
       <div class="section-header centered">
         <div class="section-overline" data-pt>Testemunhos</div>
         <div class="section-overline" data-en>Testimonials</div>
+        <div class="section-overline" data-sv>Vittnesmål</div>
         <h2 data-pt>Histórias de impacto</h2>
         <h2 data-en>Impact stories</h2>
+        <h2 data-sv>Berättelser om påverkan</h2>
       </div>
       <div class="test-grid">
         <div class="test-card gs-reveal">
@@ -2460,12 +2537,14 @@
             Miguel e juntos ajudamos dezenas de famílias. Sinto-me útil outra vez.</p>
           <p class="test-text" data-en>At 67, I thought nobody needed me anymore. Now I teach what I know to Miguel and
             together we help dozens of families. I feel useful again.</p>
+          <p class="test-text" data-sv>Vid 67 trodde jag att ingen behövde mig längre. Nu lär jag ut det jag kan till Miguel och tillsammans hjälper vi dussintals familjer. Jag känner mig användbar igen.</p>
           <div class="test-author">
             <div class="test-avatar">AM</div>
             <div>
               <div class="test-name">António M.</div>
               <div class="test-role" data-pt>Mentor, Canalizador</div>
               <div class="test-role" data-en>Mentor, Plumber</div>
+              <div class="test-role" data-sv>Mentor, Rörmokare</div>
             </div>
           </div>
         </div>
@@ -2478,12 +2557,14 @@
             da Rita. A paz de espírito que isto me dá não tem preço.</p>
           <p class="test-text" data-en>My father lives alone and I'm in Lisbon. Now I get notifications from each visit
             by Rita. The peace of mind this gives me is priceless.</p>
+          <p class="test-text" data-sv>Min pappa bor ensam och jag i Lissabon. Nu får jag notifieringar för varje besök av Rita. Den sinnesro detta ger mig är ovärderlig.</p>
           <div class="test-author">
             <div class="test-avatar">SC</div>
             <div>
               <div class="test-name">Sofia C.</div>
               <div class="test-role" data-pt>Familiar de Idoso</div>
               <div class="test-role" data-en>Elderly Person's Family</div>
+              <div class="test-role" data-sv>Anhörig till Äldre</div>
             </div>
           </div>
         </div>
@@ -2496,12 +2577,14 @@
             Hoje tenho rendimento, experiência e um futuro.</p>
           <p class="test-text" data-en>I was unemployed for 8 months. With 70.30, I learned electrical work from a
             master. Today I have income, experience and a future.</p>
+          <p class="test-text" data-sv>Jag var arbetslös i 8 månader. Med 70.30 lärde jag mig el av en mästare. Idag har jag inkomst, erfarenhet och en framtid.</p>
           <div class="test-author">
             <div class="test-avatar">JP</div>
             <div>
               <div class="test-name">João P.</div>
               <div class="test-role" data-pt>Aprendiz, 24 anos</div>
               <div class="test-role" data-en>Apprentice, 24 years old</div>
+              <div class="test-role" data-sv>Lärling, 24 år</div>
             </div>
           </div>
         </div>
@@ -2516,61 +2599,62 @@
         <div class="section-overline">FAQ</div>
         <h2 data-pt>Perguntas Frequentes</h2>
         <h2 data-en>Frequently Asked Questions</h2>
+        <h2 data-sv>Vanliga Frågor</h2>
       </div>
       <div class="faq-list">
         <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)"><span data-pt>A plataforma pode ser usada
-              em qualquer município?</span><span data-en>Can the platform be used in any municipality?</span><i
+              em qualquer município?</span><span data-en>Can the platform be used in any municipality?</span><span data-sv>Kan plattformen användas av vilken kommun som helst i Portugal?</span><i
               data-lucide="chevron-down" width="20" height="20"></i></button>
           <div class="faq-a">
             <div class="faq-a-inner"><span data-pt>Sim. A plataforma 70.30 é multi-tenant e pode ser implementada em
                 qualquer freguesia ou município. Cada autarquia tem gestão independente.</span><span data-en>Yes. The
                 70.30 platform is multi-tenant and can be implemented in any parish or municipality. Each council has
-                independent management.</span></div>
+                independent management.</span><span data-sv>Ja. Plattformen 70.30 är multi-tenant och kan implementeras i vilken kommun eller församling som helst. Varje enhet har sitt eget isolerade utrymme med oberoende data.</span></div>
           </div>
         </div>
         <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)"><span data-pt>Os dados pertencem à
-              autarquia?</span><span data-en>Does the council own the data?</span><i data-lucide="chevron-down"
+              autarquia?</span><span data-en>Does the council own the data?</span><span data-sv>Tillhör uppgifterna kommunen?</span><i data-lucide="chevron-down"
               width="20" height="20"></i></button>
           <div class="faq-a">
             <div class="faq-a-inner"><span data-pt>100%. A autarquia é proprietária de todos os dados. Podem ser
                 exportados a qualquer momento.</span><span data-en>100%. The council owns all data. It can be exported
-                at any time.</span></div>
+                at any time.</span><span data-sv>100%. Kommunen äger all data. Den kan exporteras när som helst.</span></div>
           </div>
         </div>
         <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)"><span data-pt>É necessário pessoal
-              técnico?</span><span data-en>Do we need technical staff?</span><i data-lucide="chevron-down" width="20"
+              técnico?</span><span data-en>Do we need technical staff?</span><span data-sv>Behövs teknisk personal för att hantera plattformen?</span><i data-lucide="chevron-down" width="20"
               height="20"></i></button>
           <div class="faq-a">
             <div class="faq-a-inner"><span data-pt>Não. A plataforma é intuitiva. Fornecemos formação completa ao
                 coordenador.</span><span data-en>No. The platform is intuitive. We provide comprehensive coordinator
-                training.</span></div>
+                training.</span><span data-sv>Nej. Plattformen är intuitiv. Vi ger fullständig utbildning till den administratör som kommunen utser.</span></div>
           </div>
         </div>
         <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)"><span data-pt>Podem alterar
-              funcionalidades após o lançamento?</span><span data-en>Can features be changed after launch?</span><i
+              funcionalidades após o lançamento?</span><span data-en>Can features be changed after launch?</span><span data-sv>Kan specifika funktioner ändras?</span><i
               data-lucide="chevron-down" width="20" height="20"></i></button>
           <div class="faq-a">
             <div class="faq-a-inner"><span data-pt>Sim. Pequenos ajustes incluídos no suporte. Grandes alterações
                 orçamentadas à parte.</span><span data-en>Yes. Small adjustments included in support. Major changes
-                quoted separately.</span></div>
+                quoted separately.</span><span data-sv>Ja. Mindre justeringar ingår i supporten. Större ändringar kan budgeteras separat.</span></div>
           </div>
         </div>
         <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)"><span data-pt>A plataforma cumpre o
-              RGPD?</span><span data-en>Is the platform GDPR compliant?</span><i data-lucide="chevron-down" width="20"
+              RGPD?</span><span data-en>Is the platform GDPR compliant?</span><span data-sv>Uppfyller plattformen GDPR?</span><i data-lucide="chevron-down" width="20"
               height="20"></i></button>
           <div class="faq-a">
             <div class="faq-a-inner"><span data-pt>Sim. Totalmente conforme incluindo consentimentos explícitos, direito
                 ao esquecimento e encriptação de dados.</span><span data-en>Yes. Fully compliant including explicit
-                consent, right to be forgotten and data encryption.</span></div>
+                consent, right to be forgotten and data encryption.</span><span data-sv>Ja. Helt överensstämmande inklusive uttryckligt samtycke, rätt att bli glömd och dataportabilitet.</span></div>
           </div>
         </div>
         <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)"><span data-pt>E se quisermos expandir para
-              outras freguesias?</span><span data-en>What if we want to expand to other parishes?</span><i
+              outras freguesias?</span><span data-en>What if we want to expand to other parishes?</span><span data-sv>Och om vi vill expandera till fler kommundelar?</span><i
               data-lucide="chevron-down" width="20" height="20"></i></button>
           <div class="faq-a">
             <div class="faq-a-inner"><span data-pt>A plataforma é multi-tenant. Pode gerir várias freguesias com custo
                 mínimo de replicação.</span><span data-en>Multi-tenant platform. Manage multiple parishes with minimal
-                replication cost.</span></div>
+                replication cost.</span><span data-sv>Plattformen är multi-tenant. Den kan hantera flera kommundelar med reducerad marginalkostnad och isolerad data.</span></div>
           </div>
         </div>
       </div>
@@ -2592,12 +2676,14 @@
     <div class="container cta-content">
       <h2 data-pt>Pronto para transformar<br>a sua comunidade?</h2>
       <h2 data-en>Ready to transform<br>your community?</h2>
+      <h2 data-sv>Redo att förändra ditt samhälle?</h2>
       <p data-pt>Agende uma demonstração gratuita e descubra como a plataforma 70.30 pode criar impacto real na sua
         freguesia.</p>
       <p data-en>Book a free demo and discover how the 70.30 platform can create real impact in your parish.</p>
+      <p data-sv>Boka en gratis demonstration och upptäck hur plattformen 70.30 kan skapa verklig påverkan i din kommun.</p>
       <div class="cta-actions">
         <a href="mailto:info@7030.pt" class="btn-cta-white"><i data-lucide="mail" width="18" height="18"></i><span
-            data-pt>Agendar Demonstração</span><span data-en>Book a Demo</span></a>
+            data-pt>Agendar Demonstração</span><span data-en>Book a Demo</span><span data-sv>Boka Demonstration</span></a>
       </div>
     </div>
   </section>
@@ -2612,30 +2698,34 @@
             construímos comunidades mais fortes.</p>
           <p data-en>Digital platform for intergenerational solidarity. Connecting generations, creating opportunities
             and building stronger communities.</p>
+          <p data-sv>Digital plattform för solidaritet mellan generationer. Vi förenar generationer, skapar möjligheter och stärker samhällen.</p>
         </div>
         <div>
           <h4 data-pt>Plataforma</h4>
           <h4 data-en>Platform</h4>
+          <h4 data-sv>Plattform</h4>
           <ul class="footer-links">
-            <li><a href="#how" data-pt>Como funciona</a><a href="#how" data-en>How it works</a></li>
-            <li><a href="#programs" data-pt>Programas</a><a href="#programs" data-en>Programs</a></li>
-            <li><a href="#features" data-pt>Funcionalidades</a><a href="#features" data-en>Features</a></li>
-            <li><a href="#councils" data-pt>Para Autarquias</a><a href="#councils" data-en>For Councils</a></li>
+            <li><a href="#how" data-pt>Como funciona</a><a href="#how" data-en>How it works</a><a href="#how" data-sv>Hur det fungerar</a></li>
+            <li><a href="#programs" data-pt>Programas</a><a href="#programs" data-en>Programs</a><a href="#programs" data-sv>Program</a></li>
+            <li><a href="#features" data-pt>Funcionalidades</a><a href="#features" data-en>Features</a><a href="#features" data-sv>Funktioner</a></li>
+            <li><a href="#councils" data-pt>Para Autarquias</a><a href="#councils" data-en>For Councils</a><a href="#councils" data-sv>För Kommuner</a></li>
           </ul>
         </div>
         <div>
           <h4 data-pt>Suporte</h4>
           <h4 data-en>Support</h4>
+          <h4 data-sv>Support</h4>
           <ul class="footer-links">
             <li><a href="#faq">FAQ</a></li>
-            <li><a href="#" data-pt>Documentação</a><a href="#" data-en>Documentation</a></li>
-            <li><a href="#" data-pt>Termos de Serviço</a><a href="#" data-en>Terms of Service</a></li>
-            <li><a href="#" data-pt>Privacidade</a><a href="#" data-en>Privacy</a></li>
+            <li><a href="#" data-pt>Documentação</a><a href="#" data-en>Documentation</a><a href="#" data-sv>Dokumentation</a></li>
+            <li><a href="#" data-pt>Termos de Serviço</a><a href="#" data-en>Terms of Service</a><a href="#" data-sv>Användarvillkor</a></li>
+            <li><a href="#" data-pt>Privacidade</a><a href="#" data-en>Privacy</a><a href="#" data-sv>Integritet</a></li>
           </ul>
         </div>
         <div>
           <h4 data-pt>Contacto</h4>
           <h4 data-en>Contact</h4>
+          <h4 data-sv>Kontakt</h4>
           <ul class="footer-links">
             <li><a href="mailto:info@7030.pt">info@7030.pt</a></li>
             <li><a href="tel:+351000000000">+351 XXX XXX XXX</a></li>
@@ -2645,7 +2735,7 @@
       </div>
       <div class="footer-bottom">
         <span>&copy; 2025 70.30. <span data-pt>Todos os direitos reservados.</span><span data-en>All rights
-            reserved.</span></span>
+            reserved.</span><span data-sv>Alla rättigheter förbehållna.</span></span>
         <div class="footer-social">
           <a href="#" aria-label="Facebook"><i data-lucide="facebook" width="16" height="16"></i></a>
           <a href="#" aria-label="Instagram"><i data-lucide="instagram" width="16" height="16"></i></a>
@@ -2664,6 +2754,7 @@
       document.documentElement.setAttribute('data-lang', lang);
       document.getElementById('langPt').classList.toggle('active', lang === 'pt');
       document.getElementById('langEn').classList.toggle('active', lang === 'en');
+      document.getElementById('langSv').classList.toggle('active', lang === 'sv');
       localStorage.setItem('7030-lang', lang);
     }
     const saved = localStorage.getItem('7030-lang');
