@@ -1825,13 +1825,20 @@
         flex-direction: column;
         position: absolute;
         top: 80px;
-        left: 0;
-        right: 0;
-        background: white;
+        left: 16px;
+        right: 16px;
+        background: rgba(255, 255, 255, 0.61);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
         padding: 24px 32px;
         gap: 16px;
         box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1);
-        border-top: 1px solid var(--slate-100);
+        border-radius: 16px;
+        text-align: left;
+      }
+
+      .nav-links.mobile-open a {
+        color: var(--slate-800) !important;
       }
 
       .hero h1 {
