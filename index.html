@@ -65,6 +65,7 @@
     html {
       scroll-behavior: smooth;
       font-size: 16px;
+      overflow-x: hidden;
     }
 
     body {
@@ -270,6 +271,11 @@
     .nav-mobile-toggle {
       display: none;
       padding: 8px;
+      color: white;
+      transition: color 0.3s;
+    }
+
+    .nav.scrolled .nav-mobile-toggle {
       color: var(--slate-700);
     }
 
