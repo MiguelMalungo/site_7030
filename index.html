@@ -1823,10 +1823,12 @@
       .nav-links.mobile-open {
         display: flex;
         flex-direction: column;
+        align-items: flex-end;
         position: absolute;
         top: 80px;
-        left: 16px;
-        right: 16px;
+        left: auto;
+        right: 0;
+        width: 70%;
         background: rgba(255, 255, 255, 0.61);
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
@@ -1834,11 +1836,15 @@
         gap: 16px;
         box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1);
         border-radius: 16px;
-        text-align: left;
+        text-align: right;
       }
 
       .nav-links.mobile-open a {
         color: var(--slate-800) !important;
+      }
+
+      .nav-links.mobile-open .nav-cta-btn {
+        color: white !important;
       }
 
       .hero h1 {
