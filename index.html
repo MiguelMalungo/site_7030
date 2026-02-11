@@ -520,6 +520,17 @@
       align-items: center;
       white-space: nowrap;
       will-change: transform;
+      animation: phraseScroll 25s linear infinite;
+      animation-play-state: paused;
+    }
+
+    .phrase-track.playing {
+      animation-play-state: running;
+    }
+
+    @keyframes phraseScroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-33.33%); }
     }
 
     .phrase-band {
@@ -2884,16 +2895,16 @@
       });
     }
 
-    // Phrase band scroll-driven marquee
-    gsap.to('#phraseTrack', {
-      xPercent: -33.33,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '.stats-strip',
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: 1,
-      }
+    // Phrase band: auto-scroll when in view, reset on scroll back
+    const phraseEl = document.getElementById('phraseTrack');
+    ScrollTrigger.create({
+      trigger: '.stats-strip',
+      start: 'top 90%',
+      end: 'bottom top',
+      onEnter: () => phraseEl.classList.add('playing'),
+      onLeave: () => phraseEl.classList.remove('playing'),
+      onEnterBack: () => { phraseEl.style.animation = 'none'; phraseEl.offsetHeight; phraseEl.style.animation = ''; phraseEl.classList.add('playing'); },
+      onLeaveBack: () => { phraseEl.classList.remove('playing'); phraseEl.style.animation = 'none'; phraseEl.offsetHeight; phraseEl.style.animation = ''; },
     });
 
     // CTA section parallax
