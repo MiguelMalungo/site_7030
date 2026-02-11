@@ -507,61 +507,24 @@
       font-weight: 400;
     }
 
-    /* ===== STATS MARQUEE ===== */
+    /* ===== PHRASE BAND ===== */
     .stats-strip {
       background: #112E11;
-      color: white;
-      padding: 32px 0;
+      padding: 40px 0;
       overflow: hidden;
+      text-align: center;
     }
 
-    .stats-track {
-      display: flex;
-      gap: 80px;
-      align-items: center;
-      animation: marquee 30s linear infinite;
-    }
-
-    @keyframes marquee {
-      0% {
-        transform: translateX(0);
-      }
-
-      100% {
-        transform: translateX(-50%);
-      }
-    }
-
-    .stats-track:hover {
-      animation-play-state: paused;
-    }
-
-    .stat-item {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
-    .stat-num {
+    .phrase-band {
       font-family: var(--font-display);
-      font-size: 2rem;
-      font-weight: 700;
+      font-size: 1.8rem;
+      font-weight: 600;
       color: #D3EED3;
-    }
-
-    .stat-label {
-      font-size: 0.88rem;
-      color: rgba(255, 255, 255, 0.9);
-      font-weight: 400;
-    }
-
-    .stat-dot {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: rgba(211, 238, 211, 0.3);
+      letter-spacing: -0.01em;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 32px;
+      line-height: 1.4;
       flex-shrink: 0;
     }
 
@@ -1987,47 +1950,11 @@
     </div>
   </section>
 
-  <!-- STATS MARQUEE -->
+  <!-- PHRASE BAND -->
   <section class="stats-strip">
-    <div class="stats-track" id="statsTrack">
-      <div class="stat-item"><span class="stat-num">70%</span><span class="stat-label" data-pt>Mentor
-          Experiente</span><span class="stat-label" data-en>Experienced Mentor</span><span class="stat-label" data-sv>Senior Mentor</span></div>
-      <div class="stat-dot"></div>
-      <div class="stat-item"><span class="stat-num">30%</span><span class="stat-label" data-pt>Jovem
-          Aprendiz</span><span class="stat-label" data-en>Young Apprentice</span><span class="stat-label" data-sv>Ung Lärling</span></div>
-      <div class="stat-dot"></div>
-      <div class="stat-item"><span class="stat-num">100%</span><span class="stat-label" data-pt>Impacto
-          Comunitário</span><span class="stat-label" data-en>Community Impact</span><span class="stat-label" data-sv>Samhällspåverkan</span></div>
-      <div class="stat-dot"></div>
-      <div class="stat-item"><span class="stat-num">0</span><span class="stat-label" data-pt>Barreiras
-          Geracionais</span><span class="stat-label" data-en>Generational Barriers</span><span class="stat-label" data-sv>Generationsbarriärer</span></div>
-      <div class="stat-dot"></div>
-      <div class="stat-item"><span class="stat-num">PWA</span><span class="stat-label" data-pt>Sem Download</span><span
-          class="stat-label" data-en>No Download</span><span class="stat-label" data-sv>Ingen Nedladdning</span></div>
-      <div class="stat-dot"></div>
-      <div class="stat-item"><span class="stat-num">RGPD</span><span class="stat-label" data-pt>Totalmente
-          Conforme</span><span class="stat-label" data-en>Fully Compliant</span><span class="stat-label" data-sv>Helt Överensstämmande</span></div>
-      <div class="stat-dot"></div>
-      <!-- Duplicate for seamless loop -->
-      <div class="stat-item"><span class="stat-num">70%</span><span class="stat-label" data-pt>Mentor
-          Experiente</span><span class="stat-label" data-en>Experienced Mentor</span><span class="stat-label" data-sv>Senior Mentor</span></div>
-      <div class="stat-dot"></div>
-      <div class="stat-item"><span class="stat-num">30%</span><span class="stat-label" data-pt>Jovem
-          Aprendiz</span><span class="stat-label" data-en>Young Apprentice</span><span class="stat-label" data-sv>Ung Lärling</span></div>
-      <div class="stat-dot"></div>
-      <div class="stat-item"><span class="stat-num">100%</span><span class="stat-label" data-pt>Impacto
-          Comunitário</span><span class="stat-label" data-en>Community Impact</span><span class="stat-label" data-sv>Samhällspåverkan</span></div>
-      <div class="stat-dot"></div>
-      <div class="stat-item"><span class="stat-num">0</span><span class="stat-label" data-pt>Barreiras
-          Geracionais</span><span class="stat-label" data-en>Generational Barriers</span><span class="stat-label" data-sv>Generationsbarriärer</span></div>
-      <div class="stat-dot"></div>
-      <div class="stat-item"><span class="stat-num">PWA</span><span class="stat-label" data-pt>Sem Download</span><span
-          class="stat-label" data-en>No Download</span><span class="stat-label" data-sv>Ingen Nedladdning</span></div>
-      <div class="stat-dot"></div>
-      <div class="stat-item"><span class="stat-num">RGPD</span><span class="stat-label" data-pt>Totalmente
-          Conforme</span><span class="stat-label" data-en>Fully Compliant</span><span class="stat-label" data-sv>Helt Överensstämmande</span></div>
-      <div class="stat-dot"></div>
-    </div>
+    <p class="phrase-band" data-pt>Experiência encontra energia. Gerações unem-se. Comunidades transformam-se.</p>
+    <p class="phrase-band" data-en>Experience meets energy. Generations unite. Communities transform.</p>
+    <p class="phrase-band" data-sv>Erfarenhet möter energi. Generationer förenas. Samhällen förvandlas.</p>
   </section>
 
   <!-- HOW IT WORKS -->
@@ -2947,14 +2874,6 @@
       ease: 'none',
     });
 
-    // Stats marquee speed on scroll
-    ScrollTrigger.create({
-      trigger: '.stats-strip',
-      onEnter: () => document.querySelector('.stats-track').style.animationDuration = '20s',
-      onLeave: () => document.querySelector('.stats-track').style.animationDuration = '30s',
-      onEnterBack: () => document.querySelector('.stats-track').style.animationDuration = '20s',
-      onLeaveBack: () => document.querySelector('.stats-track').style.animationDuration = '30s',
-    });
   </script>
 
 </body>
