@@ -510,21 +510,32 @@
     /* ===== PHRASE BAND ===== */
     .stats-strip {
       background: #112E11;
-      padding: 40px 0;
+      padding: 36px 0;
       overflow: hidden;
-      text-align: center;
+    }
+
+    .phrase-track {
+      display: flex;
+      gap: 80px;
+      align-items: center;
+      white-space: nowrap;
+      will-change: transform;
     }
 
     .phrase-band {
       font-family: var(--font-display);
-      font-size: 1.8rem;
-      font-weight: 600;
+      font-size: 3.6rem;
+      font-weight: 700;
       color: #D3EED3;
-      letter-spacing: -0.01em;
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 0 32px;
-      line-height: 1.4;
+      letter-spacing: -0.02em;
+      flex-shrink: 0;
+    }
+
+    .phrase-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(211, 238, 211, 0.3);
       flex-shrink: 0;
     }
 
@@ -1952,9 +1963,20 @@
 
   <!-- PHRASE BAND -->
   <section class="stats-strip">
-    <p class="phrase-band" data-pt>Experiência encontra energia. Gerações unem-se. Comunidades transformam-se.</p>
-    <p class="phrase-band" data-en>Experience meets energy. Generations unite. Communities transform.</p>
-    <p class="phrase-band" data-sv>Erfarenhet möter energi. Generationer förenas. Samhällen förvandlas.</p>
+    <div class="phrase-track" id="phraseTrack">
+      <span class="phrase-band" data-pt>Experiência encontra energia. Gerações unem-se. Comunidades transformam-se.</span>
+      <span class="phrase-band" data-en>Experience meets energy. Generations unite. Communities transform.</span>
+      <span class="phrase-band" data-sv>Erfarenhet möter energi. Generationer förenas. Samhällen förvandlas.</span>
+      <span class="phrase-dot"></span>
+      <span class="phrase-band" data-pt>Experiência encontra energia. Gerações unem-se. Comunidades transformam-se.</span>
+      <span class="phrase-band" data-en>Experience meets energy. Generations unite. Communities transform.</span>
+      <span class="phrase-band" data-sv>Erfarenhet möter energi. Generationer förenas. Samhällen förvandlas.</span>
+      <span class="phrase-dot"></span>
+      <span class="phrase-band" data-pt>Experiência encontra energia. Gerações unem-se. Comunidades transformam-se.</span>
+      <span class="phrase-band" data-en>Experience meets energy. Generations unite. Communities transform.</span>
+      <span class="phrase-band" data-sv>Erfarenhet möter energi. Generationer förenas. Samhällen förvandlas.</span>
+      <span class="phrase-dot"></span>
+    </div>
   </section>
 
   <!-- HOW IT WORKS -->
@@ -2861,6 +2883,18 @@
         onComplete: () => morph(el, i)
       });
     }
+
+    // Phrase band scroll-driven marquee
+    gsap.to('#phraseTrack', {
+      xPercent: -33.33,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.stats-strip',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1,
+      }
+    });
 
     // CTA section parallax
     gsap.to('.cta-blobs', {
