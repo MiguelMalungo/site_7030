@@ -1097,15 +1097,6 @@
       background: transparent;
     }
 
-    /* Force hide video controls */
-    .app-phone-screen::-webkit-media-controls {
-      display: none !important;
-    }
-
-    .app-phone-screen::-webkit-media-controls-enclosure {
-      display: none !important;
-    }
-
     .app-text h2 {
       font-family: var(--font-display);
       font-size: 2.8rem;
@@ -2389,9 +2380,9 @@
   <section class="app-section section-pad" id="app">
     <div class="container app-layout gs-reveal">
       <div class="app-video-container">
-        <video class="app-phone-screen" autoplay muted loop playsinline webkit-playsinline disablePictureInPicture
+        <video class="app-phone-screen" autoplay muted loop playsinline webkit-playsinline controls
           controlslist="nodownload noremoteplayback noplaybackrate" poster="assets/images/video_thumb.jpg">
-          <source src="assets/images/video.mp4" type="video/mp4">
+          <source src="assets/images/demo_app.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
       </div>
