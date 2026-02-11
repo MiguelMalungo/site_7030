@@ -1148,10 +1148,12 @@
       overflow: hidden;
     }
 
-    .council-section::before {
-      content: '';
+    .council-parallax-bg {
       position: absolute;
-      inset: 0;
+      top: -20%;
+      left: 0;
+      width: 100%;
+      height: 140%;
       background: url('assets/images/admin-dashboard.png') no-repeat center/cover;
       opacity: 0.07;
       pointer-events: none;
@@ -2390,6 +2392,7 @@
 
   <!-- FOR COUNCILS -->
   <section class="council-section section-pad" id="councils">
+    <div class="council-parallax-bg"></div>
     <div class="container council-layout">
       <div class="council-text gs-reveal">
         <div class="section-overline" data-pt>Para Autarquias</div>
@@ -2827,6 +2830,17 @@
       ease: 'none',
       scrollTrigger: {
         trigger: '.how-section',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: true
+      }
+    });
+
+    gsap.to('.council-parallax-bg', {
+      yPercent: 20,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.council-section',
         start: 'top bottom',
         end: 'bottom top',
         scrub: true
