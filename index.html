@@ -516,21 +516,17 @@
 
     .phrase-track {
       display: flex;
-      gap: 80px;
       align-items: center;
       white-space: nowrap;
       will-change: transform;
-      animation: phraseScroll 12.5s linear infinite;
-      animation-play-state: paused;
     }
 
-    .phrase-track.playing {
-      animation-play-state: running;
-    }
-
-    @keyframes phraseScroll {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-33.33%); }
+    .phrase-set {
+      display: flex;
+      gap: 80px;
+      align-items: center;
+      flex-shrink: 0;
+      padding-right: 80px;
     }
 
     .phrase-band {
@@ -1975,18 +1971,12 @@
   <!-- PHRASE BAND -->
   <section class="stats-strip">
     <div class="phrase-track" id="phraseTrack">
-      <span class="phrase-band" data-pt>Experiência encontra energia. Gerações unem-se. Comunidades transformam-se.</span>
-      <span class="phrase-band" data-en>Experience meets energy. Generations unite. Communities transform.</span>
-      <span class="phrase-band" data-sv>Erfarenhet möter energi. Generationer förenas. Samhällen förvandlas.</span>
-      <span class="phrase-dot"></span>
-      <span class="phrase-band" data-pt>Experiência encontra energia. Gerações unem-se. Comunidades transformam-se.</span>
-      <span class="phrase-band" data-en>Experience meets energy. Generations unite. Communities transform.</span>
-      <span class="phrase-band" data-sv>Erfarenhet möter energi. Generationer förenas. Samhällen förvandlas.</span>
-      <span class="phrase-dot"></span>
-      <span class="phrase-band" data-pt>Experiência encontra energia. Gerações unem-se. Comunidades transformam-se.</span>
-      <span class="phrase-band" data-en>Experience meets energy. Generations unite. Communities transform.</span>
-      <span class="phrase-band" data-sv>Erfarenhet möter energi. Generationer förenas. Samhällen förvandlas.</span>
-      <span class="phrase-dot"></span>
+      <span class="phrase-set">
+        <span class="phrase-band" data-pt>Experiência encontra energia. Gerações unem-se. Comunidades transformam-se.</span>
+        <span class="phrase-band" data-en>Experience meets energy. Generations unite. Communities transform.</span>
+        <span class="phrase-band" data-sv>Erfarenhet möter energi. Generationer förenas. Samhällen förvandlas.</span>
+        <span class="phrase-dot"></span>
+      </span>
     </div>
   </section>
 
@@ -2895,16 +2885,29 @@
       });
     }
 
-    // Phrase band: auto-scroll when in view, reset on scroll back
+    // Phrase band: seamless auto-scroll when in view, reset on scroll back
     const phraseEl = document.getElementById('phraseTrack');
+    const phraseSet = phraseEl.querySelector('.phrase-set');
+    // Clone enough copies to fill and loop
+    phraseEl.appendChild(phraseSet.cloneNode(true));
+    phraseEl.appendChild(phraseSet.cloneNode(true));
+    phraseEl.appendChild(phraseSet.cloneNode(true));
+    const phraseWidth = phraseSet.offsetWidth;
+    let phraseTween = gsap.to(phraseEl, {
+      x: -phraseWidth,
+      duration: 8.75,
+      ease: 'none',
+      repeat: -1,
+      paused: true,
+    });
     ScrollTrigger.create({
       trigger: '.stats-strip',
       start: 'top 90%',
       end: 'bottom top',
-      onEnter: () => phraseEl.classList.add('playing'),
-      onLeave: () => phraseEl.classList.remove('playing'),
-      onEnterBack: () => { phraseEl.style.animation = 'none'; phraseEl.offsetHeight; phraseEl.style.animation = ''; phraseEl.classList.add('playing'); },
-      onLeaveBack: () => { phraseEl.classList.remove('playing'); phraseEl.style.animation = 'none'; phraseEl.offsetHeight; phraseEl.style.animation = ''; },
+      onEnter: () => phraseTween.play(),
+      onLeave: () => phraseTween.pause(),
+      onEnterBack: () => { phraseTween.restart(); },
+      onLeaveBack: () => { phraseTween.pause(); phraseTween.progress(0); },
     });
 
     // CTA section parallax
