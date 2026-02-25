@@ -134,14 +134,14 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: rgba(255, 255, 255, 0.82);
+      background: rgba(255, 255, 255, 0.80);
       backdrop-filter: blur(20px) saturate(180%);
       -webkit-backdrop-filter: blur(20px) saturate(180%);
       /* border-bottom removed */
       opacity: 0;
       transition: opacity 0.5s ease;
-      -webkit-mask-image: linear-gradient(to bottom, black 10%, transparent 100%);
-      mask-image: linear-gradient(to bottom, black 10%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, black 50%, rgba(0,0,0,0.85) 63%, rgba(0,0,0,0.6) 75%, rgba(0,0,0,0.25) 88%, rgba(0,0,0,0.05) 96%, transparent 100%);
+      mask-image: linear-gradient(to bottom, black 50%, rgba(0,0,0,0.85) 63%, rgba(0,0,0,0.6) 75%, rgba(0,0,0,0.25) 88%, rgba(0,0,0,0.05) 96%, transparent 100%);
     }
 
     .nav.scrolled::before {
@@ -154,7 +154,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 80px;
+      height: 107px;
       position: relative;
       z-index: 2;
     }
@@ -199,7 +199,7 @@
     }
 
     .nav.scrolled .nav-links a {
-      color: #306430;
+      color: var(--green-700);
     }
 
     .nav-links a::after {
@@ -214,7 +214,7 @@
     }
 
     .nav.scrolled .nav-links a::after {
-      background: var(--green-500);
+      background: var(--green-700);
     }
 
     .nav-links a:hover {
@@ -266,10 +266,14 @@
     }
 
     .nav-cta-btn:hover {
-      background: var(--green-600);
-      color: white !important;
+      background: #D3EED3;
+      color: var(--green-800) !important;
       transform: translateY(-1px);
-      box-shadow: 0 6px 20px rgba(58, 154, 58, 0.25);
+      box-shadow: 0 6px 20px rgba(211, 238, 211, 0.4);
+    }
+
+    .nav-cta-btn::after {
+      display: none !important;
     }
 
     .nav-mobile-toggle {
