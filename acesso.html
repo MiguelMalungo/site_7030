@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="pt" data-lang="pt">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>70.30 — Acesso à Plataforma</title>
+  <meta name="description" content="Entra ou regista-te na plataforma 70.30 como Mentor ou Aprendiz.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <style>
+    :root {
+      --green-50: #f0f9f0;
+      --green-100: #d8f0d8;
+      --green-200: #aedcae;
+      --green-300: #7cc67c;
+      --green-400: #52b152;
+      --green-500: #3a9a3a;
+      --green-600: #2e7d2e;
+      --green-700: #235f23;
+      --green-800: #1a471a;
+      --green-900: #0d280d;
+
+      --sand-50: #fdfbf7;
+      --sand-100: #f5efe3;
+      --sand-200: #e8dcc5;
+
+      --slate-50: #f8f9fb;
+      --slate-100: #edf0f4;
+      --slate-200: #dce2e9;
+      --slate-300: #b8c4d0;
+      --slate-400: #8a9bb0;
+      --slate-500: #5e7188;
+      --slate-600: #455568;
+      --slate-700: #334155;
+      --slate-800: #1e293b;
+      --slate-900: #0f172a;
+
+      --white: #ffffff;
+      --gold: #c9a24d;
+
+      --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+      --font-body: 'Outfit', system-ui, sans-serif;
+
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; overflow-x: hidden; }
+    body { font-family: var(--font-body); color: var(--slate-800); background: var(--white); line-height: 1.7; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+    .container { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+    .section-pad { padding: 100px 0; }
+
+    /* ===== LANG TOGGLE ===== */
+    [data-lang="pt"] [data-en], [data-lang="pt"] [data-sv] { display: none !important; }
+    [data-lang="en"] [data-pt], [data-lang="en"] [data-sv] { display: none !important; }
+    [data-lang="sv"] [data-pt], [data-lang="sv"] [data-en] { display: none !important; }
+
+    /* ===== NAV ===== */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 0 32px; transition: all 0.5s var(--ease-out-expo);
+    }
+    .nav::before {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(255,255,255,0.90);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      opacity: 0; transition: opacity 0.5s ease;
+      -webkit-mask-image: linear-gradient(to bottom, black 50%, rgba(0,0,0,0.85) 63%, rgba(0,0,0,0.6) 75%, rgba(0,0,0,0.25) 88%, rgba(0,0,0,0.05) 96%, transparent 100%);
+      mask-image: linear-gradient(to bottom, black 50%, rgba(0,0,0,0.85) 63%, rgba(0,0,0,0.6) 75%, rgba(0,0,0,0.25) 88%, rgba(0,0,0,0.05) 96%, transparent 100%);
+    }
+    .nav.scrolled::before { opacity: 1; }
+    .nav-inner {
+      max-width: 1240px; margin: 0 auto;
+      display: flex; align-items: center; gap: 12px;
+      height: 90px; position: relative; z-index: 2;
+    }
+    .nav-logo { display: flex; align-items: center; flex-shrink: 0; margin-right: 8px; }
+    .nav-logo img { height: 44px; width: auto; filter: brightness(0) invert(1); transition: filter 0.3s; }
+    .nav.scrolled .nav-logo img { filter: none; }
+
+    .nav-links {
+      display: flex; align-items: center; gap: 28px;
+      list-style: none; flex: 1;
+    }
+    .nav-links a {
+      font-size: 0.875rem; font-weight: 500; color: white;
+      transition: color 0.3s; letter-spacing: 0.01em; position: relative;
+    }
+    .nav.scrolled .nav-links a { color: var(--green-700); }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 2px; background: rgba(211,238,211,0.8);
+      transition: width 0.3s var(--ease-out-expo);
+    }
+    .nav.scrolled .nav-links a::after { background: var(--green-500); }
+    .nav-links a:hover { color: #D3EED3; }
+    .nav.scrolled .nav-links a:hover { color: var(--green-600); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-lang {
+      display: flex; gap: 2px;
+      background: rgba(255,255,255,0.15); border-radius: 100px;
+      padding: 3px; border: 1px solid rgba(255,255,255,0.2); flex-shrink: 0;
+    }
+    .nav.scrolled .nav-lang { background: var(--slate-50); border-color: var(--slate-100); }
+    .nav-lang button {
+      padding: 4px 12px; font-size: 0.75rem; font-weight: 600;
+      border-radius: 100px; transition: all 0.3s;
+      color: rgba(255,255,255,0.7); letter-spacing: 0.04em;
+    }
+    .nav.scrolled .nav-lang button { color: var(--slate-400); }
+    .nav-lang button.active { background: black; color: white; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+
+    .nav-back-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 9px 20px; border-radius: 100px;
+      font-weight: 600; font-size: 0.82rem; color: white;
+      border: 1px solid rgba(255,255,255,0.3);
+      transition: all 0.3s var(--ease-out-expo); flex-shrink: 0;
+    }
+    .nav.scrolled .nav-back-btn { color: var(--slate-600); border-color: var(--slate-200); }
+    .nav-back-btn:hover { background: rgba(255,255,255,0.15); }
+    .nav.scrolled .nav-back-btn:hover { background: var(--slate-50); }
+    .nav-back-btn::after { display: none !important; }
+
+    .nav-mobile-toggle { display: none; padding: 8px; color: white; transition: color 0.3s; }
+    .nav.scrolled .nav-mobile-toggle { color: var(--slate-700); }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 52vh; display: flex; align-items: center;
+      position: relative; overflow: hidden;
+      background: url("assets/images/hero-mentorship.png") no-repeat center 40%/cover;
+      padding-top: 90px;
+    }
+    .hero::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.52); z-index: 1; }
+    .hero-grain {
+      position: absolute; inset: 0; opacity: 0.3; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    }
+    .hero-inner {
+      text-align: center; position: relative; z-index: 2;
+      padding: 48px 0; width: 100%;
+    }
+    .hero-overline {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 0.82rem; font-weight: 600; color: #D3EED3;
+      letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px;
+      opacity: 0; transform: translateY(20px);
+    }
+    .hero-overline::before { content: ''; width: 32px; height: 2px; background: #D3EED3; }
+    .hero-overline::after { content: ''; width: 32px; height: 2px; background: #D3EED3; }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      line-height: 1.1; font-weight: 700; color: white;
+      margin-bottom: 16px; letter-spacing: -0.025em;
+      opacity: 0; transform: translateY(30px);
+    }
+    .hero h1 em { font-style: italic; color: #D3EED3; }
+    .hero-sub {
+      font-size: 1.05rem; line-height: 1.75; color: rgba(255,255,255,0.85);
+      max-width: 520px; margin: 0 auto; font-weight: 400;
+      opacity: 0; transform: translateY(20px);
+    }
+
+    /* ===== SECTION HEADERS ===== */
+    .section-header { max-width: 640px; margin-bottom: 64px; }
+    .section-header.centered { text-align: center; margin-left: auto; margin-right: auto; }
+    .section-overline {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.78rem; font-weight: 700; color: var(--green-600);
+      letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 16px;
+    }
+    .section-overline::before { content: ''; width: 24px; height: 2px; background: var(--green-400); }
+    .section-header h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      line-height: 1.15; font-weight: 700; color: var(--slate-900);
+      margin-bottom: 12px; letter-spacing: -0.02em;
+    }
+    .section-header p { font-size: 1.05rem; color: var(--slate-500); line-height: 1.75; }
+
+    /* ===== USER TYPES SECTION ===== */
+    .access-section { background: var(--white); }
+    .user-types-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 64px;
+    }
+    .user-type-card {
+      border-radius: 28px; border: 1px solid var(--slate-200);
+      overflow: hidden; position: relative;
+      transition: all 0.5s var(--ease-out-expo); background: var(--white);
+    }
+    .user-type-card.mentee { background: var(--sand-50); }
+    .user-type-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 64px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+    }
+    .user-type-card.mentor:hover { border-color: var(--green-300); }
+    .user-type-card.mentee:hover { border-color: #d4aa5a; }
+
+    .user-type-accent { height: 6px; width: 100%; }
+    .mentor-accent { background: linear-gradient(90deg, var(--green-600), var(--green-300)); }
+    .mentee-accent { background: linear-gradient(90deg, var(--gold), #e8c97a); }
+
+    .user-type-body { padding: 44px 48px 52px; }
+    .user-type-icon {
+      width: 72px; height: 72px; border-radius: 20px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 28px; transition: all 0.4s var(--ease-out-expo);
+    }
+    .mentor-icon { background: var(--green-100); color: var(--green-700); }
+    .user-type-card.mentor:hover .mentor-icon { background: #112E11; color: white; box-shadow: 0 4px 16px rgba(17,46,17,0.3); }
+    .mentee-icon { background: var(--sand-100); color: var(--gold); }
+    .user-type-card.mentee:hover .mentee-icon { background: var(--gold); color: white; box-shadow: 0 4px 16px rgba(201,162,77,0.3); }
+
+    .user-type-card h3 {
+      font-family: var(--font-display); font-size: 1.9rem; font-weight: 700;
+      color: var(--slate-900); letter-spacing: -0.02em; margin-bottom: 14px; line-height: 1.1;
+    }
+    .user-type-card > .user-type-body > p {
+      font-size: 1rem; color: var(--slate-500); line-height: 1.75; margin-bottom: 32px;
+    }
+    .user-type-feats { list-style: none; display: flex; flex-direction: column; gap: 14px; margin-bottom: 44px; }
+    .user-type-feats li { display: flex; gap: 12px; align-items: flex-start; font-size: 0.93rem; color: var(--slate-600); line-height: 1.6; }
+    .user-type-feats li i { flex-shrink: 0; margin-top: 2px; }
+    .user-type-card.mentor .user-type-feats li i { color: var(--green-500); }
+    .user-type-card.mentee .user-type-feats li i { color: var(--gold); }
+
+    .user-type-actions { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
+
+    .btn-primary-green {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--green-600); color: white;
+      padding: 16px 32px; border-radius: 100px; font-weight: 700; font-size: 1rem;
+      transition: all 0.4s var(--ease-out-expo); box-shadow: 0 4px 16px rgba(46,125,46,0.2);
+    }
+    .btn-primary-green:hover { background: var(--green-700); transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 28px rgba(46,125,46,0.3); }
+
+    .btn-primary-gold {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--gold); color: var(--slate-900);
+      padding: 16px 32px; border-radius: 100px; font-weight: 700; font-size: 1rem;
+      transition: all 0.4s var(--ease-out-expo); box-shadow: 0 4px 16px rgba(201,162,77,0.25);
+    }
+    .btn-primary-gold:hover { background: #b8913f; transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 28px rgba(201,162,77,0.35); color: white; }
+
+    .btn-ghost-dark {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: var(--slate-400); font-size: 0.9rem; font-weight: 600; transition: all 0.3s; padding: 4px 0;
+    }
+    .btn-ghost-dark:hover { color: var(--green-600); gap: 12px; }
+    .user-type-card.mentee .btn-ghost-dark:hover { color: var(--gold); }
+
+    /* ===== LOGIN FORM ===== */
+    .login-section { background: var(--sand-50); position: relative; overflow: hidden; }
+    .login-section::before {
+      content: ''; position: absolute; top: -20%; left: 0;
+      width: 100%; height: 140%;
+      background: url("assets/images/shake.png") no-repeat center center/cover;
+      opacity: 0.04; pointer-events: none; z-index: 0;
+    }
+    .login-section .container { position: relative; z-index: 1; }
+    .login-wrap { max-width: 480px; margin: 0 auto; }
+    .login-header { text-align: center; margin-bottom: 48px; }
+    .login-header .section-overline { display: flex; justify-content: center; }
+    .login-header h2 {
+      font-family: var(--font-display); font-size: 2.6rem; font-weight: 700;
+      color: var(--slate-900); margin-bottom: 12px; letter-spacing: -0.02em; line-height: 1.15;
+    }
+    .login-header p { font-size: 1rem; color: var(--slate-500); line-height: 1.7; }
+    .login-form {
+      background: var(--white); border-radius: 24px; padding: 48px;
+      border: 1px solid var(--slate-100); box-shadow: 0 4px 24px rgba(0,0,0,0.05);
+    }
+    .form-group { margin-bottom: 24px; }
+    .form-group label { display: block; font-size: 0.88rem; font-weight: 600; color: var(--slate-700); margin-bottom: 8px; letter-spacing: 0.01em; }
+    .form-input {
+      width: 100%; padding: 14px 18px; border: 1.5px solid var(--slate-200);
+      border-radius: 12px; font-size: 1rem; font-family: var(--font-body);
+      color: var(--slate-800); background: var(--white);
+      transition: all 0.3s; outline: none;
+    }
+    .form-input:focus { border-color: var(--green-400); box-shadow: 0 0 0 4px rgba(58,154,58,0.08); }
+    .form-input::placeholder { color: var(--slate-300); }
+    .btn-login {
+      width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px;
+      background: var(--green-600); color: white; padding: 16px 36px;
+      border-radius: 100px; font-weight: 700; font-size: 1rem; font-family: var(--font-body);
+      cursor: pointer; transition: all 0.4s var(--ease-out-expo); margin-top: 8px; border: none;
+    }
+    .btn-login:hover { background: var(--green-700); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(46,125,46,0.25); }
+    .form-footer { text-align: center; margin-top: 20px; }
+    .form-link { font-size: 0.88rem; color: var(--slate-400); font-weight: 500; transition: color 0.2s; }
+    .form-link:hover { color: var(--green-600); }
+    .form-divider {
+      text-align: center; font-size: 0.88rem; color: var(--slate-400);
+      margin: 28px 0 20px; position: relative;
+    }
+    .form-divider::before {
+      content: ''; position: absolute; left: 0; top: 50%;
+      width: 100%; height: 1px; background: var(--slate-100); z-index: 0;
+    }
+    .form-divider span { background: var(--white); padding: 0 16px; position: relative; z-index: 1; }
+    .btn-register {
+      display: block; text-align: center; color: var(--green-600);
+      font-weight: 700; font-size: 0.95rem; transition: color 0.2s; padding: 4px 0;
+    }
+    .btn-register:hover { color: var(--green-800); }
+
+    /* ===== FOOTER ===== */
+    .footer { background: #112E11; color: #D3EED3; padding: 64px 0 32px; }
+    .footer-bottom-simple {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.82rem; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 24px;
+    }
+    .footer-brand-row { display: flex; align-items: center; gap: 24px; margin-bottom: 32px; flex-wrap: wrap; }
+    .footer-brand-row .nav-logo img { filter: brightness(0) invert(1); height: 44px; }
+    .footer-brand-row p { font-size: 0.9rem; color: rgba(211,238,211,0.8); max-width: 480px; }
+    .footer-links-row { display: flex; gap: 28px; flex-wrap: wrap; margin-bottom: 32px; }
+    .footer-links-row a { font-size: 0.88rem; color: rgba(211,238,211,0.7); transition: color 0.2s; }
+    .footer-links-row a:hover { color: var(--green-300); }
+    .footer-social { display: flex; gap: 10px; }
+    .footer-social a {
+      width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.05);
+      display: flex; align-items: center; justify-content: center; color: #D3EED3; transition: all 0.3s;
+    }
+    .footer-social a:hover { background: var(--green-500); color: white; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .user-types-grid { grid-template-columns: 1fr; max-width: 600px; margin: 0 auto 64px; }
+    }
+    @media (max-width: 768px) {
+      html { font-size: 15px; }
+      .container { padding: 0 20px; }
+      .section-pad { padding: 72px 0; }
+      .nav-links { display: none; }
+      .nav-mobile-toggle { display: block; }
+      .nav-links.mobile-open {
+        display: flex; flex-direction: column; align-items: flex-end;
+        position: absolute; top: 80px; right: 0; width: 65%;
+        background: rgba(255,255,255,0.95); backdrop-filter: blur(20px);
+        padding: 24px 28px; gap: 16px;
+        box-shadow: 0 16px 48px rgba(0,0,0,0.1); border-radius: 16px; text-align: right;
+      }
+      .nav-links.mobile-open a { color: var(--slate-800) !important; }
+      .nav-links.mobile-open .nav-lang { align-self: flex-end; background: var(--slate-50); border-color: var(--slate-100); }
+      .nav-links.mobile-open .nav-lang button { color: var(--slate-400); }
+      .hero h1 { font-size: 2rem; }
+      .user-type-body { padding: 32px 28px 40px; }
+      .user-type-card h3 { font-size: 1.6rem; }
+      .login-form { padding: 32px 24px; }
+      .login-header h2 { font-size: 2rem; }
+      .footer-links-row { gap: 16px; }
+      .footer-bottom-simple { flex-direction: column; gap: 16px; text-align: center; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="login.html" class="nav-logo"><img src="assets/images/logo7030.png" alt="70.30"></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="login.html#how" data-pt>Como funciona</a><a href="login.html#how" data-en>How it works</a><a href="login.html#how" data-sv>Hur det fungerar</a></li>
+        <li><a href="login.html#services" data-pt>Serviços</a><a href="login.html#services" data-en>Services</a><a href="login.html#services" data-sv>Tjänster</a></li>
+        <li><a href="login.html#reviews" data-pt>Avaliações</a><a href="login.html#reviews" data-en>Reviews</a><a href="login.html#reviews" data-sv>Omdömen</a></li>
+        <li style="margin-left: auto;">
+          <div class="nav-lang">
+            <button onclick="setLang('pt')" id="langPt" class="active">PT</button>
+            <button onclick="setLang('en')" id="langEn">EN</button>
+            <button onclick="setLang('sv')" id="langSv">SV</button>
+          </div>
+        </li>
+        <li>
+          <a href="login.html" class="nav-back-btn">
+            <i data-lucide="arrow-left" width="16" height="16"></i>
+            <span data-pt>Voltar</span>
+            <span data-en>Back</span>
+            <span data-sv>Tillbaka</span>
+          </a>
+        </li>
+      </ul>
+      <button class="nav-mobile-toggle" id="mobileToggle" aria-label="Menu">
+        <i data-lucide="menu" width="24" height="24"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-grain"></div>
+    <div class="container hero-inner">
+      <div class="hero-overline" data-pt>Acesso à plataforma</div>
+      <div class="hero-overline" data-en>Platform access</div>
+      <div class="hero-overline" data-sv>Plattformsåtkomst</div>
+
+      <h1 data-pt>O teu acesso à<br><em>comunidade 70.30</em></h1>
+      <h1 data-en>Your access to the<br><em>70.30 community</em></h1>
+      <h1 data-sv>Din åtkomst till<br><em>70.30-gemenskapen</em></h1>
+
+      <p class="hero-sub" data-pt>Escolhe o teu perfil para entrar ou criar a tua conta. Mentor ou Aprendiz — a tua jornada começa aqui.</p>
+      <p class="hero-sub" data-en>Choose your profile to sign in or create your account. Mentor or Apprentice — your journey starts here.</p>
+      <p class="hero-sub" data-sv>Välj din profil för att logga in eller skapa ditt konto. Mentor eller Lärling — din resa börjar här.</p>
+    </div>
+  </section>
+
+  <!-- USER TYPES + LOGIN -->
+  <section class="access-section section-pad" id="access">
+    <div class="container">
+      <div class="section-header centered">
+        <div class="section-overline" data-pt>Escolhe o teu perfil</div>
+        <div class="section-overline" data-en>Choose your profile</div>
+        <div class="section-overline" data-sv>Välj din profil</div>
+        <h2 data-pt>Como queres entrar?</h2>
+        <h2 data-en>How do you want to sign in?</h2>
+        <h2 data-sv>Hur vill du logga in?</h2>
+        <p data-pt>Cria a tua conta ou entra com as tuas credenciais.</p>
+        <p data-en>Create your account or sign in with your credentials.</p>
+        <p data-sv>Skapa ditt konto eller logga in med dina uppgifter.</p>
+      </div>
+
+      <div class="user-types-grid">
+
+        <!-- MENTOR CARD -->
+        <div class="user-type-card mentor gs-reveal" id="mentor">
+          <div class="user-type-accent mentor-accent"></div>
+          <div class="user-type-body">
+            <div class="user-type-icon mentor-icon">
+              <i data-lucide="award" width="32" height="32"></i>
+            </div>
+            <h3 data-pt>Sou Mentor</h3>
+            <h3 data-en>I'm a Mentor</h3>
+            <h3 data-sv>Jag är Mentor</h3>
+            <p data-pt>Tens décadas de experiência numa profissão. Aqui, isso tem valor — e pode mudar vidas na tua comunidade enquanto prestas serviços de qualidade.</p>
+            <p data-en>You have decades of experience in a trade. Here, that has value — and can change lives in your community while delivering quality services.</p>
+            <p data-sv>Du har decenniers erfarenhet av ett yrke. Här har det värde — och kan förändra liv i ditt samhälle medan du levererar kvalitetstjänster.</p>
+            <ul class="user-type-feats">
+              <li>
+                <i data-lucide="check-circle" width="18" height="18"></i>
+                <span data-pt>Partilha os teus conhecimentos com aprendizes motivados</span>
+                <span data-en>Share your expertise with motivated apprentices</span>
+                <span data-sv>Dela dina kunskaper med motiverade lärlingar</span>
+              </li>
+              <li>
+                <i data-lucide="check-circle" width="18" height="18"></i>
+                <span data-pt>Tu decides a tua disponibilidade e os serviços que prestam</span>
+                <span data-en>You decide your availability and the services you offer</span>
+                <span data-sv>Du bestämmer din tillgänglighet och de tjänster du erbjuder</span>
+              </li>
+              <li>
+                <i data-lucide="check-circle" width="18" height="18"></i>
+                <span data-pt>Mantém-te ativo com impacto real na comunidade</span>
+                <span data-en>Stay active with real impact in your community</span>
+                <span data-sv>Förbliv aktiv med verklig påverkan i ditt samhälle</span>
+              </li>
+            </ul>
+            <div class="user-type-actions">
+              <a href="#" class="btn-primary-green">
+                <i data-lucide="user-plus" width="18" height="18"></i>
+                <span data-pt>Criar conta como Mentor</span>
+                <span data-en>Create Mentor account</span>
+                <span data-sv>Skapa Mentorkonto</span>
+              </a>
+              <a href="#login" class="btn-ghost-dark">
+                <span data-pt>Já tenho conta</span>
+                <span data-en>Already have an account</span>
+                <span data-sv>Jag har redan ett konto</span>
+                <i data-lucide="arrow-right" width="16" height="16"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- APPRENTICE CARD -->
+        <div class="user-type-card mentee gs-reveal" id="apprentice">
+          <div class="user-type-accent mentee-accent"></div>
+          <div class="user-type-body">
+            <div class="user-type-icon mentee-icon">
+              <i data-lucide="sprout" width="32" height="32"></i>
+            </div>
+            <h3 data-pt>Sou Aprendiz</h3>
+            <h3 data-en>I'm an Apprentice</h3>
+            <h3 data-sv>Jag är Lärling</h3>
+            <p data-pt>Queres aprender uma profissão com quem passou a vida a praticá-la. Começa aqui, cresce a cada trabalho e ganha ao mesmo tempo.</p>
+            <p data-en>You want to learn a trade from someone who has spent their life practising it. Start here, grow with each job and earn at the same time.</p>
+            <p data-sv>Du vill lära dig ett yrke av någon som tillbringat sitt liv med att utöva det. Börja här, väx med varje uppdrag och tjäna samtidigt.</p>
+            <ul class="user-type-feats">
+              <li>
+                <i data-lucide="check-circle" width="18" height="18"></i>
+                <span data-pt>Aprende com mentores experientes perto de ti</span>
+                <span data-en>Learn from experienced mentors near you</span>
+                <span data-sv>Lär dig av erfarna mentorer nära dig</span>
+              </li>
+              <li>
+                <i data-lucide="check-circle" width="18" height="18"></i>
+                <span data-pt>Ganha rendimento enquanto aprendes no terreno</span>
+                <span data-en>Earn income while learning hands-on</span>
+                <span data-sv>Tjäna inkomst medan du lär dig praktiskt</span>
+              </li>
+              <li>
+                <i data-lucide="check-circle" width="18" height="18"></i>
+                <span data-pt>Constrói o teu portfólio de competências e o teu futuro</span>
+                <span data-en>Build your skills portfolio and your future</span>
+                <span data-sv>Bygg din kompetensportfolio och din framtid</span>
+              </li>
+            </ul>
+            <div class="user-type-actions">
+              <a href="#" class="btn-primary-gold">
+                <i data-lucide="user-plus" width="18" height="18"></i>
+                <span data-pt>Criar conta como Aprendiz</span>
+                <span data-en>Create Apprentice account</span>
+                <span data-sv>Skapa Lärlingskonto</span>
+              </a>
+              <a href="#login" class="btn-ghost-dark">
+                <span data-pt>Já tenho conta</span>
+                <span data-en>Already have an account</span>
+                <span data-sv>Jag har redan ett konto</span>
+                <i data-lucide="arrow-right" width="16" height="16"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- LOGIN FORM -->
+  <section class="login-section section-pad" id="login">
+    <div class="container">
+      <div class="login-wrap">
+        <div class="login-header">
+          <div class="section-overline" data-pt>Acesso à plataforma</div>
+          <div class="section-overline" data-en>Platform access</div>
+          <div class="section-overline" data-sv>Plattformsåtkomst</div>
+          <h2 data-pt>Bem-vindo de volta</h2>
+          <h2 data-en>Welcome back</h2>
+          <h2 data-sv>Välkommen tillbaka</h2>
+          <p data-pt>Entra na tua conta para gerir os teus serviços e a tua equipa.</p>
+          <p data-en>Sign in to your account to manage your services and your team.</p>
+          <p data-sv>Logga in på ditt konto för att hantera dina tjänster och ditt team.</p>
+        </div>
+        <form class="login-form" id="loginForm" action="#" method="post">
+          <div class="form-group">
+            <label data-pt>Email</label>
+            <label data-en>Email</label>
+            <label data-sv>E-post</label>
+            <input type="email" class="form-input" autocomplete="email" required placeholder="o.teu@email.com">
+          </div>
+          <div class="form-group">
+            <label data-pt>Palavra-passe</label>
+            <label data-en>Password</label>
+            <label data-sv>Lösenord</label>
+            <input type="password" class="form-input" autocomplete="current-password" required placeholder="••••••••">
+          </div>
+          <button type="submit" class="btn-login">
+            <span data-pt>Entrar</span>
+            <span data-en>Sign in</span>
+            <span data-sv>Logga in</span>
+            <i data-lucide="arrow-right" width="18" height="18"></i>
+          </button>
+          <div class="form-footer">
+            <a href="#" class="form-link" data-pt>Esqueci a minha palavra-passe</a>
+            <a href="#" class="form-link" data-en>Forgot my password</a>
+            <a href="#" class="form-link" data-sv>Glömt mitt lösenord</a>
+          </div>
+          <div class="form-divider">
+            <span data-pt>Não tens conta?</span>
+            <span data-en>Don't have an account?</span>
+            <span data-sv>Har du inget konto?</span>
+          </div>
+          <a href="#access" class="btn-register">
+            <span data-pt>Criar conta →</span>
+            <span data-en>Create account →</span>
+            <span data-sv>Skapa konto →</span>
+          </a>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER (simplified) -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-brand-row">
+        <div class="nav-logo"><img src="assets/images/logo7030.png" alt="70.30"></div>
+        <p data-pt>Plataforma de serviços domésticos da tua comunidade.</p>
+        <p data-en>Your community's home services platform.</p>
+        <p data-sv>Din gemenskaps hemtjänstplattform.</p>
+      </div>
+      <div class="footer-links-row">
+        <a href="login.html" data-pt>← Voltar à página principal</a>
+        <a href="login.html" data-en>← Back to main page</a>
+        <a href="login.html" data-sv>← Tillbaka till huvudsidan</a>
+        <a href="index.html" data-pt>Para Autarquias</a>
+        <a href="index.html" data-en>For Councils</a>
+        <a href="index.html" data-sv>För Kommuner</a>
+        <a href="#" data-pt>Privacidade</a>
+        <a href="#" data-en>Privacy</a>
+        <a href="#" data-sv>Integritet</a>
+        <a href="#" data-pt>Termos</a>
+        <a href="#" data-en>Terms</a>
+        <a href="#" data-sv>Villkor</a>
+        <a href="mailto:info@7030.pt">info@7030.pt</a>
+      </div>
+      <div class="footer-bottom-simple">
+        <span>&copy; 2025 70.30. <span data-pt>Todos os direitos reservados.</span><span data-en>All rights reserved.</span><span data-sv>Alla rättigheter förbehållna.</span></span>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook"><i data-lucide="facebook" width="16" height="16"></i></a>
+          <a href="#" aria-label="Instagram"><i data-lucide="instagram" width="16" height="16"></i></a>
+          <a href="#" aria-label="LinkedIn"><i data-lucide="linkedin" width="16" height="16"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+
+    // Language
+    function setLang(lang) {
+      document.documentElement.setAttribute('data-lang', lang);
+      document.documentElement.setAttribute('lang', lang);
+      document.getElementById('langPt').classList.toggle('active', lang === 'pt');
+      document.getElementById('langEn').classList.toggle('active', lang === 'en');
+      document.getElementById('langSv').classList.toggle('active', lang === 'sv');
+      localStorage.setItem('7030-lang', lang);
+    }
+    const saved = localStorage.getItem('7030-lang');
+    if (saved) setLang(saved);
+
+    // Nav scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
+
+    // Mobile menu
+    document.getElementById('mobileToggle').addEventListener('click', () => {
+      document.getElementById('navLinks').classList.toggle('mobile-open');
+    });
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('mobile-open'));
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', function(e) {
+        e.preventDefault();
+        const t = document.querySelector(this.getAttribute('href'));
+        if (t) window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 90, behavior: 'smooth' });
+      });
+    });
+
+    // Login form (UI only)
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+    });
+
+    // Auto-scroll to role if URL has ?role=
+    const params = new URLSearchParams(window.location.search);
+    const role = params.get('role');
+    if (role) {
+      window.addEventListener('load', () => {
+        const target = document.getElementById(role);
+        if (target) {
+          setTimeout(() => window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 100, behavior: 'smooth' }), 300);
+        }
+      });
+    }
+
+    // GSAP
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Hero entrance
+    gsap.timeline({ defaults: { ease: 'expo.out', duration: 1.1 } })
+      .to('.hero-overline', { opacity: 1, y: 0, duration: 0.8 }, 0.2)
+      .to('.hero h1', { opacity: 1, y: 0 }, 0.4)
+      .to('.hero-sub', { opacity: 1, y: 0 }, 0.6);
+
+    // Scroll reveals
+    gsap.utils.toArray('.gs-reveal').forEach((el, i) => {
+      const siblings = Array.from(el.parentElement.querySelectorAll(':scope > .gs-reveal'));
+      const idx = siblings.indexOf(el);
+      gsap.from(el, {
+        scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' },
+        opacity: 0, y: 50, duration: 1, delay: idx * 0.15, ease: 'expo.out',
+      });
+    });
+  </script>
+
+</body>
+</html>

@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Outfit:wght@300;400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Outfit:wght@300;400;500;600;700&display=swap"
     rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -47,7 +47,7 @@
       --white: #ffffff;
       --gold: #c9a24d;
 
-      --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+      --font-display: 'Inter', system-ui, sans-serif;
       --font-body: 'Outfit', system-ui, sans-serif;
 
       --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -360,6 +360,7 @@
     }
 
     .hero h1 em {
+      font-family: 'Playfair Display', Georgia, serif;
       font-style: italic;
       color: #D3EED3;
       position: relative;
@@ -513,7 +514,7 @@
 
     /* ===== PHRASE BAND ===== */
     .stats-strip {
-      background: #112E11;
+      background: transparent;
       padding: 36px 0;
       overflow: hidden;
     }
@@ -537,7 +538,7 @@
       font-family: var(--font-body);
       font-size: 5.4rem;
       font-weight: 200;
-      color: #D3EED3;
+      color: #000000;
       letter-spacing: 0.01em;
       flex-shrink: 0;
     }
@@ -546,7 +547,7 @@
       width: 12px;
       height: 12px;
       border-radius: 50%;
-      background: rgba(211, 238, 211, 0.3);
+      background: rgba(0, 0, 0, 0.3);
       flex-shrink: 0;
     }
 
@@ -568,7 +569,7 @@
       gap: 8px;
       font-size: 0.78rem;
       font-weight: 700;
-      color: var(--green-600);
+      color: #193730;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       margin-bottom: 16px;
@@ -586,7 +587,7 @@
       font-size: clamp(2rem, 3.5vw, 2.8rem);
       line-height: 1.15;
       font-weight: 700;
-      color: var(--slate-900);
+      color: #193730;
       margin-bottom: 16px;
       letter-spacing: -0.02em;
     }
@@ -680,10 +681,10 @@
     }
 
     .how-card:hover .how-icon {
-      background: #112E11;
+      background: #193730;
       color: white;
       transform: scale(1.05);
-      box-shadow: 0 4px 16px rgba(17, 46, 17, 0.3);
+      box-shadow: 0 4px 16px rgba(25, 55, 48, 0.3);
     }
 
     .how-card h3 {
@@ -850,7 +851,7 @@
       font-family: var(--font-display);
       font-size: 3.5rem;
       font-weight: 800;
-      color: var(--green-600);
+      color: #193730;
       line-height: 1;
       letter-spacing: -0.03em;
     }
@@ -894,7 +895,7 @@
       font-family: var(--font-display);
       font-size: 1.5rem;
       font-weight: 700;
-      color: var(--green-600);
+      color: #193730;
     }
 
     .value-node .n-label {
@@ -907,7 +908,7 @@
       font-family: var(--font-display);
       font-size: 2.4rem;
       font-weight: 700;
-      color: var(--slate-900);
+      color: #193730;
       margin-bottom: 18px;
       letter-spacing: -0.02em;
       line-height: 1.15;
@@ -1087,7 +1088,7 @@
       font-family: var(--font-display);
       font-size: 2.8rem;
       font-weight: 700;
-      color: var(--slate-900);
+      color: #193730;
       margin-bottom: 24px;
       letter-spacing: -0.02em;
       line-height: 1.1;
@@ -1146,7 +1147,7 @@
 
     /* ===== FOR COUNCILS (dark section) ===== */
     .council-section {
-      background: var(--green-800);
+      background: #193730;
       color: white;
       position: relative;
       overflow: hidden;
@@ -1450,7 +1451,7 @@
       overflow: hidden;
       padding: 140px 0;
       text-align: center;
-      background: #306430;
+      background: #193730;
     }
 
     .cta-section::before {
@@ -1617,7 +1618,7 @@
 
     /* ===== FOOTER ===== */
     .footer {
-      background: #112E11;
+      background: #193730;
       color: #D3EED3;
       padding: 80px 0 36px;
     }

@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="pt" data-lang="pt">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>70.30 — Serviços Domésticos de Confiança</title>
+  <meta name="description" content="Encontra profissionais de confiança na tua comunidade para canalização, carpintaria, eletricidade e muito mais.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <style>
+    :root {
+      --green-50: #f0f9f0;
+      --green-100: #d8f0d8;
+      --green-200: #aedcae;
+      --green-300: #7cc67c;
+      --green-400: #52b152;
+      --green-500: #3a9a3a;
+      --green-600: #2e7d2e;
+      --green-700: #235f23;
+      --green-800: #1a471a;
+      --green-900: #0d280d;
+
+      --sand-50: #fdfbf7;
+      --sand-100: #f5efe3;
+      --sand-200: #e8dcc5;
+
+      --slate-50: #f8f9fb;
+      --slate-100: #edf0f4;
+      --slate-200: #dce2e9;
+      --slate-300: #b8c4d0;
+      --slate-400: #8a9bb0;
+      --slate-500: #5e7188;
+      --slate-600: #455568;
+      --slate-700: #334155;
+      --slate-800: #1e293b;
+      --slate-900: #0f172a;
+
+      --white: #ffffff;
+      --gold: #c9a24d;
+
+      --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+      --font-body: 'Outfit', system-ui, sans-serif;
+
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; overflow-x: hidden; }
+    body { font-family: var(--font-body); color: var(--slate-800); background: var(--white); line-height: 1.7; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+    .container { max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+    .section-pad { padding: 120px 0; }
+
+    /* ===== LANG TOGGLE ===== */
+    [data-lang="pt"] [data-en], [data-lang="pt"] [data-sv] { display: none !important; }
+    [data-lang="en"] [data-pt], [data-lang="en"] [data-sv] { display: none !important; }
+    [data-lang="sv"] [data-pt], [data-lang="sv"] [data-en] { display: none !important; }
+
+    /* ===== NAV ===== */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 0 32px;
+      transition: all 0.5s var(--ease-out-expo);
+    }
+    .nav::before {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(255,255,255,0.90);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      opacity: 0; transition: opacity 0.5s ease;
+      -webkit-mask-image: linear-gradient(to bottom, black 50%, rgba(0,0,0,0.85) 63%, rgba(0,0,0,0.6) 75%, rgba(0,0,0,0.25) 88%, rgba(0,0,0,0.05) 96%, transparent 100%);
+      mask-image: linear-gradient(to bottom, black 50%, rgba(0,0,0,0.85) 63%, rgba(0,0,0,0.6) 75%, rgba(0,0,0,0.25) 88%, rgba(0,0,0,0.05) 96%, transparent 100%);
+    }
+    .nav.scrolled::before { opacity: 1; }
+    .nav-inner {
+      max-width: 1240px; margin: 0 auto;
+      display: flex; align-items: center; gap: 12px;
+      height: 148px; position: relative; z-index: 2;
+    }
+    .nav-logo { display: flex; align-items: center; flex-shrink: 0; margin-right: 36px; }
+    .nav-logo img { height: 53px; width: auto; filter: brightness(0) invert(1); transition: filter 0.3s; }
+    .nav.scrolled .nav-logo img { filter: none; }
+
+    .nav-links {
+      display: flex; align-items: center; gap: 28px;
+      list-style: none; flex: 1;
+    }
+    .nav-links a {
+      font-size: 0.875rem; font-weight: 500; color: white;
+      transition: color 0.3s; letter-spacing: 0.01em; position: relative;
+    }
+    .nav.scrolled .nav-links a { color: var(--green-700); }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 2px; background: rgba(211,238,211,0.8);
+      transition: width 0.3s var(--ease-out-expo);
+    }
+    .nav.scrolled .nav-links a::after { background: var(--green-500); }
+    .nav-links a:hover { color: #D3EED3; }
+    .nav.scrolled .nav-links a:hover { color: var(--green-600); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-lang {
+      display: flex; gap: 2px;
+      background: rgba(255,255,255,0.15); border-radius: 100px;
+      padding: 3px; border: 1px solid rgba(255,255,255,0.2);
+      flex-shrink: 0;
+    }
+    .nav.scrolled .nav-lang { background: var(--slate-50); border-color: var(--slate-100); }
+    .nav-lang button {
+      padding: 4px 12px; font-size: 0.75rem; font-weight: 600;
+      border-radius: 100px; transition: all 0.3s;
+      color: rgba(255,255,255,0.7); letter-spacing: 0.04em;
+    }
+    .nav.scrolled .nav-lang button { color: var(--slate-400); }
+    .nav-lang button.active { background: black; color: white; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+
+    /* Cart button */
+    .nav-cart-btn {
+      position: relative; display: flex; align-items: center; justify-content: center;
+      width: 44px; height: 44px; border-radius: 50%;
+      color: white; transition: all 0.3s; flex-shrink: 0;
+      background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.2);
+    }
+    .nav.scrolled .nav-cart-btn { background: var(--slate-50); border-color: var(--slate-200); color: var(--slate-700); }
+    .nav-cart-btn:hover { background: rgba(255,255,255,0.25); transform: translateY(-1px); }
+    .nav.scrolled .nav-cart-btn:hover { background: var(--green-50); color: var(--green-600); }
+    .cart-badge {
+      position: absolute; top: -4px; right: -4px;
+      width: 18px; height: 18px; border-radius: 50%;
+      background: var(--green-500); color: white;
+      font-size: 0.65rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      border: 2px solid white;
+    }
+    .cart-badge.empty { background: var(--slate-400); }
+
+    /* Nav actions wrapper — groups lang + cart + access btns and pushes them to the far right */
+    .nav-actions-wrapper {
+      display: flex; flex-direction: column; align-items: stretch; gap: 6px;
+      margin-left: auto; flex-shrink: 0; list-style: none;
+    }
+    /* Top row: lang switcher + cart icon */
+    .nav-top-row { display: flex; align-items: center; gap: 12px; }
+
+    /* Access buttons — stacked vertically, stretch to top row width */
+    .nav-access-btns { display: flex; flex-direction: column; gap: 6px; }
+    .nav-access-btn {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 11px 14px; border-radius: 100px;
+      font-weight: 700; font-size: 0.855rem;
+      transition: all 0.3s var(--ease-out-expo);
+      letter-spacing: 0.01em; white-space: nowrap; line-height: 1.3;
+    }
+    .nav-access-btn::after { display: none !important; }
+    .nav-access-btn.mentor-btn {
+      background: #D3EED3; color: var(--green-900);
+      box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+    }
+    .nav-access-btn.mentor-btn:hover {
+      background: #bde3bd; color: #000; transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(58,154,58,0.18);
+    }
+    .nav-access-btn.apprentice-btn {
+      background: #D3EED3; color: var(--green-900);
+      box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+    }
+    .nav-access-btn.apprentice-btn:hover {
+      background: #bde3bd; color: #000; transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(58,154,58,0.18);
+    }
+
+    .nav-mobile-toggle { display: none; padding: 8px; color: white; transition: color 0.3s; }
+    .nav.scrolled .nav-mobile-toggle { color: var(--slate-700); }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center;
+      position: relative; overflow: hidden;
+      background: url("assets/images/hero-mentorship.png") no-repeat center center/cover;
+      padding-top: 80px;
+    }
+    .hero::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.44); z-index: 1; }
+    .hero-grain {
+      position: absolute; inset: 0; opacity: 0.3; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    }
+    .hero-inner {
+      display: flex; flex-direction: column; align-items: flex-start;
+      justify-content: center; text-align: left;
+      position: relative; z-index: 2; padding: 60px 0; width: 100%;
+    }
+    .hero-overline {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 0.82rem; font-weight: 600; color: #D3EED3;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 28px; opacity: 0; transform: translateY(20px);
+    }
+    .hero-overline::before { content: ''; width: 32px; height: 2px; background: #D3EED3; }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      line-height: 1.08; font-weight: 700; color: white;
+      margin-bottom: 28px; letter-spacing: -0.025em;
+      opacity: 0; transform: translateY(40px);
+    }
+    .hero h1 em { font-style: italic; color: #D3EED3; }
+    .hero h1 em::after { display: none; }
+    .hero-sub {
+      font-size: 1.15rem; line-height: 1.75; color: rgba(255,255,255,0.9);
+      max-width: 600px; margin-bottom: 44px; font-weight: 400;
+      opacity: 0; transform: translateY(30px);
+    }
+    .hero-actions {
+      display: flex; gap: 16px; align-items: center;
+      justify-content: flex-start; opacity: 0; transform: translateY(30px);
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: #D3EED3; color: var(--green-900);
+      padding: 16px 36px; border-radius: 100px; font-weight: 700; font-size: 1rem;
+      transition: all 0.4s var(--ease-out-expo);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15); letter-spacing: 0.01em;
+    }
+    .btn-primary:hover { background: white; transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 32px rgba(211,238,211,0.3); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 10px;
+      color: white; padding: 16px 28px; font-weight: 600; font-size: 1rem;
+      transition: all 0.3s; border-radius: 100px;
+    }
+    .btn-ghost:hover { color: var(--green-300); gap: 14px; }
+
+    /* ===== PHRASE BAND ===== */
+    .stats-strip { background: #112E11; padding: 36px 0; overflow: hidden; }
+    .phrase-track { display: flex; align-items: center; white-space: nowrap; will-change: transform; }
+    .phrase-set { display: flex; gap: 80px; align-items: center; flex-shrink: 0; padding-right: 80px; }
+    .phrase-band {
+      font-family: var(--font-body); font-size: 5.4rem; font-weight: 200;
+      color: #D3EED3; letter-spacing: 0.01em; flex-shrink: 0;
+    }
+    .phrase-dot { width: 12px; height: 12px; border-radius: 50%; background: rgba(211,238,211,0.3); flex-shrink: 0; }
+
+    /* ===== SECTION HEADERS ===== */
+    .section-header { max-width: 640px; margin-bottom: 72px; }
+    .section-header.centered { text-align: center; margin-left: auto; margin-right: auto; }
+    .section-overline {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.78rem; font-weight: 700; color: var(--green-600);
+      letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 16px;
+    }
+    .section-overline::before { content: ''; width: 24px; height: 2px; background: var(--green-400); }
+    .section-header h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      line-height: 1.15; font-weight: 700; color: var(--slate-900);
+      margin-bottom: 16px; letter-spacing: -0.02em;
+    }
+    .section-header p { font-size: 1.1rem; color: var(--slate-500); line-height: 1.75; font-weight: 400; }
+
+    /* ===== HOW IT WORKS ===== */
+    .how-section { background: var(--sand-50); }
+    .steps-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+      margin-bottom: 72px;
+    }
+    .step-card {
+      background: var(--white); border-radius: 24px;
+      padding: 40px 36px; border: 1px solid var(--slate-100);
+      position: relative; overflow: hidden;
+      transition: all 0.4s var(--ease-out-expo);
+    }
+    .step-card:hover { transform: translateY(-6px); box-shadow: 0 20px 48px rgba(0,0,0,0.07); border-color: var(--green-200); }
+    .step-number {
+      font-family: var(--font-display); font-size: 5rem; font-weight: 800;
+      color: var(--green-100); line-height: 1; margin-bottom: 24px;
+      letter-spacing: -0.04em;
+    }
+    .step-icon {
+      width: 56px; height: 56px; border-radius: 16px;
+      background: var(--green-50); color: var(--green-600);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+    }
+    .step-card h3 {
+      font-family: var(--font-display); font-size: 1.35rem; font-weight: 700;
+      color: var(--slate-900); margin-bottom: 12px; letter-spacing: -0.01em;
+    }
+    .step-card p { font-size: 0.95rem; color: var(--slate-500); line-height: 1.75; }
+
+    /* Step card photo — bleeds to card edges at top */
+    .step-img {
+      width: calc(100% + 72px); margin: -40px -36px 28px;
+      height: 200px; overflow: hidden; border-radius: 20px 20px 0 0; flex-shrink: 0;
+    }
+    .step-img img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.6s var(--ease-out-expo);
+    }
+    .step-card:hover .step-img img { transform: scale(1.05); }
+
+    /* Service preview strip */
+    .service-preview-strip {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+    }
+    .service-preview-card {
+      border-radius: 20px; overflow: hidden;
+      border: 1px solid var(--slate-100); background: var(--white);
+      transition: all 0.4s var(--ease-out-expo);
+      display: flex; align-items: center; gap: 20px; padding: 20px 24px;
+    }
+    .service-preview-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.07); border-color: var(--green-200); }
+    .service-preview-img {
+      width: 72px; height: 72px; border-radius: 14px;
+      background: var(--green-50); flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--green-600); overflow: hidden;
+    }
+    .service-preview-img img { width: 100%; height: 100%; object-fit: cover; border-radius: 14px; }
+    .service-preview-info { flex: 1; }
+    .service-preview-info h4 {
+      font-weight: 700; font-size: 0.95rem; color: var(--slate-900); margin-bottom: 4px;
+    }
+    .service-preview-price {
+      font-weight: 700; font-size: 1.05rem; color: var(--green-600);
+    }
+    .service-preview-label {
+      font-size: 0.78rem; color: var(--slate-400); margin-bottom: 4px;
+    }
+
+    /* ===== SERVICE CATEGORIES ===== */
+    .services-section { background: var(--white); }
+    .categories-grid {
+      display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px;
+    }
+    .category-card {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 12px; padding: 28px 16px; border-radius: 20px;
+      background: var(--slate-50); border: 1px solid var(--slate-100);
+      cursor: pointer; transition: all 0.35s var(--ease-out-expo);
+      text-align: center;
+    }
+    .category-card:hover {
+      background: var(--green-50); border-color: var(--green-200);
+      transform: translateY(-4px); box-shadow: 0 12px 32px rgba(58,154,58,0.1);
+    }
+    .category-icon {
+      width: 56px; height: 56px; border-radius: 16px;
+      background: var(--white); color: var(--green-600);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      transition: all 0.35s var(--ease-out-expo);
+    }
+    .category-card:hover .category-icon { background: var(--green-600); color: white; box-shadow: 0 6px 20px rgba(46,125,46,0.3); }
+    .category-label {
+      font-size: 0.82rem; font-weight: 600; color: var(--slate-600);
+      line-height: 1.3; transition: color 0.3s;
+    }
+    .category-card:hover .category-label { color: var(--green-700); }
+
+    /* Category card photo — bleeds to card edges at top */
+    .cat-img {
+      width: calc(100% + 32px); margin: -28px -16px 4px;
+      height: 110px; overflow: hidden; border-radius: 20px 20px 0 0; flex-shrink: 0;
+    }
+    .cat-img img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.5s var(--ease-out-expo);
+    }
+    .category-card:hover .cat-img img { transform: scale(1.06); }
+
+    /* ===== REVIEWS ===== */
+    .reviews-section { background: var(--sand-50); }
+    .reviews-stats {
+      display: flex; align-items: center; gap: 16px;
+      justify-content: center; margin-bottom: 16px;
+    }
+    .reviews-score {
+      font-family: var(--font-display); font-size: 3.5rem; font-weight: 700;
+      color: var(--slate-900); line-height: 1;
+    }
+    .reviews-stars { display: flex; gap: 4px; color: #f59e0b; }
+    .reviews-count { font-size: 0.95rem; color: var(--slate-500); margin-top: 4px; }
+    .reviews-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+    }
+    .review-card {
+      background: var(--white); border-radius: 20px; padding: 28px;
+      border: 1px solid var(--slate-100);
+      transition: all 0.35s var(--ease-out-expo);
+    }
+    .review-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.07); border-color: var(--green-200); }
+    .review-stars { display: flex; gap: 3px; color: #f59e0b; margin-bottom: 14px; }
+    .review-text { font-size: 0.93rem; color: var(--slate-600); line-height: 1.7; margin-bottom: 20px; font-style: italic; }
+    .review-author { display: flex; align-items: center; gap: 12px; }
+    .review-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--green-100); color: var(--green-700);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.9rem; flex-shrink: 0;
+    }
+    .review-author-info strong { font-size: 0.88rem; color: var(--slate-800); display: block; font-weight: 700; }
+    .review-author-info span { font-size: 0.78rem; color: var(--slate-400); }
+
+    /* ===== CITIES ===== */
+    .cities-section { background: #112E11; color: #D3EED3; overflow: hidden; position: relative; }
+    .cities-section::before {
+      content: ''; position: absolute; inset: 0;
+      background: url("assets/images/community.png") no-repeat center center/cover;
+      opacity: 0.08; pointer-events: none;
+    }
+    .cities-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+      align-items: center; position: relative; z-index: 1;
+    }
+    .cities-text .section-overline { color: rgba(211,238,211,0.7); }
+    .cities-text .section-overline::before { background: rgba(211,238,211,0.4); }
+    .cities-text h2 {
+      font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 2.8rem);
+      line-height: 1.15; font-weight: 700; color: white;
+      margin-bottom: 20px; letter-spacing: -0.02em;
+    }
+    .cities-text > p { font-size: 1.05rem; color: rgba(211,238,211,0.8); line-height: 1.75; margin-bottom: 40px; }
+    .city-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+    .city-tag {
+      padding: 8px 18px; border-radius: 100px;
+      border: 1px solid rgba(211,238,211,0.25);
+      font-size: 0.85rem; font-weight: 500; color: rgba(211,238,211,0.85);
+      transition: all 0.3s; cursor: default;
+    }
+    .city-tag:hover { background: rgba(211,238,211,0.1); border-color: rgba(211,238,211,0.5); color: white; }
+    .city-tag.coming-soon { opacity: 0.4; font-style: italic; }
+    .cities-visual { display: flex; align-items: center; justify-content: center; }
+    .cities-visual-inner {
+      width: 100%; max-width: 440px; aspect-ratio: 4/5;
+      border-radius: 32px; overflow: hidden; position: relative;
+    }
+    .cities-visual-inner img { width: 100%; height: 100%; object-fit: cover; }
+    .cities-badge {
+      position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+      background: rgba(17,46,17,0.85); backdrop-filter: blur(12px);
+      border: 1px solid rgba(211,238,211,0.2); border-radius: 16px;
+      padding: 16px 24px; text-align: center; white-space: nowrap;
+    }
+    .cities-badge strong { display: block; font-size: 1.6rem; font-weight: 700; color: white; line-height: 1; }
+    .cities-badge span { font-size: 0.8rem; color: rgba(211,238,211,0.7); }
+
+    /* ===== TRUST ===== */
+    .trust-section { background: var(--white); }
+    .trust-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .trust-image-wrap {
+      border-radius: 32px; overflow: hidden; position: relative;
+      aspect-ratio: 4/5;
+    }
+    .trust-image-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .trust-image-overlay {
+      position: absolute; bottom: 24px; left: 24px; right: 24px;
+      background: rgba(255,255,255,0.9); backdrop-filter: blur(12px);
+      border-radius: 16px; padding: 20px; display: flex; gap: 16px; align-items: center;
+    }
+    .trust-overlay-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      background: var(--green-600); color: white;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .trust-overlay-text strong { display: block; font-weight: 700; font-size: 0.92rem; color: var(--slate-900); }
+    .trust-overlay-text span { font-size: 0.8rem; color: var(--slate-500); }
+
+    .trust-items { display: flex; flex-direction: column; gap: 36px; margin-top: 48px; }
+    .trust-item { display: flex; gap: 20px; align-items: flex-start; }
+    .trust-item-icon {
+      width: 52px; height: 52px; border-radius: 14px;
+      background: var(--green-50); color: var(--green-600);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      transition: all 0.35s var(--ease-out-expo);
+    }
+    .trust-item:hover .trust-item-icon { background: var(--green-600); color: white; }
+    .trust-item-text h4 {
+      font-family: var(--font-display); font-size: 1.1rem; font-weight: 700;
+      color: var(--slate-900); margin-bottom: 6px; letter-spacing: -0.01em;
+    }
+    .trust-item-text p { font-size: 0.93rem; color: var(--slate-500); line-height: 1.7; }
+
+    /* ===== FAQ ===== */
+    .faq-section { background: var(--sand-50); }
+    .faq-list { max-width: 780px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+    .faq-item {
+      background: var(--white); border-radius: 16px;
+      border: 1px solid var(--slate-100); overflow: hidden;
+      transition: border-color 0.3s;
+    }
+    .faq-item.open { border-color: var(--green-300); }
+    .faq-question {
+      width: 100%; display: flex; align-items: center; justify-content: space-between;
+      padding: 24px 28px; font-size: 1rem; font-weight: 600;
+      color: var(--slate-800); text-align: left; gap: 16px;
+      background: none; cursor: pointer; transition: color 0.3s;
+    }
+    .faq-question:hover { color: var(--green-600); }
+    .faq-item.open .faq-question { color: var(--green-700); }
+    .faq-chevron { flex-shrink: 0; color: var(--slate-400); transition: transform 0.4s var(--ease-out-expo); }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); color: var(--green-500); }
+    .faq-answer {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.5s var(--ease-out-expo);
+    }
+    .faq-answer-inner {
+      padding: 0 28px 24px;
+      font-size: 0.95rem; color: var(--slate-500); line-height: 1.8;
+    }
+
+    /* ===== CTA SECTION ===== */
+    .cta-section {
+      background: #112E11; color: white; position: relative; overflow: hidden;
+      padding: 120px 0;
+    }
+    .cta-section::before {
+      content: ''; position: absolute; inset: 0;
+      background: url("assets/images/hero-mentorship.png") no-repeat center center/cover;
+      opacity: 0.07; pointer-events: none;
+    }
+    .cta-inner { position: relative; z-index: 1; text-align: center; }
+    .cta-overline {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.78rem; font-weight: 700; color: rgba(211,238,211,0.6);
+      letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 24px;
+    }
+    .cta-overline::before { content: ''; width: 24px; height: 2px; background: rgba(211,238,211,0.4); }
+    .cta-inner h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 4vw, 3.6rem);
+      font-weight: 700; color: white; line-height: 1.1;
+      letter-spacing: -0.025em; margin-bottom: 16px;
+    }
+    .cta-inner h2 em { font-style: italic; color: #D3EED3; }
+    .cta-inner > p { font-size: 1.1rem; color: rgba(211,238,211,0.75); margin-bottom: 48px; max-width: 480px; margin-left: auto; margin-right: auto; }
+    .cta-actions { display: flex; gap: 16px; justify-content: center; align-items: center; flex-wrap: wrap; margin-bottom: 40px; }
+    .btn-cta-green {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: #D3EED3; color: var(--green-900);
+      padding: 18px 40px; border-radius: 100px; font-weight: 700; font-size: 1.05rem;
+      transition: all 0.4s var(--ease-out-expo); box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    .btn-cta-green:hover { background: white; transform: translateY(-3px); box-shadow: 0 10px 36px rgba(0,0,0,0.25); }
+    .btn-cta-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: rgba(255,255,255,0.75); font-weight: 600; font-size: 1rem;
+      padding: 18px 28px; transition: all 0.3s; border-radius: 100px;
+    }
+    .btn-cta-ghost:hover { color: white; gap: 12px; }
+    .cta-apps { display: flex; gap: 16px; justify-content: center; align-items: center; flex-wrap: wrap; }
+    .app-badge {
+      display: inline-flex; align-items: center; gap: 12px;
+      padding: 14px 24px; border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white; font-size: 0.88rem; font-weight: 600;
+      transition: all 0.3s; background: rgba(255,255,255,0.07);
+    }
+    .app-badge:hover { background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.4); transform: translateY(-2px); }
+    .app-badge-sub { font-size: 0.68rem; font-weight: 400; opacity: 0.65; display: block; }
+    .app-badge-main { font-size: 0.95rem; font-weight: 700; }
+
+    /* Popular searches */
+    .popular-section { background: var(--white); padding: 56px 0; border-top: 1px solid var(--slate-100); }
+    .popular-inner { display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
+    .popular-label { font-size: 0.82rem; font-weight: 700; color: var(--slate-400); text-transform: uppercase; letter-spacing: 0.08em; flex-shrink: 0; padding-top: 4px; }
+    .popular-links { display: flex; flex-wrap: wrap; gap: 10px; }
+    .popular-link {
+      font-size: 0.88rem; color: var(--slate-600); font-weight: 500;
+      padding: 6px 14px; border-radius: 100px; border: 1px solid var(--slate-200);
+      transition: all 0.3s;
+    }
+    .popular-link:hover { background: var(--green-50); border-color: var(--green-300); color: var(--green-700); }
+
+    /* ===== FOOTER ===== */
+    .footer { background: #112E11; color: #D3EED3; padding: 80px 0 36px; }
+    .footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 56px; }
+    .footer-brand { display: flex; flex-direction: column; }
+    .footer-brand .nav-logo { align-self: flex-start; color: white; margin-bottom: 24px; }
+    .footer-brand .nav-logo img { filter: brightness(0) invert(1); height: 56px; }
+    .footer-brand p { font-size: 0.9rem; line-height: 1.7; max-width: 300px; }
+    .footer h4 { color: white; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 20px; font-weight: 700; }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+    .footer-links a { font-size: 0.9rem; color: #D3EED3; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--green-300); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.06); padding-top: 28px;
+      display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem;
+    }
+    .footer-social { display: flex; gap: 10px; }
+    .footer-social a {
+      width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,0.05);
+      display: flex; align-items: center; justify-content: center;
+      color: #D3EED3; transition: all 0.3s;
+    }
+    .footer-social a:hover { background: var(--green-500); color: white; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1200px) {
+      .categories-grid { grid-template-columns: repeat(4, 1fr); }
+      .reviews-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 1024px) {
+      .steps-grid { grid-template-columns: 1fr 1fr; }
+      .service-preview-strip { grid-template-columns: 1fr 1fr; }
+      .cities-inner { grid-template-columns: 1fr; gap: 48px; }
+      .cities-visual { display: none; }
+      .trust-inner { grid-template-columns: 1fr; gap: 48px; }
+      .trust-image-wrap { max-width: 560px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .nav-links { gap: 18px; }
+      .nav-access-btn { padding: 8px 14px; font-size: 0.76rem; }
+    }
+    @media (max-width: 768px) {
+      html { font-size: 15px; }
+      .container { padding: 0 20px; }
+      .section-pad { padding: 80px 0; }
+      .nav-links { display: none; }
+      .nav-mobile-toggle { display: block; }
+      .nav-links.mobile-open {
+        display: flex; flex-direction: column; align-items: flex-end;
+        position: absolute; top: 80px; left: auto; right: 0; width: 70%;
+        background: rgba(255,255,255,0.95); backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        padding: 24px 32px; gap: 16px;
+        box-shadow: 0 16px 48px rgba(0,0,0,0.1); border-radius: 16px; text-align: right;
+      }
+      .nav-links.mobile-open a { color: var(--slate-800) !important; }
+      .nav-links.mobile-open .nav-actions-wrapper {
+        flex-direction: column; align-items: flex-end; gap: 10px; margin-left: 0; width: 100%;
+      }
+      .nav-links.mobile-open .nav-top-row { align-self: flex-end; }
+      .nav-links.mobile-open .nav-access-btns { flex-direction: column; width: 100%; gap: 8px; }
+      .nav-links.mobile-open .nav-lang { align-self: flex-end; background: var(--slate-50); border-color: var(--slate-100); }
+      .nav-links.mobile-open .nav-lang button { color: var(--slate-400); }
+      .hero h1 { font-size: 2.4rem; }
+      .hero-actions { flex-direction: column; align-items: flex-start; }
+      .phrase-band { font-size: 3.6rem; }
+      .steps-grid { grid-template-columns: 1fr; }
+      .service-preview-strip { grid-template-columns: 1fr; }
+      .categories-grid { grid-template-columns: repeat(3, 1fr); }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .cta-actions { flex-direction: column; }
+      .footer-grid { grid-template-columns: 1fr; gap: 36px; }
+      .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+      .popular-inner { flex-direction: column; gap: 12px; }
+    }
+    @media (max-width: 480px) {
+      .categories-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo"><img src="assets/images/logo7030.png" alt="70.30"></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#how" data-pt>Como funciona</a><a href="#how" data-en>How it works</a><a href="#how" data-sv>Hur det fungerar</a></li>
+        <li><a href="#services" data-pt>Serviços</a><a href="#services" data-en>Services</a><a href="#services" data-sv>Tjänster</a></li>
+        <li><a href="#reviews" data-pt>Avaliações</a><a href="#reviews" data-en>Reviews</a><a href="#reviews" data-sv>Omdömen</a></li>
+        <li><a href="#cities" data-pt>Cidades</a><a href="#cities" data-en>Cities</a><a href="#cities" data-sv>Städer</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li class="nav-actions-wrapper">
+          <div class="nav-top-row">
+            <div class="nav-lang">
+              <button onclick="setLang('pt')" id="langPt" class="active">PT</button>
+              <button onclick="setLang('en')" id="langEn">EN</button>
+              <button onclick="setLang('sv')" id="langSv">SV</button>
+            </div>
+            <button class="nav-cart-btn" id="cartBtn" onclick="openCart()" title="Carrinho">
+              <i data-lucide="shopping-cart" width="18" height="18"></i>
+              <span class="cart-badge empty" id="cartBadge">0</span>
+            </button>
+          </div>
+          <div class="nav-access-btns">
+            <a href="acesso.html?role=mentor" class="nav-access-btn mentor-btn">
+              <i data-lucide="briefcase" width="15" height="15"></i>
+              <span data-pt>Sou Mentor</span><span data-en>I'm a Mentor</span><span data-sv>Jag är Mentor</span>
+            </a>
+            <a href="acesso.html?role=apprentice" class="nav-access-btn apprentice-btn">
+              <i data-lucide="book-open" width="15" height="15"></i>
+              <span data-pt>Sou Aprendiz</span><span data-en>I'm an Apprentice</span><span data-sv>Jag är Lärling</span>
+            </a>
+          </div>
+        </li>
+      </ul>
+      <button class="nav-mobile-toggle" id="mobileToggle" aria-label="Menu">
+        <i data-lucide="menu" width="24" height="24"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-grain"></div>
+    <div class="container hero-inner">
+      <div class="hero-overline" data-pt>Serviços domésticos perto de ti</div>
+      <div class="hero-overline" data-en>Home services near you</div>
+      <div class="hero-overline" data-sv>Hemtjänster nära dig</div>
+
+      <h1 data-pt>O serviço que precisas,<br>sempre <em>perto de ti.</em></h1>
+      <h1 data-en>The service you need,<br>always <em>near you.</em></h1>
+      <h1 data-sv>Tjänsten du behöver,<br>alltid <em>nära dig.</em></h1>
+
+      <p class="hero-sub" data-pt>Encontra profissionais de confiança na tua comunidade para canalização, carpintaria, eletricidade e muito mais. Rápido, acessível, de qualidade.</p>
+      <p class="hero-sub" data-en>Find trusted professionals in your community for plumbing, carpentry, electrical work and more. Fast, affordable, quality.</p>
+      <p class="hero-sub" data-sv>Hitta pålitliga proffs i ditt samhälle för VVS, snickeri, el och mer. Snabbt, prisvärt, kvalitet.</p>
+
+      <div class="hero-actions">
+        <a href="acesso.html" class="btn-primary">
+          <i data-lucide="log-in" width="18" height="18"></i>
+          <span data-pt>Login</span><span data-en>Login</span><span data-sv>Logga in</span>
+        </a>
+        <a href="acesso.html#access" class="btn-ghost">
+          <span data-pt>Criar conta</span><span data-en>Sign up</span><span data-sv>Registrera</span>
+          <i data-lucide="user-plus" width="18" height="18"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHRASE BAND -->
+  <section class="stats-strip">
+    <div class="phrase-track" id="phraseTrack">
+      <span class="phrase-set">
+        <span class="phrase-band" data-pt>Canalização · Carpintaria · Eletricidade · Pintura · Serviços de Confiança</span>
+        <span class="phrase-band" data-en>Plumbing · Carpentry · Electrical · Painting · Trusted Home Services</span>
+        <span class="phrase-band" data-sv>VVS · Snickeri · El · Målning · Pålitliga Hemtjänster</span>
+        <span class="phrase-dot"></span>
+      </span>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-section section-pad" id="how">
+    <div class="container">
+      <div class="section-header centered gs-reveal">
+        <div class="section-overline" data-pt>Simples e rápido</div>
+        <div class="section-overline" data-en>Simple and fast</div>
+        <div class="section-overline" data-sv>Enkelt och snabbt</div>
+        <h2 data-pt>Reserva o teu serviço em 3 passos</h2>
+        <h2 data-en>Book your service in 3 steps</h2>
+        <h2 data-sv>Boka din tjänst i 3 steg</h2>
+        <p data-pt>Sem surpresas, sem chamadas demoradas. O serviço que precisas, marcado em minutos.</p>
+        <p data-en>No surprises, no long phone calls. The service you need, booked in minutes.</p>
+        <p data-sv>Inga överraskningar, inga långa telefonsamtal. Tjänsten du behöver, bokad på minuter.</p>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-card gs-reveal">
+          <div class="step-img"><img src="assets/images/step-choose.png" alt="Escolhe o serviço" loading="lazy"></div>
+          <div class="step-number">01</div>
+          <div class="step-icon"><i data-lucide="search" width="24" height="24"></i></div>
+          <h3 data-pt>Escolhe o serviço</h3>
+          <h3 data-en>Choose the service</h3>
+          <h3 data-sv>Välj tjänsten</h3>
+          <p data-pt>Seleciona o tipo de serviço que precisas — canalização, carpintaria, pintura ou muito mais. Preço fixo antes de confirmares.</p>
+          <p data-en>Select the type of service you need — plumbing, carpentry, painting and much more. Fixed price before you confirm.</p>
+          <p data-sv>Välj den typ av tjänst du behöver — VVS, snickeri, målning och mycket mer. Fast pris innan du bekräftar.</p>
+        </div>
+        <div class="step-card gs-reveal">
+          <div class="step-img"><img src="assets/images/step-schedule.png" alt="Agenda a data" loading="lazy"></div>
+          <div class="step-number">02</div>
+          <div class="step-icon"><i data-lucide="calendar-clock" width="24" height="24"></i></div>
+          <h3 data-pt>Agenda a data</h3>
+          <h3 data-en>Schedule the date</h3>
+          <h3 data-sv>Välj datum</h3>
+          <p data-pt>Escolhe quando te é mais conveniente. Disponibilidade em tempo real, com confirmação instantânea no teu telefone.</p>
+          <p data-en>Choose when it's most convenient for you. Real-time availability with instant confirmation on your phone.</p>
+          <p data-sv>Välj när det passar dig bäst. Realtidstillgänglighet med omedelbar bekräftelse på din telefon.</p>
+        </div>
+        <div class="step-card gs-reveal">
+          <div class="step-img"><img src="assets/images/step-receive.png" alt="Recebe os profissionais" loading="lazy"></div>
+          <div class="step-number">03</div>
+          <div class="step-icon"><i data-lucide="house-check" width="24" height="24"></i></div>
+          <h3 data-pt>Recebe os profissionais</h3>
+          <h3 data-en>Receive the professionals</h3>
+          <h3 data-sv>Ta emot proffsen</h3>
+          <p data-pt>Um Mentor experiente e o seu Aprendiz chegam à hora certa. Trabalho de qualidade, garantido pela plataforma.</p>
+          <p data-en>An experienced Mentor and their Apprentice arrive on time. Quality work, guaranteed by the platform.</p>
+          <p data-sv>En erfaren Mentor och deras Lärling anländer i tid. Kvalitetsarbete, garanterat av plattformen.</p>
+        </div>
+      </div>
+
+      <!-- Service preview -->
+      <div class="service-preview-strip">
+        <div class="service-preview-card gs-reveal">
+          <div class="service-preview-img"><img src="assets/images/preview-plumbing.png" alt="Canalização" loading="lazy"></div>
+          <div class="service-preview-info">
+            <div class="service-preview-label" data-pt>A partir de</div>
+            <div class="service-preview-label" data-en>Starting from</div>
+            <div class="service-preview-label" data-sv>Från och med</div>
+            <h4 data-pt>Reparação de canalização</h4>
+            <h4 data-en>Plumbing repair</h4>
+            <h4 data-sv>VVS-reparation</h4>
+            <div class="service-preview-price">€ 49,90</div>
+          </div>
+        </div>
+        <div class="service-preview-card gs-reveal">
+          <div class="service-preview-img"><img src="assets/images/preview-assembly.png" alt="Montagem" loading="lazy"></div>
+          <div class="service-preview-info">
+            <div class="service-preview-label" data-pt>A partir de</div>
+            <div class="service-preview-label" data-en>Starting from</div>
+            <div class="service-preview-label" data-sv>Från och med</div>
+            <h4 data-pt>Montagem de mobiliário</h4>
+            <h4 data-en>Furniture assembly</h4>
+            <h4 data-sv>Möbelmontage</h4>
+            <div class="service-preview-price">€ 39,90</div>
+          </div>
+        </div>
+        <div class="service-preview-card gs-reveal">
+          <div class="service-preview-img"><img src="assets/images/preview-electrical.png" alt="Eletricidade" loading="lazy"></div>
+          <div class="service-preview-info">
+            <div class="service-preview-label" data-pt>A partir de</div>
+            <div class="service-preview-label" data-en>Starting from</div>
+            <div class="service-preview-label" data-sv>Från och med</div>
+            <h4 data-pt>Instalação elétrica</h4>
+            <h4 data-en>Electrical installation</h4>
+            <h4 data-sv>Elinstallation</h4>
+            <div class="service-preview-price">€ 59,90</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE CATEGORIES -->
+  <section class="services-section section-pad" id="services">
+    <div class="container">
+      <div class="section-header gs-reveal">
+        <div class="section-overline" data-pt>Temos o que precisas</div>
+        <div class="section-overline" data-en>We have what you need</div>
+        <div class="section-overline" data-sv>Vi har vad du behöver</div>
+        <h2 data-pt>Do que precisas hoje?</h2>
+        <h2 data-en>What do you need today?</h2>
+        <h2 data-sv>Vad behöver du idag?</h2>
+        <p data-pt>200+ serviços disponíveis, prestados por profissionais verificados da tua comunidade.</p>
+        <p data-en>200+ services available, delivered by verified professionals from your community.</p>
+        <p data-sv>200+ tillgängliga tjänster, utförda av verifierade proffs från ditt samhälle.</p>
+      </div>
+
+      <div class="categories-grid">
+        <div class="category-card gs-reveal" onclick="addToCart(this)">
+          <div class="cat-img"><img src="assets/images/cat-canalizacao.png" alt="Canalização" loading="lazy"></div>
+          <div class="category-icon"><i data-lucide="droplets" width="24" height="24"></i></div>
+          <div class="category-label" data-pt>Canalização</div><div class="category-label" data-en>Plumbing</div><div class="category-label" data-sv>VVS</div>
+        </div>
+        <div class="category-card gs-reveal" onclick="addToCart(this)">
+          <div class="cat-img"><img src="assets/images/cat-eletricidade.png" alt="Eletricidade" loading="lazy"></div>
+          <div class="category-icon"><i data-lucide="zap" width="24" height="24"></i></div>
+          <div class="category-label" data-pt>Eletricidade</div><div class="category-label" data-en>Electrical</div><div class="category-label" data-sv>El</div>
+        </div>
+        <div class="category-card gs-reveal" onclick="addToCart(this)">
+          <div class="cat-img"><img src="assets/images/cat-carpintaria.png" alt="Carpintaria" loading="lazy"></div>
+          <div class="category-icon"><i data-lucide="hammer" width="24" height="24"></i></div>
+          <div class="category-label" data-pt>Carpintaria</div><div class="category-label" data-en>Carpentry</div><div class="category-label" data-sv>Snickeri</div>
+        </div>
+        <div class="category-card gs-reveal" onclick="addToCart(this)">
+          <div class="cat-img"><img src="assets/images/cat-pintura.png" alt="Pintura" loading="lazy"></div>
+          <div class="category-icon"><i data-lucide="paintbrush" width="24" height="24"></i></div>
+          <div class="category-label" data-pt>Pintura</div><div class="category-label" data-en>Painting</div><div class="category-label" data-sv>Målning</div>
+        </div>
+        <div class="category-card gs-reveal" onclick="addToCart(this)">
+          <div class="cat-img"><img src="assets/images/cat-limpeza.png" alt="Limpeza" loading="lazy"></div>
+          <div class="category-icon"><i data-lucide="sparkles" width="24" height="24"></i></div>
+          <div class="category-label" data-pt>Limpeza</div><div class="category-label" data-en>Cleaning</div><div class="category-label" data-sv>Städning</div>
+        </div>
+        <div class="category-card gs-reveal" onclick="addToCart(this)">
+          <div class="cat-img"><img src="assets/images/cat-montagem.png" alt="Montagem" loading="lazy"></div>
+          <div class="category-icon"><i data-lucide="wrench" width="24" height="24"></i></div>
+          <div class="category-label" data-pt>Montagem</div><div class="category-label" data-en>Assembly</div><div class="category-label" data-sv>Montering</div>
+        </div>
+        <div class="category-card gs-reveal" onclick="addToCart(this)">
+          <div class="cat-img"><img src="assets/images/cat-jardim.png" alt="Jardim" loading="lazy"></div>
+          <div class="category-icon"><i data-lucide="leaf" width="24" height="24"></i></div>
+          <div class="category-label" data-pt>Jardim</div><div class="category-label" data-en>Gardening</div><div class="category-label" data-sv>Trädgård</div>
+        </div>
+        <div class="category-card gs-reveal" onclick="addToCart(this)">
+          <div class="cat-img"><img src="assets/images/cat-reparacoes.png" alt="Reparações" loading="lazy"></div>
+          <div class="category-icon"><i data-lucide="settings-2" width="24" height="24"></i></div>
+          <div class="category-label" data-pt>Reparações</div><div class="category-label" data-en>Repairs</div><div class="category-label" data-sv>Reparationer</div>
+        </div>
+        <div class="category-card gs-reveal" onclick="addToCart(this)">
+          <div class="cat-img"><img src="assets/images/cat-instalacao.png" alt="Instalação" loading="lazy"></div>
+          <div class="category-icon"><i data-lucide="plug" width="24" height="24"></i></div>
+          <div class="category-label" data-pt>Instalação</div><div class="category-label" data-en>Installation</div><div class="category-label" data-sv>Installation</div>
+        </div>
+        <div class="category-card gs-reveal" onclick="addToCart(this)">
+          <div class="cat-img"><img src="assets/images/cat-mudancas.png" alt="Mudanças" loading="lazy"></div>
+          <div class="category-icon"><i data-lucide="truck" width="24" height="24"></i></div>
+          <div class="category-label" data-pt>Mudanças</div><div class="category-label" data-en>Moving</div><div class="category-label" data-sv>Flytt</div>
+        </div>
+        <div class="category-card gs-reveal" onclick="addToCart(this)">
+          <div class="cat-img"><img src="assets/images/cat-manutencao.png" alt="Manutenção" loading="lazy"></div>
+          <div class="category-icon"><i data-lucide="gauge" width="24" height="24"></i></div>
+          <div class="category-label" data-pt>Manutenção</div><div class="category-label" data-en>Maintenance</div><div class="category-label" data-sv>Underhåll</div>
+        </div>
+        <div class="category-card gs-reveal" onclick="addToCart(this)">
+          <div class="cat-img"><img src="assets/images/cat-energia.png" alt="Energia" loading="lazy"></div>
+          <div class="category-icon"><i data-lucide="battery-charging" width="24" height="24"></i></div>
+          <div class="category-label" data-pt>Energia</div><div class="category-label" data-en>Energy</div><div class="category-label" data-sv>Energi</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="reviews-section section-pad" id="reviews">
+    <div class="container">
+      <div class="section-header centered gs-reveal">
+        <div class="section-overline" data-pt>Avaliações verificadas</div>
+        <div class="section-overline" data-en>Verified reviews</div>
+        <div class="section-overline" data-sv>Verifierade omdömen</div>
+        <div class="reviews-stats">
+          <div class="reviews-score">4.8</div>
+          <div>
+            <div class="reviews-stars">
+              <i data-lucide="star" width="20" height="20" style="fill:currentColor"></i>
+              <i data-lucide="star" width="20" height="20" style="fill:currentColor"></i>
+              <i data-lucide="star" width="20" height="20" style="fill:currentColor"></i>
+              <i data-lucide="star" width="20" height="20" style="fill:currentColor"></i>
+              <i data-lucide="star" width="20" height="20" style="fill:currentColor"></i>
+            </div>
+            <div class="reviews-count" data-pt>de 3.847 avaliações de clientes</div>
+            <div class="reviews-count" data-en>from 3,847 customer reviews</div>
+            <div class="reviews-count" data-sv>från 3 847 kundrecensioner</div>
+          </div>
+        </div>
+        <h2 data-pt>Serviços realizados com confiança</h2>
+        <h2 data-en>Services delivered with trust</h2>
+        <h2 data-sv>Tjänster utförda med förtroende</h2>
+      </div>
+
+      <div class="reviews-grid">
+        <div class="review-card gs-reveal">
+          <div class="review-stars">
+            <i data-lucide="star" width="16" height="16" style="fill:currentColor"></i>
+            <i data-lucide="star" width="16" height="16" style="fill:currentColor"></i>
+            <i data-lucide="star" width="16" height="16" style="fill:currentColor"></i>
+            <i data-lucide="star" width="16" height="16" style="fill:currentColor"></i>
+            <i data-lucide="star" width="16" height="16" style="fill:currentColor"></i>
+          </div>
+          <p class="review-text" data-pt>"O senhor Vítor e o seu aprendiz foram impecáveis. A torneira estava a pingar há semanas e resolveram o problema em menos de uma hora. Recomendo vivamente!"</p>
+          <p class="review-text" data-en>"Mr Vítor and his apprentice were impeccable. The tap had been dripping for weeks and they fixed it in less than an hour. Highly recommended!"</p>
+          <p class="review-text" data-sv>"Herr Vítor och hans lärling var utmärkta. Kranen hade droppat i veckor och de löste problemet på mindre än en timme. Rekommenderas varmt!"</p>
+          <div class="review-author">
+            <div class="review-avatar">MF</div>
+            <div class="review-author-info">
+              <strong>Maria Fernanda</strong>
+              <span data-pt>Lisboa · Canalização</span><span data-en>Lisbon · Plumbing</span><span data-sv>Lissabon · VVS</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card gs-reveal">
+          <div class="review-stars">
+            <i data-lucide="star" width="16" height="16" style="fill:currentColor"></i>
+            <i data-lucide="star" width="16" height="16" style="fill:currentColor"></i>
+            <i data-lucide="star" width="16" height="16" style="fill:currentColor"></i>
+            <i data-lucide="star" width="16" height="16" style="fill:currentColor"></i>
+            <i data-lucide="star" width="16" height="16" style="fill:currentColor"></i>
+          </div>
+          <p class="review-text" data-pt>"Contratei para montar uma estante e acabou a fazer reparações que eu nem sabia que precisavam. O Manuel tem décadas de experiência e transmite segurança."</p>
+          <p class="review-text" data-en>"I hired them to assemble a bookshelf and ended up getting repairs I didn't even know I needed. Manuel has decades of experience and inspires confidence."</p>
+          <p class="review-text" data-sv>"Jag anlitade dem för att montera en bokhylla och fick även reparationer som jag inte visste behövdes. Manuel har decenniers erfarenhet och inger förtroende."</p>
+          <div class="review-author">
+            <div class="review-avatar">JR</div>
+            <div class="review-author-info">
+              <strong>João Rodrigues</strong>
+              <span data-pt>Porto · Carpintaria</span><span data-en>Porto · Carpentry</span><span data-sv>Porto · Snickeri</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card gs-reveal">
+          <div class="review-stars">
+            <i data-lucide="star" width="16" height="16" style="fill:currentColor"></i>
+            <i data-lucide="star" width="16" height="16" style="fill:currentColor"></i>
+            <i data-lucide="star" width="16" height="16" style="fill:currentColor"></i>
+            <i data-lucide="star" width="16" height="16" style="fill:currentColor"></i>
+            <i data-lucide="star" width="16" height="16" style="fill:currentColor"></i>
+          </div>
+          <p class="review-text" data-pt>"Pintaram a sala inteira num só dia. O resultado foi excelente e o preço foi muito mais justo do que qualquer orçamento que eu tinha recebido antes."</p>
+          <p class="review-text" data-en>"They painted the entire living room in one day. The result was excellent and the price was much fairer than any quote I had received before."</p>
+          <p class="review-text" data-sv>"De målade hela vardagsrummet på en dag. Resultatet var utmärkt och priset var mycket rättvisare än något offert jag fått tidigare."</p>
+          <div class="review-author">
+            <div class="review-avatar">AS</div>
+            <div class="review-author-info">
+              <strong>Ana Sousa</strong>
+              <span data-pt>Braga · Pintura</span><span data-en>Braga · Painting</span><span data-sv>Braga · Målning</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card gs-reveal">
+          <div class="review-stars">
+            <i data-lucide="star" width="16" height="16" style="fill:currentColor"></i>
+            <i data-lucide="star" width="16" height="16" style="fill:currentColor"></i>
+            <i data-lucide="star" width="16" height="16" style="fill:currentColor"></i>
+            <i data-lucide="star" width="16" height="16" style="fill:currentColor"></i>
+            <i data-lucide="star" width="16" height="16" style="fill:currentColor"></i>
+          </div>
+          <p class="review-text" data-pt>"Tive um curto-circuito e precisava de ajuda urgente. Em menos de duas horas tinham um eletricista cá em casa. Profissionalismo a 100%."</p>
+          <p class="review-text" data-en>"I had a short circuit and needed urgent help. In less than two hours they had an electrician at my home. 100% professionalism."</p>
+          <p class="review-text" data-sv>"Jag hade en kortslutning och behövde akut hjälp. På under två timmar hade de en elektriker hemma hos mig. 100% professionalism."</p>
+          <div class="review-author">
+            <div class="review-avatar">CM</div>
+            <div class="review-author-info">
+              <strong>Carlos Mendes</strong>
+              <span data-pt>Setúbal · Eletricidade</span><span data-en>Setúbal · Electrical</span><span data-sv>Setúbal · El</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CITIES -->
+  <section class="cities-section section-pad" id="cities">
+    <div class="container cities-inner">
+      <div class="cities-text">
+        <div class="section-overline" data-pt>Onde estamos</div>
+        <div class="section-overline" data-en>Where we are</div>
+        <div class="section-overline" data-sv>Var vi finns</div>
+        <h2 data-pt>Serviços em toda a Portugal</h2>
+        <h2 data-en>Services across Portugal</h2>
+        <h2 data-sv>Tjänster i hela Portugal</h2>
+        <p data-pt>Já presentes em mais de 15 cidades, com expansão contínua. Se não estamos ainda na tua cidade, em breve estaremos.</p>
+        <p data-en>Already present in more than 15 cities, with continuous expansion. If we're not in your city yet, we'll be there soon.</p>
+        <p data-sv>Redan i mer än 15 städer, med kontinuerlig expansion. Om vi inte är i din stad ännu, kommer vi snart.</p>
+        <div class="city-tags gs-reveal">
+          <span class="city-tag">Lisboa</span>
+          <span class="city-tag">Porto</span>
+          <span class="city-tag">Braga</span>
+          <span class="city-tag">Coimbra</span>
+          <span class="city-tag">Aveiro</span>
+          <span class="city-tag">Setúbal</span>
+          <span class="city-tag">Cascais</span>
+          <span class="city-tag">Faro</span>
+          <span class="city-tag">Évora</span>
+          <span class="city-tag">Funchal</span>
+          <span class="city-tag">Sintra</span>
+          <span class="city-tag">Almada</span>
+          <span class="city-tag coming-soon" data-pt>Viana do Castelo (em breve)</span>
+          <span class="city-tag coming-soon" data-en>Viana do Castelo (coming soon)</span>
+          <span class="city-tag coming-soon" data-sv>Viana do Castelo (snart)</span>
+          <span class="city-tag coming-soon" data-pt>Leiria (em breve)</span>
+          <span class="city-tag coming-soon" data-en>Leiria (coming soon)</span>
+          <span class="city-tag coming-soon" data-sv>Leiria (snart)</span>
+        </div>
+      </div>
+      <div class="cities-visual">
+        <div class="cities-visual-inner">
+          <img src="assets/images/community.png" alt="Comunidade 70.30" loading="lazy">
+          <div class="cities-badge">
+            <strong>15+</strong>
+            <span data-pt>cidades cobertas</span>
+            <span data-en>cities covered</span>
+            <span data-sv>städer täcks</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST -->
+  <section class="trust-section section-pad" id="trust">
+    <div class="container trust-inner">
+      <div class="trust-image-wrap gs-reveal">
+        <img src="assets/images/carpinteiro.png" alt="Profissional 70.30" loading="lazy">
+        <div class="trust-image-overlay">
+          <div class="trust-overlay-icon"><i data-lucide="shield-check" width="22" height="22"></i></div>
+          <div class="trust-overlay-text">
+            <strong data-pt>100% Verificado</strong>
+            <strong data-en>100% Verified</strong>
+            <strong data-sv>100% Verifierat</strong>
+            <span data-pt>Antecedentes e competências confirmados</span>
+            <span data-en>Background and skills confirmed</span>
+            <span data-sv>Bakgrund och färdigheter bekräftade</span>
+          </div>
+        </div>
+      </div>
+      <div class="trust-content gs-reveal">
+        <div class="section-overline" data-pt>Confia em quem presta o serviço</div>
+        <div class="section-overline" data-en>Trust who delivers the service</div>
+        <div class="section-overline" data-sv>Lita på dem som utför tjänsten</div>
+        <h2 data-pt>Profissionais verificados.<br>Sempre.</h2>
+        <h2 data-en>Verified professionals.<br>Always.</h2>
+        <h2 data-sv>Verifierade proffs.<br>Alltid.</h2>
+        <div class="trust-items">
+          <div class="trust-item">
+            <div class="trust-item-icon"><i data-lucide="shield-check" width="22" height="22"></i></div>
+            <div class="trust-item-text">
+              <h4 data-pt>Verificados e acreditados</h4>
+              <h4 data-en>Verified and accredited</h4>
+              <h4 data-sv>Verifierade och ackrediterade</h4>
+              <p data-pt>Todos os Mentores passam por verificação de antecedentes e validação de competências antes de serem aceites na plataforma.</p>
+              <p data-en>All Mentors undergo background checks and skills validation before being accepted on the platform.</p>
+              <p data-sv>Alla Mentorer genomgår bakgrundskontroller och kompetensbedömning innan de accepteras på plattformen.</p>
+            </div>
+          </div>
+          <div class="trust-item">
+            <div class="trust-item-icon"><i data-lucide="star" width="22" height="22"></i></div>
+            <div class="trust-item-text">
+              <h4 data-pt>Avaliações reais e verificadas</h4>
+              <h4 data-en>Real and verified reviews</h4>
+              <h4 data-sv>Riktiga och verifierade recensioner</h4>
+              <p data-pt>Cada avaliação vem de um cliente real que utilizou o serviço. Transparência total, sem avaliações falsas.</p>
+              <p data-en>Every review comes from a real customer who used the service. Full transparency, no fake reviews.</p>
+              <p data-sv>Varje recension kommer från en riktig kund som använt tjänsten. Full transparens, inga falska recensioner.</p>
+            </div>
+          </div>
+          <div class="trust-item">
+            <div class="trust-item-icon"><i data-lucide="headphones" width="22" height="22"></i></div>
+            <div class="trust-item-text">
+              <h4 data-pt>Apoio humano, em tempo real</h4>
+              <h4 data-en>Human support, in real time</h4>
+              <h4 data-sv>Mänsklig support, i realtid</h4>
+              <p data-pt>A nossa equipa monitoriza cada serviço e está disponível para ajudar caso algo corra mal. Nunca ficas sozinho.</p>
+              <p data-en>Our team monitors every service and is available to help if something goes wrong. You're never alone.</p>
+              <p data-sv>Vårt team övervakar varje tjänst och finns tillgängliga för att hjälpa om något går fel. Du är aldrig ensam.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section section-pad" id="faq">
+    <div class="container">
+      <div class="section-header centered gs-reveal">
+        <div class="section-overline" data-pt>Perguntas frequentes</div>
+        <div class="section-overline" data-en>Frequently asked questions</div>
+        <div class="section-overline" data-sv>Vanliga frågor</div>
+        <h2 data-pt>Tens dúvidas? Nós respondemos.</h2>
+        <h2 data-en>Have questions? We answer them.</h2>
+        <h2 data-sv>Har du frågor? Vi svarar.</h2>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item gs-reveal">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span data-pt>Como funciona o processo de reserva?</span>
+            <span data-en>How does the booking process work?</span>
+            <span data-sv>Hur fungerar bokningsprocessen?</span>
+            <i data-lucide="chevron-down" width="20" height="20" class="faq-chevron"></i>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              <span data-pt>Escolhes o serviço, vês o preço fixo, seleccionas a data e hora, e confirmas a reserva. Um Mentor e o seu Aprendiz são automaticamente atribuídos ao teu pedido. Recebes uma confirmação por notificação e SMS.</span>
+              <span data-en>You choose the service, see the fixed price, select the date and time, and confirm the booking. A Mentor and their Apprentice are automatically assigned to your request. You receive a confirmation by notification and SMS.</span>
+              <span data-sv>Du väljer tjänsten, ser det fasta priset, väljer datum och tid och bekräftar bokningen. En Mentor och deras Lärling tilldelas automatiskt din förfrågan. Du får en bekräftelse via notis och SMS.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item gs-reveal">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span data-pt>Os profissionais são verificados?</span>
+            <span data-en>Are the professionals verified?</span>
+            <span data-sv>Är proffsen verifierade?</span>
+            <i data-lucide="chevron-down" width="20" height="20" class="faq-chevron"></i>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              <span data-pt>Sim. Todos os Mentores passam por verificação de identidade, validação de competências profissionais e avaliação de antecedentes antes de serem admitidos na plataforma. Os Aprendizes são formados e supervisionados pelos Mentores em cada serviço.</span>
+              <span data-en>Yes. All Mentors undergo identity verification, professional skills validation and background assessment before being admitted to the platform. Apprentices are trained and supervised by Mentors on each service.</span>
+              <span data-sv>Ja. Alla Mentorer genomgår identitetsverifiering, professionell kompetensbedömning och bakgrundskontroll innan de tas in på plattformen. Lärlingar utbildas och övervakas av Mentorer på varje tjänst.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item gs-reveal">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span data-pt>Qual é o custo dos serviços?</span>
+            <span data-en>What is the cost of services?</span>
+            <span data-sv>Vad kostar tjänsterna?</span>
+            <i data-lucide="chevron-down" width="20" height="20" class="faq-chevron"></i>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              <span data-pt>Trabalhamos com preços fixos — sabes exatamente quanto vais pagar antes de confirmar. Não há surpresas nem cobranças extra. Os preços variam consoante o tipo e a complexidade do serviço, e começam a partir de €29,90.</span>
+              <span data-en>We work with fixed prices — you know exactly what you'll pay before confirming. No surprises or extra charges. Prices vary depending on the type and complexity of the service, and start from €29.90.</span>
+              <span data-sv>Vi arbetar med fasta priser — du vet exakt vad du betalar innan du bekräftar. Inga överraskningar eller extra avgifter. Priserna varierar beroende på tjänstens typ och komplexitet, och börjar från 29,90 €.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item gs-reveal">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span data-pt>Posso cancelar ou reagendar um serviço?</span>
+            <span data-en>Can I cancel or reschedule a service?</span>
+            <span data-sv>Kan jag avboka eller boka om en tjänst?</span>
+            <i data-lucide="chevron-down" width="20" height="20" class="faq-chevron"></i>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              <span data-pt>Podes cancelar gratuitamente até 24 horas antes do serviço. Reagendamentos são sempre gratuitos. Em caso de cancelamento tardio, poderá ser aplicada uma taxa simbólica para compensar o profissional.</span>
+              <span data-en>You can cancel for free up to 24 hours before the service. Reschedules are always free. In case of late cancellation, a nominal fee may apply to compensate the professional.</span>
+              <span data-sv>Du kan avboka gratis upp till 24 timmar innan tjänsten. Ombokningar är alltid gratis. Vid sen avbokning kan en nominell avgift tillkomma för att kompensera proffset.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item gs-reveal">
+          <button class="faq-question" onclick="toggleFaq(this)">
+            <span data-pt>Como me tornar Mentor ou Aprendiz na plataforma?</span>
+            <span data-en>How do I become a Mentor or Apprentice on the platform?</span>
+            <span data-sv>Hur blir jag Mentor eller Lärling på plattformen?</span>
+            <i data-lucide="chevron-down" width="20" height="20" class="faq-chevron"></i>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              <span data-pt>Clica em "Sou Mentor" ou "Sou Aprendiz" no menu superior para acederes à página de registo dedicada. O processo de candidatura demora menos de 10 minutos.</span>
+              <span data-en>Click "I'm a Mentor" or "I'm an Apprentice" in the top menu to access the dedicated registration page. The application process takes less than 10 minutes.</span>
+              <span data-sv>Klicka på "Jag är Mentor" eller "Jag är Lärling" i toppmenyn för att komma till den dedikerade registreringssidan. Ansökningsprocessen tar mindre än 10 minuter.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA SECTION -->
+  <section class="cta-section">
+    <div class="container cta-inner">
+      <div class="cta-overline" data-pt>Começa hoje</div>
+      <div class="cta-overline" data-en>Start today</div>
+      <div class="cta-overline" data-sv>Börja idag</div>
+      <h2 data-pt>O teu serviço,<br><em>a um toque.</em></h2>
+      <h2 data-en>Your service,<br><em>one tap away.</em></h2>
+      <h2 data-sv>Din tjänst,<br><em>ett tryck bort.</em></h2>
+      <p data-pt>Descarrega a app e acede a centenas de profissionais verificados na tua área. Gratuito para clientes.</p>
+      <p data-en>Download the app and access hundreds of verified professionals in your area. Free for clients.</p>
+      <p data-sv>Ladda ner appen och få tillgång till hundratals verifierade proffs i ditt område. Gratis för kunder.</p>
+      <div class="cta-actions">
+        <a href="#services" class="btn-cta-green">
+          <i data-lucide="wrench" width="18" height="18"></i>
+          <span data-pt>Pedir um serviço</span>
+          <span data-en>Request a service</span>
+          <span data-sv>Beställ en tjänst</span>
+        </a>
+        <a href="acesso.html" class="btn-cta-ghost">
+          <span data-pt>Entrar na plataforma</span>
+          <span data-en>Sign in to platform</span>
+          <span data-sv>Logga in på plattformen</span>
+          <i data-lucide="arrow-right" width="18" height="18"></i>
+        </a>
+      </div>
+      <div class="cta-apps">
+        <a href="#" class="app-badge">
+          <i data-lucide="smartphone" width="20" height="20"></i>
+          <div>
+            <span class="app-badge-sub" data-pt>Disponível em</span>
+            <span class="app-badge-sub" data-en>Available on</span>
+            <span class="app-badge-sub" data-sv>Tillgänglig på</span>
+            <span class="app-badge-main">App Store</span>
+          </div>
+        </a>
+        <a href="#" class="app-badge">
+          <i data-lucide="smartphone" width="20" height="20"></i>
+          <div>
+            <span class="app-badge-sub" data-pt>Disponível em</span>
+            <span class="app-badge-sub" data-en>Available on</span>
+            <span class="app-badge-sub" data-sv>Tillgänglig på</span>
+            <span class="app-badge-main">Google Play</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- POPULAR SEARCHES -->
+  <section class="popular-section">
+    <div class="container">
+      <div class="popular-inner">
+        <span class="popular-label" data-pt>Pesquisas populares</span>
+        <span class="popular-label" data-en>Popular searches</span>
+        <span class="popular-label" data-sv>Populära sökningar</span>
+        <div class="popular-links" data-pt>
+          <a href="#" class="popular-link">Reparação de torneiras</a>
+          <a href="#" class="popular-link">Eletricista em Lisboa</a>
+          <a href="#" class="popular-link">Limpeza de casa</a>
+          <a href="#" class="popular-link">Montagem de móveis IKEA</a>
+          <a href="#" class="popular-link">Pintura de paredes</a>
+          <a href="#" class="popular-link">Canalização urgente</a>
+          <a href="#" class="popular-link">Instalação de tomadas</a>
+          <a href="#" class="popular-link">Corte de jardim</a>
+          <a href="#" class="popular-link">Mudança de casa</a>
+          <a href="#" class="popular-link">Reparação de portão</a>
+        </div>
+        <div class="popular-links" data-en>
+          <a href="#" class="popular-link">Tap repair</a>
+          <a href="#" class="popular-link">Electrician in Lisbon</a>
+          <a href="#" class="popular-link">House cleaning</a>
+          <a href="#" class="popular-link">IKEA furniture assembly</a>
+          <a href="#" class="popular-link">Wall painting</a>
+          <a href="#" class="popular-link">Urgent plumbing</a>
+          <a href="#" class="popular-link">Socket installation</a>
+          <a href="#" class="popular-link">Garden mowing</a>
+          <a href="#" class="popular-link">House moving</a>
+          <a href="#" class="popular-link">Gate repair</a>
+        </div>
+        <div class="popular-links" data-sv>
+          <a href="#" class="popular-link">Kranreparation</a>
+          <a href="#" class="popular-link">Elektriker i Lissabon</a>
+          <a href="#" class="popular-link">Hemstädning</a>
+          <a href="#" class="popular-link">IKEA möbelmontage</a>
+          <a href="#" class="popular-link">Väggmålning</a>
+          <a href="#" class="popular-link">Akut VVS</a>
+          <a href="#" class="popular-link">Uttags-installation</a>
+          <a href="#" class="popular-link">Trädgårdsklippning</a>
+          <a href="#" class="popular-link">Flytt</a>
+          <a href="#" class="popular-link">Grindreperation</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="nav-logo"><img src="assets/images/logo7030.png" alt="70.30"></div>
+          <p data-pt>Plataforma de serviços domésticos que conecta clientes com profissionais verificados e aprendizes da sua comunidade.</p>
+          <p data-en>Home services platform connecting clients with verified professionals and apprentices from their community.</p>
+          <p data-sv>Hemtjänstplattform som kopplar kunder med verifierade proffs och lärlingar från deras samhälle.</p>
+        </div>
+        <div>
+          <h4 data-pt>Plataforma</h4>
+          <h4 data-en>Platform</h4>
+          <h4 data-sv>Plattform</h4>
+          <ul class="footer-links">
+            <li><a href="#how" data-pt>Como funciona</a><a href="#how" data-en>How it works</a><a href="#how" data-sv>Hur det fungerar</a></li>
+            <li><a href="#services" data-pt>Serviços</a><a href="#services" data-en>Services</a><a href="#services" data-sv>Tjänster</a></li>
+            <li><a href="#reviews" data-pt>Avaliações</a><a href="#reviews" data-en>Reviews</a><a href="#reviews" data-sv>Omdömen</a></li>
+            <li><a href="#cities" data-pt>Onde estamos</a><a href="#cities" data-en>Where we are</a><a href="#cities" data-sv>Var vi finns</a></li>
+            <li><a href="index.html" data-pt>Para Autarquias</a><a href="index.html" data-en>For Councils</a><a href="index.html" data-sv>För Kommuner</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 data-pt>Acesso</h4>
+          <h4 data-en>Access</h4>
+          <h4 data-sv>Åtkomst</h4>
+          <ul class="footer-links">
+            <li><a href="acesso.html?role=mentor" data-pt>Área do Mentor</a><a href="acesso.html?role=mentor" data-en>Mentor Area</a><a href="acesso.html?role=mentor" data-sv>Mentorområde</a></li>
+            <li><a href="acesso.html?role=apprentice" data-pt>Área do Aprendiz</a><a href="acesso.html?role=apprentice" data-en>Apprentice Area</a><a href="acesso.html?role=apprentice" data-sv>LärlingArea</a></li>
+            <li><a href="acesso.html" data-pt>Entrar na plataforma</a><a href="acesso.html" data-en>Sign in</a><a href="acesso.html" data-sv>Logga in</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 data-pt>Legal</h4>
+          <h4 data-en>Legal</h4>
+          <h4 data-sv>Juridik</h4>
+          <ul class="footer-links">
+            <li><a href="#" data-pt>Termos de Serviço</a><a href="#" data-en>Terms of Service</a><a href="#" data-sv>Användarvillkor</a></li>
+            <li><a href="#" data-pt>Política de Privacidade</a><a href="#" data-en>Privacy Policy</a><a href="#" data-sv>Integritetspolicy</a></li>
+            <li><a href="#" data-pt>Política de Cookies</a><a href="#" data-en>Cookies Policy</a><a href="#" data-sv>Cookie-policy</a></li>
+            <li><a href="mailto:info@7030.pt">info@7030.pt</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2025 70.30. <span data-pt>Todos os direitos reservados.</span><span data-en>All rights reserved.</span><span data-sv>Alla rättigheter förbehållna.</span></span>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook"><i data-lucide="facebook" width="16" height="16"></i></a>
+          <a href="#" aria-label="Instagram"><i data-lucide="instagram" width="16" height="16"></i></a>
+          <a href="#" aria-label="LinkedIn"><i data-lucide="linkedin" width="16" height="16"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+
+    // Language
+    function setLang(lang) {
+      document.documentElement.setAttribute('data-lang', lang);
+      document.documentElement.setAttribute('lang', lang);
+      document.getElementById('langPt').classList.toggle('active', lang === 'pt');
+      document.getElementById('langEn').classList.toggle('active', lang === 'en');
+      document.getElementById('langSv').classList.toggle('active', lang === 'sv');
+      localStorage.setItem('7030-lang', lang);
+    }
+    const saved = localStorage.getItem('7030-lang');
+    if (saved) setLang(saved);
+
+    // Nav scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
+
+    // Mobile menu
+    document.getElementById('mobileToggle').addEventListener('click', () => {
+      document.getElementById('navLinks').classList.toggle('mobile-open');
+    });
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('mobile-open'));
+    });
+
+    // Smooth scroll (same-page anchors only)
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', function(e) {
+        e.preventDefault();
+        const t = document.querySelector(this.getAttribute('href'));
+        if (t) window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 90, behavior: 'smooth' });
+      });
+    });
+
+    // Cart
+    let cartCount = 0;
+    function addToCart(el) {
+      cartCount++;
+      const badge = document.getElementById('cartBadge');
+      badge.textContent = cartCount;
+      badge.classList.remove('empty');
+      // Brief visual feedback on card
+      el.style.transform = 'scale(0.97)';
+      setTimeout(() => { el.style.transform = ''; }, 150);
+      // Animate badge
+      gsap.fromTo('#cartBadge', { scale: 1.6 }, { scale: 1, duration: 0.4, ease: 'back.out(2)' });
+    }
+    function openCart() {
+      window.location.href = 'acesso.html';
+    }
+
+    // FAQ accordion
+    function toggleFaq(btn) {
+      const item = btn.closest('.faq-item');
+      const answer = item.querySelector('.faq-answer');
+      const isOpen = item.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.faq-item.open').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq-answer').style.maxHeight = '0';
+      });
+      // Open clicked
+      if (!isOpen) {
+        item.classList.add('open');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
+    }
+
+    // GSAP
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.ticker.lagSmoothing(0);
+
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) { gsap.globalTimeline.resume(); ScrollTrigger.refresh(); }
+    });
+
+    // Hero entrance
+    gsap.timeline({ defaults: { ease: 'expo.out', duration: 1.2 } })
+      .to('.hero-overline', { opacity: 1, y: 0, duration: 0.8 }, 0.2)
+      .to('.hero h1', { opacity: 1, y: 0 }, 0.4)
+      .to('.hero-sub', { opacity: 1, y: 0 }, 0.6)
+      .to('.hero-actions', { opacity: 1, y: 0 }, 0.8);
+
+    // Scroll reveals
+    gsap.utils.toArray('.gs-reveal').forEach((el, i) => {
+      const parent = el.parentElement;
+      const siblings = parent ? Array.from(parent.querySelectorAll(':scope > .gs-reveal')) : [];
+      const idx = siblings.indexOf(el);
+      gsap.from(el, {
+        scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' },
+        opacity: 0, y: 50, duration: 1, delay: idx * 0.1, ease: 'expo.out',
+      });
+    });
+
+    // Phrase band
+    const phraseEl = document.getElementById('phraseTrack');
+    const phraseSet = phraseEl.querySelector('.phrase-set');
+    phraseEl.appendChild(phraseSet.cloneNode(true));
+    phraseEl.appendChild(phraseSet.cloneNode(true));
+    phraseEl.appendChild(phraseSet.cloneNode(true));
+    const phraseWidth = phraseSet.offsetWidth;
+    let phraseTween = gsap.to(phraseEl, {
+      x: -phraseWidth, duration: 22, ease: 'none', repeat: -1, paused: true,
+    });
+    ScrollTrigger.create({
+      trigger: '.stats-strip', start: 'top 90%', end: 'bottom top',
+      onEnter: () => phraseTween.play(),
+      onLeave: () => phraseTween.pause(),
+      onEnterBack: () => phraseTween.restart(),
+      onLeaveBack: () => { phraseTween.pause(); phraseTween.progress(0); },
+    });
+  </script>
+
+</body>
+</html>
